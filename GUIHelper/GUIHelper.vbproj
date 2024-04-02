@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{5C9005B5-A5D0-4B85-95B9-7D8EA38F3B99}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>GUIHelper</RootNamespace>
+    <AssemblyName>GUIHelper</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <WarningLevel>1</WarningLevel>
+    <RemoveIntegerChecks>true</RemoveIntegerChecks>
+    <Optimize>true</Optimize>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <WarningLevel>1</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>3C52E8E085EA62EA0396B4883CB714F6765812AB</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MixPlatform|AnyCPU'">
+    <OutputPath>bin\MixPlatform\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>1</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MessagingToolkit.Barcode">
+      <HintPath>..\dll\MessagingToolkit.Barcode.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Convert.vb" />
+    <Compile Include="Elipse.vb" />
+    <Compile Include="GBarcode.vb" />
+    <Compile Include="GButton.Designer.vb">
+      <DependentUpon>GButton.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GButton.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GGrandiantPanel.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GMessage\GMessage.Designer.vb">
+      <DependentUpon>GMessage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GMessage\GMessage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GNotifyIcon.Designer.vb">
+      <DependentUpon>GNotifyIcon.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GNotifyIcon.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GPanel.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GProgressBar.Designer.vb">
+      <DependentUpon>GProgressBar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GProgressBar.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GraphicsExtensionMethods.vb" />
+    <Compile Include="GTextbox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GTxt.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Theme.Designer.vb">
+      <DependentUpon>Theme.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Theme.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DWM.vb" />
+    <Compile Include="UI\GForm.Designer.vb">
+      <DependentUpon>GForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UI\GForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WinApi.vb" />
+    <None Include="app.manifest" />
+    <None Include="GShadow.vb" />
+    <Compile Include="ImageHelper.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="ToggleSwitch.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToggleSwitchBrushedMetalRenderer.vb" />
+    <Compile Include="ToggleSwitchIOS5Renderer.vb" />
+    <Compile Include="ToggleSwitchMetroRenderer.vb" />
+    <Compile Include="ToggleSwitchRendererBase.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GButton.resx">
+      <DependentUpon>GButton.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GMessage\GMessage.resx">
+      <DependentUpon>GMessage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GProgressBar.resx">
+      <DependentUpon>GProgressBar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\GForm.resx">
+      <DependentUpon>GForm.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,27 @@
+Values:
+
+Form:
+
+BackColor: #252526
+Close Button:
+
+Size: 46x30
+
+BackColor:  Transparent
+HoverColor: #e81123
+ClickColor: #f1707a
+
+IconColor:      #f1f1f1
+HoverIconColor: #ffffff
+ClickIconColor: #ffffff
+MinMax Buttons:
+
+Size: 46x30
+
+BackColor:  Transparent
+HoverColor: #3f3f40
+ClickColor: #007acc
+
+IconColor:      #f1f1f1
+HoverIconColor: #ffffff
+ClickIconColor: #ffffff
