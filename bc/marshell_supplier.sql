@@ -24,15 +24,15 @@ DROP TABLE IF EXISTS `supplier`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `supplier` (
   `Id` int NOT NULL AUTO_INCREMENT,
-  `CompanyName` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `ContactName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ContactTitle` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `City` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Country` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Phone` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Fax` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `CompanyName` varchar(40) NOT NULL,
+  `ContactName` varchar(50) DEFAULT NULL,
+  `ContactTitle` varchar(40) DEFAULT NULL,
+  `City` varchar(40)  NULL,
+  `Country` varchar(40) DEFAULT NULL,
+  `Phone` varchar(30)  DEFAULT NULL,
+  `Fax` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

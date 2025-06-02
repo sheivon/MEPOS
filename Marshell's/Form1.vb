@@ -1,17 +1,17 @@
-﻿Imports InvoicePrinter
+﻿Imports System.ComponentModel
 Imports System.Runtime.InteropServices
+Imports DataBase
+Imports Entities
 Imports GUIHelper
 Imports GUIHelper.WinApi
-Imports MarshellsSettings
-Imports System.ComponentModel
-Imports System.Threading
-Imports InvoicePrinter.Customer
-Imports InvoicePrinter.Product
-Imports InvoicePrinter.Employees
-Imports Entities
+Imports InvoicePrinter
 Imports InvoicePrinter.Cart
-Imports DataBase
+Imports InvoicePrinter.Customer
+Imports InvoicePrinter.Employees
 Imports InvoicePrinter.Invoice
+Imports InvoicePrinter.Product
+Imports InvoicePrinter.Proveedor
+Imports MarshellsSettings
 
 <ComVisible(False)>
 <ToolboxItem(False)>
@@ -40,15 +40,10 @@ Public Class Form1
     ''' <returns></returns>
     Public Property SystemAdmin As Boolean
     ''' <summary>
-    ''' LogIn user Id
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property UsrID As Integer
-    ''' <summary>
     ''' LogIn UserName
     ''' </summary>
     ''' <returns></returns>
-    Public Property users As String
+    Public Property users As Users
     ''' <summary>
     ''' list of saling items
     ''' </summary> 
@@ -392,7 +387,7 @@ Public Class Form1
 #End Region
     Private Sub Xbtn_Click(sender As Object, e As EventArgs) Handles Xbtn.Click
         If Me.AutenticatedUsers = True Then
-            If GMessaage.Show(Me, "Are you sure? System will End if you press [OK]") = DialogResult.OK Then
+            If GMessaage.Show("Are you sure? System will End if you press [OK]") = DialogResult.OK Then
                 End 'terminate the application
             End If
         Else
@@ -492,10 +487,10 @@ Public Class Form1
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub Home_Click(sender As Object, e As EventArgs) Handles btnHome.Click
-        ShowControl(New HomeCotrols(users, UsrID) With {.Dock = DockStyle.Fill})
+        ShowControl(New HomeCotrols(users) With {.Dock = DockStyle.Fill})
     End Sub
 
-    Private Sub btnAUser_Click(sender As Object, e As EventArgs) Handles btnAUser.Click
+    Private Sub btnAUser_Click(sender As Object, e As EventArgs)
         ShowControl(New Usersfrm With {.Dock = DockStyle.Fill})
     End Sub
     Private Sub BtnProduc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnProduct.Click
@@ -510,23 +505,17 @@ Public Class Form1
         ShowControl(New Invoicefrm With {.Dock = DockStyle.Fill})
     End Sub
 
-    Private Sub btnInventry_Click(sender As Object, e As EventArgs) Handles btnInventry.Click
-        ShowControl(New InventryPanel With {.Dock = DockStyle.Fill})
-    End Sub
-
     ''' <summary>
     ''' Add new cart with loaded product
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub btnCashier_Click(sender As Object, e As EventArgs) Handles btnCart.Click
-        ShowControl(New Cart.CartFrm(users, UsrID) With {.Dock = DockStyle.Fill})
+        ShowControl(New Cart(users) With {.Dock = DockStyle.Fill})
     End Sub
-
     Private Sub btnCustomer_Click(sender As Object, e As EventArgs) Handles btnCustomer.Click
-        ShowControl(New CostomersFrm(UsrID) With {.Dock = DockStyle.Fill})
+        ShowControl(New frmCustomers(users) With {.Dock = DockStyle.Fill})
     End Sub
-
 #End Region
     ''' <summary>
     ''' true if users is cashier else call full admin ui
@@ -537,12 +526,9 @@ Public Class Form1
         btnExpandContract.Enabled = True
         btnHome.Enabled = True
         btnHome.Visible = True
-        btnAUser.Enabled = True
-        btnAUser.Visible = True
+
         btnCustomer.Enabled = True
         btnCustomer.Visible = True
-        btnOwinCustomers.Visible = True
-        btnOwinCustomers.Enabled = True
         btnProduct.Enabled = True
         btnProduct.Visible = True
         Label1.Visible = True
@@ -553,14 +539,12 @@ Public Class Form1
         sidemenu.Visible = True
         btnInvoices.Visible = True
         btnInvoices.Enabled = True
-        btnInventry.Enabled = True
-        btnInventry.Visible = True
         btnCart.Visible = True
         btnCart.Enabled = True
+
         Call MainLogin() 'full admin prev
     End Sub
     Public Sub UnlocK(ByVal B As Boolean, id As Users)
-        UsrID = id.Id
         If B = True Then
             Call Casheir(Not SystemAdmin)
         Else
@@ -571,17 +555,14 @@ Public Class Form1
     ''' Call the LogOut function
     ''' </summary>
     Private Sub Logout()
-        UsrID = 0
+        users = New Users()
         btnExpandContract.Visible = False
         btnExpandContract.Enabled = False
         btnHome.Enabled = False
         btnHome.Visible = False
-        btnAUser.Enabled = False
-        btnAUser.Visible = False
+
         btnCustomer.Enabled = False
         btnCustomer.Visible = False
-        btnOwinCustomers.Visible = False
-        btnOwinCustomers.Enabled = False
         btnProduct.Enabled = False
         btnProduct.Visible = False
         Label1.Visible = False
@@ -592,17 +573,17 @@ Public Class Form1
         btnInvoices.Visible = False
         sidemenu.Visible = False
         sidemenu.Enabled = False
-        btnInventry.Enabled = False
-        btnInventry.Visible = False
+
         btnCart.Visible = False
         btnCart.Enabled = False
+
     End Sub
     ''' <summary>
-    ''' call home page for administrative log in
+    ''' call Home page for administrative log in
     ''' </summary>
     Public Sub MainLogin()
         Clear()
-        OptionPanel.Controls.Add(New HomeCotrols(users, UsrID) With {.Dock = DockStyle.Fill})
+        OptionPanel.Controls.Add(New HomeCotrols(users) With {.Dock = DockStyle.Fill})
     End Sub
     ''' <summary>
     ''' call login page as when user log out
@@ -669,16 +650,6 @@ Public Class Form1
         LTIME.Text = Date.Now
     End Sub
     Private Sub Form1_BackColorChanged(sender As Object, e As EventArgs) Handles Me.BackColorChanged
-        'If Me.BackColor = Theme.Light Then
-        '    LTIME.ForeColor = Color.MediumAquamarine
-        '    Label1.ForeColor = Color.MediumAquamarine
-        '    'Else
-        '    '    LTIME.ForeColor = Color.BlueViolet
-        '    '    Label1.ForeColor = Color.DarkOliveGreen
-        'Else
-        '    LTIME.ForeColor = Color.MediumAquamarine
-        '    Label1.ForeColor = Color.MediumAquamarine
-        'End If
         If Me.BackColor = Theme.Light Then
             LTIME.ForeColor = Color.MediumAquamarine
             Label1.ForeColor = Color.Indigo
@@ -702,10 +673,10 @@ Public Class Form1
         AboutBox1.ShowDialog()
     End Sub
     Private Sub Users_Settings_Click(sender As Object, e As EventArgs) Handles Users_Settings.Click
-        If (UsrID = 0) Then
-            GMessaage.Show(Me, "Please login to Access Users settings", "Marshell's")
+        If (users Is Nothing Or users.Id = 0) Then
+            GMessaage.Show("Please login to Access Account settings", "Marshell's")
         Else
-            Dim ED As New UsersDX(UsrID) ' UsersEdit(SystemAdmin, UsrID, True)
+            Dim ED As New UsersDX(users.Id) ' UsersEdit(SystemAdmin, UsrID, True)
             ED.ShowDialog()
         End If
 
@@ -743,7 +714,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub btnCheckforUpdate_Click(sender As Object, e As EventArgs) Handles btnCheckforUpdate.Click
+    Private Sub btnCheckforUpdate_Click(sender As Object, e As EventArgs) 
         Try
             Dim p As New ProcessStartInfo
             p.FileName = ("Marshell Updater.exe")
@@ -759,7 +730,7 @@ Public Class Form1
         ShowControl(New Dashfrm())
     End Sub
 
-    Private Sub btnOwinCustomers_Click(sender As Object, e As EventArgs) Handles btnOwinCustomers.Click
+    Private Sub btnOwinCustomers_Click(sender As Object, e As EventArgs)
         ShowControl(New OwincCustomers() With {.Dock = DockStyle.Fill})
     End Sub
 
@@ -772,5 +743,9 @@ Public Class Form1
         If Not Moving Then
             Call Expandmenu()
         End If
+    End Sub
+
+    Private Sub btnSupplier_Click(sender As Object, e As EventArgs)
+        ShowControl(New SupplierFrm() With {.Dock = DockStyle.Fill})
     End Sub
 End Class

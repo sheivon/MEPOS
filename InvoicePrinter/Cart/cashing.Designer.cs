@@ -37,10 +37,13 @@
             // 
             // txtCash
             // 
-            this.txtCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCash.Location = new System.Drawing.Point(79, 76);
+            this.txtCash.BackColor = System.Drawing.Color.DarkGray;
+            this.txtCash.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCash.ForeColor = System.Drawing.SystemColors.Window;
+            this.txtCash.Location = new System.Drawing.Point(81, 97);
             this.txtCash.Name = "txtCash";
-            this.txtCash.Size = new System.Drawing.Size(331, 45);
+            this.txtCash.Size = new System.Drawing.Size(331, 50);
             this.txtCash.TabIndex = 0;
             this.txtCash.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCash.WatermarkText = "Paying Amount";
@@ -49,7 +52,7 @@
             // 
             // toggleSwitch1
             // 
-            this.toggleSwitch1.Location = new System.Drawing.Point(79, 201);
+            this.toggleSwitch1.Location = new System.Drawing.Point(165, 239);
             this.toggleSwitch1.Name = "toggleSwitch1";
             this.toggleSwitch1.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toggleSwitch1.OffText = "Card";
@@ -65,9 +68,9 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.checkBox1.Location = new System.Drawing.Point(103, 152);
+            this.checkBox1.Location = new System.Drawing.Point(139, 182);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(92, 29);
+            this.checkBox1.Size = new System.Drawing.Size(76, 24);
             this.checkBox1.TabIndex = 2;
             this.checkBox1.Text = "USD $";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -78,9 +81,9 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.checkBox2.Location = new System.Drawing.Point(229, 152);
+            this.checkBox2.Location = new System.Drawing.Point(247, 182);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(141, 29);
+            this.checkBox2.Size = new System.Drawing.Size(113, 24);
             this.checkBox2.TabIndex = 3;
             this.checkBox2.Text = "Cordoba C$";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -91,7 +94,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 16);
+            this.label1.Size = new System.Drawing.Size(34, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "[ESC]";
             this.label1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtCash_PreviewKeyDown);

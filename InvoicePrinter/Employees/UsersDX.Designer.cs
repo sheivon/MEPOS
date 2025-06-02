@@ -58,7 +58,7 @@
             this.cbxactive.Items.AddRange(new object[] {
             "0",
             "1"});
-            this.cbxactive.Location = new System.Drawing.Point(703, 217);
+            this.cbxactive.Location = new System.Drawing.Point(589, 195);
             this.cbxactive.Name = "cbxactive";
             this.cbxactive.Size = new System.Drawing.Size(203, 28);
             this.cbxactive.TabIndex = 26;
@@ -71,7 +71,7 @@
             this.cbxrole.Items.AddRange(new object[] {
             "SYSTEMADMINISTRATOR",
             "CASHIER"});
-            this.cbxrole.Location = new System.Drawing.Point(703, 177);
+            this.cbxrole.Location = new System.Drawing.Point(589, 155);
             this.cbxrole.Name = "cbxrole";
             this.cbxrole.Size = new System.Drawing.Size(203, 28);
             this.cbxrole.TabIndex = 25;
@@ -84,7 +84,7 @@
             this.cbxgender.Items.AddRange(new object[] {
             "MALE",
             "FEMALE"});
-            this.cbxgender.Location = new System.Drawing.Point(703, 135);
+            this.cbxgender.Location = new System.Drawing.Point(651, 110);
             this.cbxgender.Name = "cbxgender";
             this.cbxgender.Size = new System.Drawing.Size(203, 28);
             this.cbxgender.TabIndex = 24;
@@ -103,7 +103,7 @@
             // txtdir
             // 
             this.txtdir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtdir.Location = new System.Drawing.Point(19, 135);
+            this.txtdir.Location = new System.Drawing.Point(6, 110);
             this.txtdir.Name = "txtdir";
             this.txtdir.Size = new System.Drawing.Size(203, 26);
             this.txtdir.TabIndex = 20;
@@ -123,16 +123,16 @@
             // txtnat
             // 
             this.txtnat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtnat.Location = new System.Drawing.Point(463, 81);
+            this.txtnat.Location = new System.Drawing.Point(437, 68);
             this.txtnat.Name = "txtnat";
-            this.txtnat.Size = new System.Drawing.Size(219, 26);
+            this.txtnat.Size = new System.Drawing.Size(203, 26);
             this.txtnat.TabIndex = 19;
             this.txtnat.WatermarkText = "NATIONALITY";
             // 
             // txthireddate
             // 
             this.txthireddate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txthireddate.Location = new System.Drawing.Point(703, 81);
+            this.txthireddate.Location = new System.Drawing.Point(653, 68);
             this.txthireddate.Name = "txthireddate";
             this.txthireddate.Size = new System.Drawing.Size(203, 26);
             this.txthireddate.TabIndex = 23;
@@ -150,12 +150,12 @@
             this.TableLayoutPanel1.Controls.Add(this.OK_Button, 1, 0);
             this.TableLayoutPanel1.Controls.Add(this.Cancel_Button, 4, 0);
             this.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TableLayoutPanel1.Location = new System.Drawing.Point(10, 264);
+            this.TableLayoutPanel1.Location = new System.Drawing.Point(10, 257);
             this.TableLayoutPanel1.Name = "TableLayoutPanel1";
             this.TableLayoutPanel1.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.TableLayoutPanel1.RowCount = 1;
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel1.Size = new System.Drawing.Size(950, 55);
+            this.TableLayoutPanel1.Size = new System.Drawing.Size(852, 69);
             this.TableLayoutPanel1.TabIndex = 27;
             this.TableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.TableLayoutPanel1_Paint);
             // 
@@ -166,7 +166,7 @@
             this.OK_Button.Image = global::InvoicePrinter.Properties.Resources.Ok__2_;
             this.OK_Button.Location = new System.Drawing.Point(33, 3);
             this.OK_Button.Name = "OK_Button";
-            this.OK_Button.Size = new System.Drawing.Size(282, 49);
+            this.OK_Button.Size = new System.Drawing.Size(233, 63);
             this.OK_Button.TabIndex = 0;
             this.OK_Button.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.OK_Button.UIStyle = GUIHelper.GButton.Style.Flat;
@@ -177,9 +177,9 @@
             this.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel_Button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Cancel_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Cancel_Button.Location = new System.Drawing.Point(635, 3);
+            this.Cancel_Button.Location = new System.Drawing.Point(586, 3);
             this.Cancel_Button.Name = "Cancel_Button";
-            this.Cancel_Button.Size = new System.Drawing.Size(282, 49);
+            this.Cancel_Button.Size = new System.Drawing.Size(233, 63);
             this.Cancel_Button.TabIndex = 1;
             this.Cancel_Button.Text = "Cancel";
             this.Cancel_Button.UIStyle = GUIHelper.GButton.Style.Flat;
@@ -199,27 +199,27 @@
             // txtcel
             // 
             this.txtcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtcel.Location = new System.Drawing.Point(463, 137);
+            this.txtcel.Location = new System.Drawing.Point(437, 112);
             this.txtcel.MaxLength = 20;
             this.txtcel.Name = "txtcel";
-            this.txtcel.Size = new System.Drawing.Size(219, 26);
+            this.txtcel.Size = new System.Drawing.Size(203, 26);
             this.txtcel.TabIndex = 18;
             this.txtcel.WatermarkText = "MOBILE";
             // 
             // txtIDnumber
             // 
             this.txtIDnumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIDnumber.Location = new System.Drawing.Point(241, 135);
+            this.txtIDnumber.Location = new System.Drawing.Point(221, 110);
             this.txtIDnumber.MaxLength = 30;
             this.txtIDnumber.Name = "txtIDnumber";
-            this.txtIDnumber.Size = new System.Drawing.Size(205, 26);
+            this.txtIDnumber.Size = new System.Drawing.Size(203, 26);
             this.txtIDnumber.TabIndex = 17;
             this.txtIDnumber.WatermarkText = "ID NUMBER";
             // 
             // txtsrname
             // 
             this.txtsrname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtsrname.Location = new System.Drawing.Point(243, 81);
+            this.txtsrname.Location = new System.Drawing.Point(221, 68);
             this.txtsrname.MaxLength = 50;
             this.txtsrname.Name = "txtsrname";
             this.txtsrname.Size = new System.Drawing.Size(203, 26);
@@ -229,7 +229,7 @@
             // txtusrname
             // 
             this.txtusrname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtusrname.Location = new System.Drawing.Point(19, 81);
+            this.txtusrname.Location = new System.Drawing.Point(6, 68);
             this.txtusrname.MaxLength = 50;
             this.txtusrname.Name = "txtusrname";
             this.txtusrname.Size = new System.Drawing.Size(203, 26);
@@ -252,7 +252,7 @@
             this.groupBox1.Controls.Add(this.txtusrlogin);
             this.groupBox1.Controls.Add(this.btnShowPass);
             this.groupBox1.Controls.Add(this.txtpass);
-            this.groupBox1.Location = new System.Drawing.Point(54, 169);
+            this.groupBox1.Location = new System.Drawing.Point(7, 147);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(566, 87);
             this.groupBox1.TabIndex = 29;
@@ -263,7 +263,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(970, 329);
+            this.ClientSize = new System.Drawing.Size(872, 336);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbxactive);
             this.Controls.Add(this.cbxrole);

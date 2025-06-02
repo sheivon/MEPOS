@@ -1,10 +1,5 @@
 ﻿using Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace InvoicePrinter.Cart
@@ -21,13 +16,14 @@ namespace InvoicePrinter.Cart
 
         private void txtCash_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape) { 
-            DialogResult = DialogResult.Cancel;
+            if (e.KeyCode == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
             }
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 total = Convert.ToDecimal(txtCash.Text);
-                DialogResult =DialogResult.OK;
+                DialogResult = DialogResult.OK;
             }
         }
 

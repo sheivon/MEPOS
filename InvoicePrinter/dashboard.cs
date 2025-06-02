@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-using MySql.Data;
+﻿using Entities;
 using MarshellsSettings;
 using MySql.Data.MySqlClient;
-using Entities;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace InvoicePrinter
-{ 
+{
     public class dashboard
     {
         //Fields & Properties
@@ -23,7 +17,7 @@ namespace InvoicePrinter
         //
         //
         // 
-        public int NumCustomers { get; private set; } 
+        public int NumCustomers { get; private set; }
         public int NumProducts { get; private set; }
         public List<semiprod> TopProductsList { get; private set; }
         public List<KeyValuePair<string, int>> UnderstockList { get; private set; }
@@ -36,7 +30,7 @@ namespace InvoicePrinter
         //Constructor
         public dashboard()
         {
-           
+
         }
 
         //Private methods
@@ -124,7 +118,7 @@ namespace InvoicePrinter
                     }
                 }
             }
-            catch (Exception d){ Console.WriteLine(d.Message); }
+            catch (Exception d) { Console.WriteLine(d.Message); }
         }
         private void GetOrderAnalisys()
         {
@@ -138,8 +132,8 @@ namespace InvoicePrinter
                 using (var command = new MySqlCommand(@"select IDate, sum(TOTAL)
                                             from INVOICES
                                             where IDate between @fromDate and @toDate
-                                            group by IDate",connection))
-                { 
+                                            group by IDate", connection))
+                {
                     command.Parameters.Add("@fromDate", MySqlDbType.DateTime).Value = startDate;
                     command.Parameters.Add("@toDate", MySqlDbType.DateTime).Value = endDate;
                     var reader = command.ExecuteReader();
@@ -238,11 +232,11 @@ namespace InvoicePrinter
                 //get staticss
                 Getstatistic();
                 Console.WriteLine("Loaded view :)");
-                Console.WriteLine("Refreshed data: {0} - {1}", startDate.ToString(), endDate.ToString()); 
+                Console.WriteLine("Refreshed data: {0} - {1}", startDate.ToString(), endDate.ToString());
                 return true;
             }
             else
-            { 
+            {
                 Console.WriteLine("Data not refreshed, same query: {0} - {1}", startDate.ToString(), endDate.ToString());
                 return false;
             }

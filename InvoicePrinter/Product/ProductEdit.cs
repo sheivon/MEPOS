@@ -1,25 +1,25 @@
 ﻿using DataBase;
 using Entities;
 using GUIHelper;
-using MarshellsSettings; 
-using System; 
+using MarshellsSettings;
+using System;
 using System.Drawing;
-using System.Windows.Forms; 
+using System.Windows.Forms;
 
 namespace InvoicePrinter.Product
 {
     public partial class ProductEdit : GForm
     {
-        GMessage GMessage = new GMessage(); 
-         
+        GMessage GMessage = new GMessage();
+
         /// <summary>
         /// Update or new product
         /// </summary>
         private Products prod = null;
-        
-        internal string BCType; 
+
+        internal string BCType = MSetting.GetBarcodeType();
         internal Form FW;
-          
+
         public ProductEdit()
         {
             this.InitializeComponent();
@@ -28,7 +28,6 @@ namespace InvoicePrinter.Product
         {
             InitializeComponent();
             FW = ow;
-            BCType = MSetting.GetBarcodeType();
         }
         public ProductEdit(Form ow, Products p)
         {
@@ -41,10 +40,10 @@ namespace InvoicePrinter.Product
         {  //MessageBox.Show(cbxtype.SelectedItem.ToString());
             if (cbxtype.SelectedItem != null)
             {
-                prod.type =  System.Convert.ToBoolean(cbxtype.SelectedItem.ToString() == "PRODUCT");
+                prod.type = System.Convert.ToBoolean(cbxtype.SelectedItem.ToString() == "PRODUCT");
                 //MessageBox.Show(prod.type.ToString());
             }
-            prod.active = cbActive.CheckState == CheckState.Checked ? true:false ;
+            prod.active = cbActive.CheckState == CheckState.Checked ? true : false;
             //
             //CHAT GPT3.5
             if (prod.Id > 0 && !string.IsNullOrWhiteSpace(Pname.Text) && !string.IsNullOrWhiteSpace(PPrice.Text))
@@ -64,12 +63,12 @@ namespace InvoicePrinter.Product
             // If Id is not greater than 0 and name or price is empty or whitespace, do nothing 
         }
         private void ProductEdit_Load(object sender, EventArgs e)
-        { 
+        {
             try
             {
                 if (prod != null)
                 {
-                    Products Dr = DataModule.GetProductID(prod.Id); 
+                    Products Dr = DataModule.GetProductID(prod.Id);
                     if (Dr != null)
                     {
                         lbid.Text = $"ID: {Dr.Id} ";
@@ -83,29 +82,29 @@ namespace InvoicePrinter.Product
                         byte typ = System.Convert.ToByte(Dr.type);
                         cbxtype.Text = (typ == 1) ? "PRODUCT" : "SERVICE";
                         //asign locasl as default  
-                        cbActive.CheckState = Dr.active? CheckState.Checked:CheckState.Unchecked;
-                    } 
+                        cbActive.CheckState = Dr.active ? CheckState.Checked : CheckState.Unchecked;
+                    }
                 }
                 else
                 {
                     prod = new Products();
                 }
             }
-            catch(Exception ps) { Console.WriteLine(ps.Message + " - Loading Products into DX Edit Prod"); } 
+            catch (Exception ps) { Console.WriteLine(ps.Message + " - Loading Products into DX Edit Prod"); }
         }
         private void ScanBarcode(string barcode)
-        {  
+        {
             try
-            {   
-               var p =  DataModule.GetProductBC(barcode);  
+            {
+                var p = DataModule.GetProductBC(barcode);
                 if (p.Barcode == barcode)
                 {
-                    GMessage.Show($"Product '{p.Name}' with that Barcode Already"); 
-                } 
+                    GMessage.Show($"Product '{p.Name}' with that Barcode Already");
+                }
             }
             catch (Exception)
             {
-            } 
+            }
         }
         private void Cancel_Button_Click(object sender, EventArgs e)
         {
@@ -113,10 +112,10 @@ namespace InvoicePrinter.Product
         }
 
         private void curselector_SelectedIndexChanged(object sender, EventArgs e)
-        { 
+        {
             try
             {
-                if (curselector.SelectedItem.Equals("C$")) 
+                if (curselector.SelectedItem.Equals("C$"))
                 {
                     prod.Cur = "NIO";
                 }
@@ -129,7 +128,7 @@ namespace InvoicePrinter.Product
                     prod.Cur = "EUR";
                 }
             }
-            catch(Exception ex) { Console.WriteLine(ex.Message + " - Selecting Currency"); }     
+            catch (Exception ex) { Console.WriteLine(ex.Message + " - Selecting Currency"); }
         }
 
         private void PPrice_KeyPress(object sender, KeyPressEventArgs e)
@@ -164,7 +163,7 @@ namespace InvoicePrinter.Product
 
         private void Pcode_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData ==  Keys.Enter)
+            if (e.KeyData == Keys.Enter)
             {
                 if (!string.IsNullOrEmpty(Pcode.Text) && Pcode.Enabled == true)
                 {
@@ -182,12 +181,12 @@ namespace InvoicePrinter.Product
                 }
             }
         }
-         
+
 
         private void cbxtype_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-//#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
+            //#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
             //if (cbxtype.SelectedItem == "PRODUCT" )
             //{
             //    type = 0;
@@ -221,8 +220,14 @@ namespace InvoicePrinter.Product
                 Scanners sc = new Scanners();
                 Image img = sc.GetBarcode(barcode, BCType);
                 PictureBox1.Image = img;
-                //MessageBox.Show(barcode);
-            }             
+                prod.Barcode = barcode;
+            }
+            else
+            {
+                Image img = null;
+                PictureBox1.Image = img;
+                Pcode.Text = "";
+            }
         }
 
         [Obsolete]
@@ -235,13 +240,13 @@ namespace InvoicePrinter.Product
 
         private void cbActive_CheckStateChanged(object sender, EventArgs e)
         {
-    if(cbActive.CheckState == CheckState.Checked) { cbActive.Checked = true;  }  else {  cbActive.Checked = false; } 
+            if (cbActive.CheckState == CheckState.Checked) { cbActive.Checked = true; } else { cbActive.Checked = false; }
         }
 
         private void PInstock_TextChanged(object sender, EventArgs e)
         {
-            if(PInstock.TextLength > 1)
-            { prod.Stock =  int.Parse(PInstock.Text); }
+            if (PInstock.TextLength > 1)
+            { prod.Stock = int.Parse(PInstock.Text); }
         }
 
         private void PPrice_TextChanged(object sender, EventArgs e)
@@ -251,7 +256,14 @@ namespace InvoicePrinter.Product
 
         private void Pname_TextChanged(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(Pname.Text)) { prod.Name = Pname.Text; }
+            if (!string.IsNullOrEmpty(Pname.Text)) { prod.Name = Pname.Text; }
+        }
+
+        private void btnCategory_Click(object sender, EventArgs e)
+        {
+            var frmcat = new frmCategory();
+
+            frmcat.ShowDialog();
         }
     }
 }

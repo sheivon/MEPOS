@@ -85,12 +85,12 @@
             this.Invoicedgv.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.Invoicedgv.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(72)))), ((int)(((byte)(72)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(1);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(72)))), ((int)(((byte)(72)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Invoicedgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.Invoicedgv.ColumnHeadersHeight = 37;
@@ -125,12 +125,8 @@
             this.Invoicedgv.ReadOnly = true;
             this.Invoicedgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(72)))), ((int)(((byte)(72)))));
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(1);
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(72)))), ((int)(((byte)(72)))));
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Invoicedgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.Invoicedgv.RowHeadersWidth = 10;
@@ -144,6 +140,8 @@
             this.Invoicedgv.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.Invoicedgv.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.Invoicedgv.RowTemplate.Height = 40;
+            this.Invoicedgv.RowTemplate.ReadOnly = true;
+            this.Invoicedgv.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Invoicedgv.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Invoicedgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.Invoicedgv.ShowEditingIcon = false;
@@ -152,6 +150,7 @@
             // 
             // idDataGridViewTextBoxColumn
             // 
+            this.idDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
             this.idDataGridViewTextBoxColumn.HeaderText = "id";
             this.idDataGridViewTextBoxColumn.MinimumWidth = 6;
@@ -161,14 +160,18 @@
             // 
             // fullNameDataGridViewTextBoxColumn
             // 
+            this.fullNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.fullNameDataGridViewTextBoxColumn.DataPropertyName = "FullName";
+            this.fullNameDataGridViewTextBoxColumn.FillWeight = 641.7112F;
             this.fullNameDataGridViewTextBoxColumn.HeaderText = "FULL NAME";
-            this.fullNameDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.fullNameDataGridViewTextBoxColumn.MinimumWidth = 20;
             this.fullNameDataGridViewTextBoxColumn.Name = "fullNameDataGridViewTextBoxColumn";
             this.fullNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.fullNameDataGridViewTextBoxColumn.Width = 200;
             // 
             // nameDataGridViewTextBoxColumn
             // 
+            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
             this.nameDataGridViewTextBoxColumn.HeaderText = "name";
             this.nameDataGridViewTextBoxColumn.MinimumWidth = 6;
@@ -178,6 +181,7 @@
             // 
             // srnameDataGridViewTextBoxColumn
             // 
+            this.srnameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.srnameDataGridViewTextBoxColumn.DataPropertyName = "srname";
             this.srnameDataGridViewTextBoxColumn.HeaderText = "srname";
             this.srnameDataGridViewTextBoxColumn.MinimumWidth = 6;
@@ -187,7 +191,9 @@
             // 
             // mobileDataGridViewTextBoxColumn
             // 
+            this.mobileDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.mobileDataGridViewTextBoxColumn.DataPropertyName = "mobile";
+            this.mobileDataGridViewTextBoxColumn.FillWeight = 39.80986F;
             this.mobileDataGridViewTextBoxColumn.HeaderText = "mobile";
             this.mobileDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.mobileDataGridViewTextBoxColumn.Name = "mobileDataGridViewTextBoxColumn";
@@ -195,7 +201,9 @@
             // 
             // idcardDataGridViewTextBoxColumn
             // 
+            this.idcardDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.idcardDataGridViewTextBoxColumn.DataPropertyName = "idcard";
+            this.idcardDataGridViewTextBoxColumn.FillWeight = 39.80986F;
             this.idcardDataGridViewTextBoxColumn.HeaderText = "idcard";
             this.idcardDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.idcardDataGridViewTextBoxColumn.Name = "idcardDataGridViewTextBoxColumn";
@@ -203,7 +211,9 @@
             // 
             // locationDataGridViewTextBoxColumn
             // 
+            this.locationDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.locationDataGridViewTextBoxColumn.DataPropertyName = "location";
+            this.locationDataGridViewTextBoxColumn.FillWeight = 39.80986F;
             this.locationDataGridViewTextBoxColumn.HeaderText = "location";
             this.locationDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.locationDataGridViewTextBoxColumn.Name = "locationDataGridViewTextBoxColumn";
@@ -211,7 +221,9 @@
             // 
             // nacionalityDataGridViewTextBoxColumn
             // 
+            this.nacionalityDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.nacionalityDataGridViewTextBoxColumn.DataPropertyName = "nacionality";
+            this.nacionalityDataGridViewTextBoxColumn.FillWeight = 39.80986F;
             this.nacionalityDataGridViewTextBoxColumn.HeaderText = "nacionality";
             this.nacionalityDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.nacionalityDataGridViewTextBoxColumn.Name = "nacionalityDataGridViewTextBoxColumn";
@@ -219,7 +231,9 @@
             // 
             // genderDataGridViewTextBoxColumn
             // 
+            this.genderDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.genderDataGridViewTextBoxColumn.DataPropertyName = "gender";
+            this.genderDataGridViewTextBoxColumn.FillWeight = 39.80986F;
             this.genderDataGridViewTextBoxColumn.HeaderText = "gender";
             this.genderDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.genderDataGridViewTextBoxColumn.Name = "genderDataGridViewTextBoxColumn";
@@ -227,7 +241,9 @@
             // 
             // blockedDataGridViewCheckBoxColumn
             // 
+            this.blockedDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.blockedDataGridViewCheckBoxColumn.DataPropertyName = "blocked";
+            this.blockedDataGridViewCheckBoxColumn.FillWeight = 39.80986F;
             this.blockedDataGridViewCheckBoxColumn.HeaderText = "blocked";
             this.blockedDataGridViewCheckBoxColumn.MinimumWidth = 6;
             this.blockedDataGridViewCheckBoxColumn.Name = "blockedDataGridViewCheckBoxColumn";
@@ -235,7 +251,9 @@
             // 
             // owingDataGridViewTextBoxColumn
             // 
+            this.owingDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.owingDataGridViewTextBoxColumn.DataPropertyName = "owing";
+            this.owingDataGridViewTextBoxColumn.FillWeight = 39.80986F;
             this.owingDataGridViewTextBoxColumn.HeaderText = "owing";
             this.owingDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.owingDataGridViewTextBoxColumn.Name = "owingDataGridViewTextBoxColumn";
@@ -243,7 +261,9 @@
             // 
             // moneyDataGridViewTextBoxColumn
             // 
+            this.moneyDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.moneyDataGridViewTextBoxColumn.DataPropertyName = "money";
+            this.moneyDataGridViewTextBoxColumn.FillWeight = 39.80986F;
             this.moneyDataGridViewTextBoxColumn.HeaderText = "money";
             this.moneyDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.moneyDataGridViewTextBoxColumn.Name = "moneyDataGridViewTextBoxColumn";
@@ -251,7 +271,9 @@
             // 
             // activeDataGridViewCheckBoxColumn
             // 
+            this.activeDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.activeDataGridViewCheckBoxColumn.DataPropertyName = "active";
+            this.activeDataGridViewCheckBoxColumn.FillWeight = 39.80986F;
             this.activeDataGridViewCheckBoxColumn.HeaderText = "active";
             this.activeDataGridViewCheckBoxColumn.MinimumWidth = 6;
             this.activeDataGridViewCheckBoxColumn.Name = "activeDataGridViewCheckBoxColumn";

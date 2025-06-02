@@ -1,0 +1,288 @@
+﻿
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card p-0 border-2 border-success ">
+    <div class="card-header py-1 shadow">
+        <div class="d-flex align-items-center">
+            <h4 class="card-title ">Products</h4>
+            <button class="btn btn-sm btn-primary btn-round ms-auto"
+                    data-bs-toggle="modal"
+                    data-bs-target="#productModal">
+                <i class="fa fa-plus"></i>
+                Add Products
+            </button>
+            <button class="btn btn-sm btn-success btn-round mx-1" onclick="print()">
+                <i class="fa fa-print"></i>
+                Print @ViewBag.Title
+            </button>
+        </div>
+    </div>
+    <div class="card-body small py-0 px-2"> 
+        <!-- Modal -->
+        <div class="modal fade" id="productModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="Modaltitle" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="Modaltitle">@ViewBag.Title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frm">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <input id="txtProductId" hidden value="0" />
+                                    <div class="form-group form-group-default">
+                                        <label for="txtName">Name</label>
+                                        <input id="txtName" type="text" class="form-control" placeholder="Product name" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group form-group-default">
+                                        <label for="txtDescription">Description</label>
+                                        <textarea id="txtDescription" class="form-control" placeholder="Product description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <label for="txtPrice">Price</label>
+                                        <input id="txtPrice" type="number" class="form-control" placeholder="Product price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <label for="txtCost">Cost</label>
+                                        <input id="txtCost" type="number" class="form-control" placeholder="Product cost" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <label for="txtSku">SKU</label>
+                                        <input id="txtSku" type="text" class="form-control" placeholder="Product SKU" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <label for="txtBarcode">Barcode</label>
+                                        <input id="txtBarcode" type="text" class="form-control" placeholder="Product barcode" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <label for="txtCategoryId">Category</label>
+                                        <select id="txtCategoryId" class="form-control">
+                                            <option value="0">Select Category</option> 
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearModal()"><i class="fas fa-times"> </i> Close</button>
+                        <button type="button" class="btn btn-primary" onclick="submitProduct();"><i class="fas fa-save"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive table-responsive-sm">
+            <table id="Producttbl" class="display small table table-sm table-striped table-hover" width="100%" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Barcode</th>
+                        <th>Price</th>
+                        <th>Sku</th>
+                        <th>Catgory</th>
+                        <th>Created</th>
+                        <th>Last Modified</th>
+                        <th style="width: 5%">Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Barcode</th>
+                        <th>Price</th>
+                        <th>sku</th>
+                        <th>Catgory</th>
+                        <th>Created</th>
+                        <th>Last Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div> 
+
+@section scripts{
+    <script>
+        /*$(document).ready(function () { */
+            // Initialize DataTable for products
+        $("#Producttbl").DataTable({
+                "ajax": {
+                    "url": "@Url.Action("Loadproducts", "Products")", // Adjust this to your action method for products
+                    "type": "GET",
+                    "dataSrc": "data" // The actual data is inside the "data" property of the response
+                },
+                "columns": [
+                    { "data": "ProductId" },
+                    { "data": "Name" },
+                    { "data": "Barcode" },
+                    { "data": "Price" },
+                    { "data": "Sku" },
+                    { "data": "CategoryName" },
+                    {
+                        "data": "CreatedAt",
+                        "render": function (data, type, row) {
+                            // Convert the /Date(...) format to a JavaScript Date object
+                            var date = new Date(parseInt(data.replace(/\/Date\((\d+)\)\//, '$1')));
+                            return date.toLocaleString(); // Format as a human-readable string
+                        }
+                    },
+                    {
+                        "data": "UpdatedAt",
+                        "render": function (data, type, row) {
+                            // Convert the /Date(...) format to a JavaScript Date object
+                            var date = new Date(parseInt(data.replace(/\/Date\((\d+)\)\//, '$1')));
+                            return date.toLocaleString(); // Format as a human-readable string
+                        }
+                    }, {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return `<div class="d-flex">
+				                        <a class="btn btn-link btn-primary btn-sm py-0 " onclick="openProductModal(${row.CategoryId})"><i class="fa fa-edit"></i></a>
+				                        <a class="btn btn-link btn-danger btn-sm py-0"><i class="fa fa-trash"></i></a>
+			                         </div> `;
+                        }
+                    }
+
+                ]
+            });
+
+        // Function to load data into the select input
+          jQuery.ajax({
+                url: "@Url.Action("Category", "Category")",
+                type: "GET",
+                datatype: "Json",
+                ContentType: "applicacion/json; Chartset=utf-8 ",
+                success: function (data) {
+                    $("<option>").attr({ "value": 0, "disabled": true }).text("-- Select Category --").appendTo("#txtCategoryId");
+                    $.each(data.data, function (index, Cat) {
+                        $("<option>").attr({ "value": Cat.CategoryId }).text(Cat.Name).appendTo("#txtCategoryId");
+                    });
+                }
+            });
+
+
+        function openProductModal(pId) {
+            if (pId) {
+                // Edit product
+                $.ajax({
+                    url: '/Products/GetProductDetails', // Adjust with your actual endpoint
+                    type: 'GET',
+                    data: { id: pId },
+                    success: function (response) {
+                        if (response.data) {
+                            // Populate the modal with existing data
+                            $('#txtProductId').val(response.data.ProductId);
+                            $('#txtName').val(response.data.Name);
+                            $('#txtDescription').val(response.data.Description);
+                            $('#txtPrice').val(response.data.Price);
+                            $('#txtCost').val(response.data.Cost);
+                            $('#txtSku').val(response.data.Sku);
+                            $('#txtBarcode').val(response.data.Barcode);
+                            $('#txtCategoryId').val(response.data.CategoryId);
+                            // Show modal
+                            $('#productModal').modal('show');
+                        } else {
+                            alert('Product not found');
+                        }
+                    },
+                    error: function () {
+                        alert('Error loading product details');
+                    }
+                });
+            } else {
+                // Add new product (reset modal)
+                clearModal();
+                $('#productModal').modal('show');
+            }
+        }
+
+        function clearModal() {
+            // Reset form values
+            $('#txtProductId').val(0);
+            $('#txtName').val('');
+            $('#txtDescription').val('');
+            $('#txtPrice').val('');
+            $('#txtCost').val('');
+            $('#txtSku').val('');
+            $('#txtBarcode').val('');
+            $('#txtCategoryId').val('');
+        }
+
+        function submitProduct() {
+            var product = {
+                ProductId: $('#txtProductId').val(),
+                Name: $('#txtName').val(),
+                Description: $('#txtDescription').val(),
+                Price: $('#txtPrice').val(),
+                Cost: $('#txtCost').val(),
+                Sku: $('#txtSku').val(),
+                Barcode: $('#txtBarcode').val(),
+                CategoryId: $('#txtCategoryId').val()
+            };
+
+            // Submit via AJAX
+            $.ajax({
+                url: '/Products/SaveProduct', // Adjust with your actual endpoint
+                type: 'POST',
+                data: product,
+                success: function (response) {
+                    if (response.success) {
+                        alert('Product saved successfully');
+                        // Optionally, reload the list or close the modal
+                        location.reload();
+                    } else {
+                        alert('Error saving product');
+                    }
+                },
+                error: function () {
+                    alert('Error submitting product');
+                }
+            });
+        }
+
+        function print() {
+             $.ajax({
+                 url: '@Url.Action("PrintProducts", "Print")',
+                 type: 'GET',
+                 xhrFields: {
+                     responseType: 'blob'
+                 },
+                 success: function (data) {
+                     var blob = new Blob([data], { type: 'application/pdf' });
+                     var url = window.URL.createObjectURL(blob);
+                   /*  $('#reportContainer').html('<iframe src="' + url + '" width="100%" height="600px"></iframe>');*/
+                     var prt = window.open(url, '_blank');
+                     if (prt) {
+                         prt.onload = function () {
+                             prt.document.title = 'Imprimir';
+                         }
+                     }
+                 },
+                 error: function () {
+                     swal({icon:"warning"})
+                 }
+             }); 
+        }
+      /*  });*/
+    </script>
+}

@@ -35,6 +35,7 @@
             this.lbCustomer = new System.Windows.Forms.Label();
             this.btnAddCustomer = new DevExpress.XtraEditors.SimpleButton();
             this.leftpanel = new System.Windows.Forms.Panel();
+            this.btnGenerateInv = new GUIHelper.GButton(this.components);
             this.btnPay = new DevExpress.XtraEditors.SimpleButton();
             this.txtBarcode = new GUIHelper.GTxt();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
@@ -106,6 +107,7 @@
             // 
             // leftpanel
             // 
+            this.leftpanel.Controls.Add(this.btnGenerateInv);
             this.leftpanel.Controls.Add(this.btnPay);
             this.leftpanel.Controls.Add(this.txtBarcode);
             this.leftpanel.Controls.Add(this.btnCancel);
@@ -119,10 +121,26 @@
             this.leftpanel.Size = new System.Drawing.Size(220, 404);
             this.leftpanel.TabIndex = 1;
             // 
+            // btnGenerateInv
+            // 
+            this.btnGenerateInv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnGenerateInv.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.btnGenerateInv.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnGenerateInv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerateInv.Location = new System.Drawing.Point(12, 359);
+            this.btnGenerateInv.Name = "btnGenerateInv";
+            this.btnGenerateInv.Size = new System.Drawing.Size(199, 32);
+            this.btnGenerateInv.TabIndex = 4;
+            this.btnGenerateInv.Text = "Generate Invoice";
+            this.btnGenerateInv.UIStyle = GUIHelper.GButton.Style.Flat;
+            this.btnGenerateInv.UseVisualStyleBackColor = true;
+            this.btnGenerateInv.Click += new System.EventHandler(this.btnGenerateInv_Click);
+            // 
             // btnPay
             // 
+            this.btnPay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPay.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPay.ImageOptions.SvgImage")));
-            this.btnPay.Location = new System.Drawing.Point(9, 266);
+            this.btnPay.Location = new System.Drawing.Point(12, 235);
             this.btnPay.Name = "btnPay";
             this.btnPay.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             this.btnPay.Size = new System.Drawing.Size(202, 45);
@@ -133,7 +151,7 @@
             // txtBarcode
             // 
             this.txtBarcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBarcode.Location = new System.Drawing.Point(9, 30);
+            this.txtBarcode.Location = new System.Drawing.Point(9, 8);
             this.txtBarcode.Name = "txtBarcode";
             this.txtBarcode.Size = new System.Drawing.Size(202, 28);
             this.txtBarcode.TabIndex = 2;
@@ -143,8 +161,9 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnCancel.ImageOptions.SvgImage")));
-            this.btnCancel.Location = new System.Drawing.Point(9, 326);
+            this.btnCancel.Location = new System.Drawing.Point(12, 295);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             this.btnCancel.Size = new System.Drawing.Size(202, 45);
@@ -155,7 +174,7 @@
             // simpleButton3
             // 
             this.simpleButton3.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton3.ImageOptions.SvgImage")));
-            this.simpleButton3.Location = new System.Drawing.Point(9, 171);
+            this.simpleButton3.Location = new System.Drawing.Point(9, 148);
             this.simpleButton3.Name = "simpleButton3";
             this.simpleButton3.Size = new System.Drawing.Size(202, 43);
             this.simpleButton3.TabIndex = 0;
@@ -164,7 +183,7 @@
             // btnDescount
             // 
             this.btnDescount.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDescount.ImageOptions.SvgImage")));
-            this.btnDescount.Location = new System.Drawing.Point(9, 120);
+            this.btnDescount.Location = new System.Drawing.Point(9, 97);
             this.btnDescount.Name = "btnDescount";
             this.btnDescount.Size = new System.Drawing.Size(202, 43);
             this.btnDescount.TabIndex = 1;
@@ -174,7 +193,7 @@
             // btnService
             // 
             this.btnService.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnService.ImageOptions.Image")));
-            this.btnService.Location = new System.Drawing.Point(9, 69);
+            this.btnService.Location = new System.Drawing.Point(9, 46);
             this.btnService.Name = "btnService";
             this.btnService.Size = new System.Drawing.Size(202, 43);
             this.btnService.TabIndex = 0;
@@ -311,6 +330,7 @@
             this.bottompanel.Name = "bottompanel";
             this.bottompanel.Size = new System.Drawing.Size(755, 82);
             this.bottompanel.TabIndex = 1;
+            this.bottompanel.Paint += new System.Windows.Forms.PaintEventHandler(this.bottompanel_Paint);
             // 
             // lbTotal
             // 
@@ -395,5 +415,6 @@
         private System.Windows.Forms.Label lbInvoice;
         private System.Windows.Forms.Label lbDisc;
         private System.Windows.Forms.Label lbTotal;
+        private GUIHelper.GButton btnGenerateInv;
     }
 }

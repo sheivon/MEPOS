@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgv = new System.Windows.Forms.DataGridView();
-            this.invoicesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.invoiceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,6 +45,7 @@
             this.curDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cashedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.invoicesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoicesBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -79,21 +79,19 @@
             this.dgv.Name = "dgv";
             this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgv.RowHeadersVisible = false;
+            this.dgv.RowHeadersWidth = 51;
             this.dgv.RowTemplate.Height = 50;
             this.dgv.RowTemplate.ReadOnly = true;
             this.dgv.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.Size = new System.Drawing.Size(898, 323);
+            this.dgv.Size = new System.Drawing.Size(1042, 693);
             this.dgv.TabIndex = 0;
-            // 
-            // invoicesBindingSource
-            // 
-            this.invoicesBindingSource.DataSource = typeof(Entities.Invoices);
             // 
             // iDDataGridViewTextBoxColumn
             // 
             this.iDDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
             this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
             this.iDDataGridViewTextBoxColumn.Visible = false;
             // 
@@ -102,6 +100,7 @@
             this.invoiceDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.invoiceDataGridViewTextBoxColumn.DataPropertyName = "Invoice";
             this.invoiceDataGridViewTextBoxColumn.HeaderText = "Invoice";
+            this.invoiceDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.invoiceDataGridViewTextBoxColumn.Name = "invoiceDataGridViewTextBoxColumn";
             // 
             // customerDataGridViewTextBoxColumn
@@ -109,6 +108,7 @@
             this.customerDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.customerDataGridViewTextBoxColumn.DataPropertyName = "Customer";
             this.customerDataGridViewTextBoxColumn.HeaderText = "Customer";
+            this.customerDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.customerDataGridViewTextBoxColumn.Name = "customerDataGridViewTextBoxColumn";
             // 
             // cusIdDataGridViewTextBoxColumn
@@ -116,6 +116,7 @@
             this.cusIdDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.cusIdDataGridViewTextBoxColumn.DataPropertyName = "CusId";
             this.cusIdDataGridViewTextBoxColumn.HeaderText = "CusId";
+            this.cusIdDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.cusIdDataGridViewTextBoxColumn.Name = "cusIdDataGridViewTextBoxColumn";
             this.cusIdDataGridViewTextBoxColumn.Visible = false;
             // 
@@ -124,6 +125,7 @@
             this.sellerDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.sellerDataGridViewTextBoxColumn.DataPropertyName = "Seller";
             this.sellerDataGridViewTextBoxColumn.HeaderText = "Seller";
+            this.sellerDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.sellerDataGridViewTextBoxColumn.Name = "sellerDataGridViewTextBoxColumn";
             // 
             // usrIdDataGridViewTextBoxColumn
@@ -131,6 +133,7 @@
             this.usrIdDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.usrIdDataGridViewTextBoxColumn.DataPropertyName = "usrId";
             this.usrIdDataGridViewTextBoxColumn.HeaderText = "usrId";
+            this.usrIdDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.usrIdDataGridViewTextBoxColumn.Name = "usrIdDataGridViewTextBoxColumn";
             this.usrIdDataGridViewTextBoxColumn.Visible = false;
             // 
@@ -139,28 +142,33 @@
             this.dateDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
             this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
             // 
             // statDataGridViewCheckBoxColumn
             // 
             this.statDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.statDataGridViewCheckBoxColumn.DataPropertyName = "Stat";
-            this.statDataGridViewCheckBoxColumn.HeaderText = "Stat";
+            this.statDataGridViewCheckBoxColumn.HeaderText = "Pending";
+            this.statDataGridViewCheckBoxColumn.MinimumWidth = 6;
             this.statDataGridViewCheckBoxColumn.Name = "statDataGridViewCheckBoxColumn";
-            this.statDataGridViewCheckBoxColumn.Width = 39;
+            this.statDataGridViewCheckBoxColumn.ToolTipText = "Pending";
+            this.statDataGridViewCheckBoxColumn.Width = 63;
             // 
             // totalDataGridViewTextBoxColumn
             // 
             this.totalDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
             this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
             // 
             // offDataGridViewTextBoxColumn
             // 
             this.offDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.offDataGridViewTextBoxColumn.DataPropertyName = "off";
-            this.offDataGridViewTextBoxColumn.HeaderText = "off";
+            this.offDataGridViewTextBoxColumn.HeaderText = "% off";
+            this.offDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.offDataGridViewTextBoxColumn.Name = "offDataGridViewTextBoxColumn";
             // 
             // totalOwDataGridViewTextBoxColumn
@@ -168,6 +176,7 @@
             this.totalOwDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.totalOwDataGridViewTextBoxColumn.DataPropertyName = "TotalOw";
             this.totalOwDataGridViewTextBoxColumn.HeaderText = "TotalOw";
+            this.totalOwDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.totalOwDataGridViewTextBoxColumn.Name = "totalOwDataGridViewTextBoxColumn";
             this.totalOwDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -176,6 +185,7 @@
             this.exchangeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.exchangeDataGridViewTextBoxColumn.DataPropertyName = "Exchange";
             this.exchangeDataGridViewTextBoxColumn.HeaderText = "Exchange";
+            this.exchangeDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.exchangeDataGridViewTextBoxColumn.Name = "exchangeDataGridViewTextBoxColumn";
             // 
             // curDataGridViewTextBoxColumn
@@ -183,6 +193,7 @@
             this.curDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.curDataGridViewTextBoxColumn.DataPropertyName = "Cur";
             this.curDataGridViewTextBoxColumn.HeaderText = "Cur";
+            this.curDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.curDataGridViewTextBoxColumn.Name = "curDataGridViewTextBoxColumn";
             // 
             // activeDataGridViewCheckBoxColumn
@@ -190,6 +201,7 @@
             this.activeDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.activeDataGridViewCheckBoxColumn.DataPropertyName = "active";
             this.activeDataGridViewCheckBoxColumn.HeaderText = "active";
+            this.activeDataGridViewCheckBoxColumn.MinimumWidth = 6;
             this.activeDataGridViewCheckBoxColumn.Name = "activeDataGridViewCheckBoxColumn";
             this.activeDataGridViewCheckBoxColumn.Visible = false;
             // 
@@ -198,11 +210,16 @@
             this.cashedDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.cashedDataGridViewTextBoxColumn.DataPropertyName = "cashed";
             this.cashedDataGridViewTextBoxColumn.HeaderText = "cashed";
+            this.cashedDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.cashedDataGridViewTextBoxColumn.Name = "cashedDataGridViewTextBoxColumn";
+            // 
+            // invoicesBindingSource
+            // 
+            this.invoicesBindingSource.DataSource = typeof(Entities.Invoices);
             // 
             // Pendient
             // 
-            this.ClientSize = new System.Drawing.Size(918, 443);
+            this.ClientSize = new System.Drawing.Size(1062, 813);
             this.Controls.Add(this.dgv);
             this.Name = "Pendient";
             this.Padding = new System.Windows.Forms.Padding(10, 110, 10, 10);

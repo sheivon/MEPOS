@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="GButton2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Panel2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="GButton8.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="GButton8.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -146,9 +134,6 @@
         DuRyPwFPPWFqWC5i4AAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="GButton7.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="GButton7.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABGdBTUEAALGPC/xhBQAABV1JREFUaEPt
@@ -178,25 +163,6 @@
         TkSuQmCC
 </value>
   </data>
-  <metadata name="GButton6.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="GButton6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAZ9JREFUSEvt
-        lbFOwzAQhrOysLEBM8yAeAEYeQBGUBxLSAxsDGwsSDxBdySaS2EqrIgFKoiNWNh4B1YWyp3jVI5xwDFN
-        1aG/9Kuxlfu/1HF8kUuJgA56OCZ3dOzfopu5gOtYwNp/TBmNwY0KatQ4ZwYO1QxcUZLDMhfZeSIBRhbw
-        rmzOhdiRQ6yDp8sleirBJNzhr3o6MsvTG7I5F+KanHv8vnMCf3HZW9cL0LrYS3eDmAQetgk+eoA5/Nen
-        XKQ7NCYWMVsHc5nuEgP9UYwnBN6TsICMW9zExzSeGNjWdIJj0V1lMt0ahylLxyr9CsY5+t7shh7qysnl
-        A27lyJx+MH+GbfOs9TG9WzunVDOwHvuaauycUib4x1ltFhwOLubtnepykvc2VbEhM6eUeVZL7BaPleUq
-        2lmfbuQyO8Fr1261/Rm/Xi2qdC3dmartVcCg6E7Yj1meneHEaKmYgDcq0vXBUm0RsyrZyFL92KXyJrrG
-        ZdzH66Khe5pq7BwvmQX47lZwaZImpho7x0uNC2oUCu6buzbElBECdu3cEDvAUfQNW0/nho43H08AAAAA
-        SUVORK5CYII=
-</value>
-  </data>
-  <metadata name="GButton1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="GButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAKxJREFUSEvt
@@ -206,9 +172,6 @@
         RK5CYII=
 </value>
   </data>
-  <metadata name="GButton5.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="GButton5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAkdJREFUSEvt
@@ -224,9 +187,6 @@
         rz6wECvhPMN2D3PZw250Pb3sxRsE/psLoB/WjlM2YACoVLYBnctQOt89mhAAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="GButton3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="GButton3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAUNJREFUSEvt
@@ -238,9 +198,6 @@
         /fUWcO4ikNu99TYqjIT4ArG+dlp4I2SgAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="GButton4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="GButton4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAv9JREFUSEu9
@@ -259,9 +216,6 @@
         LGW8vTjtfRBGBvZx8sM16jZSvU9WTi8aDW0u/GljoRp+ACpLqWX9Ayf+6UvBmRCSAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="PictureBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="PictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABmkAAAZWCAYAAABHy0c7AAAABGdBTUEAALGPC/xhBQAA/8dJREFUeF7s
@@ -8999,12 +8953,6 @@
         P7fD0+DF5BIBAGAMXkxGXMf/+3//H2+8NhWIjOCfAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="Panel1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAUAIEAAAAEAIACoEAAAVgAAADBgAAABACAAqCUAAP4QAABAgAAAAQAgAChCAACmNgAAgAAAAAEA

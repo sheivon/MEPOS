@@ -1,6 +1,4 @@
-﻿Imports System
-Imports System.Drawing
-Imports System.Runtime.CompilerServices
+﻿Imports System.Drawing
 Imports GUIHelper
 Imports GUIHelper.ToggleSwitch
 
@@ -205,15 +203,15 @@ Public Class ToggleSwitchMetroRenderer
 
 
     ' Properties
-    Public Property BackColor As Color 
-    Public Property BorderColor As Color 
-    Public Property ButtonColor As Color 
-    Public Property ButtonColorHovered As Color 
-    Public Property ButtonColorPressed As Color 
-    Public Property LeftSideColor As Color 
-    Public Property LeftSideColorHovered As Color 
-    Public Property LeftSideColorPressed As Color 
-    Public Property RightSideColor As Color 
-    Public Property RightSideColorHovered As Color 
-    Public Property RightSideColorPressed As Color 
+    Public Property BackColor As Color
+    Public Property BorderColor As Color
+    Public Property ButtonColor As Color
+    Public Property ButtonColorHovered As Color
+    Public Property ButtonColorPressed As Color
+    Public Property LeftSideColor As Color
+    Public Property LeftSideColorHovered As Color
+    Public Property LeftSideColorPressed As Color
+    Public Property RightSideColor As Color
+    Public Property RightSideColorHovered As Color
+    Public Property RightSideColorPressed As Color
 End Class

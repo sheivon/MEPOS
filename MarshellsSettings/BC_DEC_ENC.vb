@@ -1,5 +1,4 @@
 ﻿Imports System.Drawing
-Imports MessagingToolkit
 Imports MessagingToolkit.Barcode
 
 Public Module BC_DEC_ENC

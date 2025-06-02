@@ -148,6 +148,9 @@
     <Compile Include="GTextbox.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GTransparentPanel.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GTxt.vb">
       <SubType>Component</SubType>
     </Compile>

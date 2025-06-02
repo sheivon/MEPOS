@@ -1,14 +1,10 @@
-﻿using GUIHelper;
-using System;
-using System.Data;
-using System.Windows.Forms;
-
-
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+﻿using DataBase;
 using Entities;
-using DataBase;
+using GUIHelper;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace InvoicePrinter.Customer
 {
@@ -41,7 +37,7 @@ namespace InvoicePrinter.Customer
         private DataGridViewTextBoxColumn moneyDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn activeDataGridViewCheckBoxColumn;
         private DataGridViewButtonColumn clbtnedit;
-        public Form pfrm ;
+        public Form pfrm;
         public AddCustomerToInvoice()
         {
             DoubleBuffered = true;
@@ -49,7 +45,7 @@ namespace InvoicePrinter.Customer
             Thread lcus = new Thread(() => LoadCustomers());
             lcus.Start();
             lcus.Join();
-        } 
+        }
         public AddCustomerToInvoice(Form owner, float owin)
         {
             DoubleBuffered = true;
@@ -65,17 +61,16 @@ namespace InvoicePrinter.Customer
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddCustomerToInvoice));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lbInv = new System.Windows.Forms.Label();
             this.btnAddNewCustomer = new GUIHelper.GButton(this.components);
             this.txtSearch = new GUIHelper.GTxt();
             this.btnClose = new GUIHelper.GButton(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.customersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fullNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,6 +85,7 @@ namespace InvoicePrinter.Customer
             this.moneyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.clbtnedit = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.customersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customersBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -98,9 +94,9 @@ namespace InvoicePrinter.Customer
             // 
             this.lbInv.Dock = System.Windows.Forms.DockStyle.Top;
             this.lbInv.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbInv.Location = new System.Drawing.Point(5, 50);
+            this.lbInv.Location = new System.Drawing.Point(5, 10);
             this.lbInv.Name = "lbInv";
-            this.lbInv.Size = new System.Drawing.Size(1040, 47);
+            this.lbInv.Size = new System.Drawing.Size(1040, 45);
             this.lbInv.TabIndex = 21;
             this.lbInv.Text = "Add Customer to invoice";
             this.lbInv.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -108,20 +104,20 @@ namespace InvoicePrinter.Customer
             // btnAddNewCustomer
             // 
             this.btnAddNewCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddNewCustomer.FlatAppearance.BorderColor = System.Drawing.Color.MediumAquamarine;
-            this.btnAddNewCustomer.FlatAppearance.BorderSize = 2;
+            this.btnAddNewCustomer.FlatAppearance.BorderColor = System.Drawing.Color.ForestGreen;
+            this.btnAddNewCustomer.FlatAppearance.BorderSize = 0;
             this.btnAddNewCustomer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
             this.btnAddNewCustomer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.btnAddNewCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddNewCustomer.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewCustomer.Image")));
+            this.btnAddNewCustomer.Image = global::InvoicePrinter.Properties.Resources.Plus__2_;
             this.btnAddNewCustomer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddNewCustomer.Location = new System.Drawing.Point(835, 10);
+            this.btnAddNewCustomer.Location = new System.Drawing.Point(782, 15);
             this.btnAddNewCustomer.Margin = new System.Windows.Forms.Padding(5);
-            this.btnAddNewCustomer.MaximumSize = new System.Drawing.Size(140, 50);
-            this.btnAddNewCustomer.MinimumSize = new System.Drawing.Size(140, 50);
+            this.btnAddNewCustomer.MaximumSize = new System.Drawing.Size(140, 30);
+            this.btnAddNewCustomer.MinimumSize = new System.Drawing.Size(120, 40);
             this.btnAddNewCustomer.Name = "btnAddNewCustomer";
             this.btnAddNewCustomer.Padding = new System.Windows.Forms.Padding(0, 3, 5, 5);
-            this.btnAddNewCustomer.Size = new System.Drawing.Size(140, 50);
+            this.btnAddNewCustomer.Size = new System.Drawing.Size(120, 40);
             this.btnAddNewCustomer.TabIndex = 22;
             this.btnAddNewCustomer.Text = "Add New";
             this.btnAddNewCustomer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -134,12 +130,12 @@ namespace InvoicePrinter.Customer
             this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.txtSearch.Location = new System.Drawing.Point(11, 10);
+            this.txtSearch.Location = new System.Drawing.Point(11, 21);
             this.txtSearch.MaximumSize = new System.Drawing.Size(380, 40);
             this.txtSearch.MaxLength = 50;
             this.txtSearch.MinimumSize = new System.Drawing.Size(342, 20);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(380, 30);
+            this.txtSearch.Size = new System.Drawing.Size(347, 30);
             this.txtSearch.TabIndex = 23;
             this.txtSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtSearch.WatermarkText = "Search Customer Names | Mobile ";
@@ -154,7 +150,7 @@ namespace InvoicePrinter.Customer
             this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
-            this.btnClose.Location = new System.Drawing.Point(995, 10);
+            this.btnClose.Location = new System.Drawing.Point(980, 6);
             this.btnClose.Margin = new System.Windows.Forms.Padding(0);
             this.btnClose.MaximumSize = new System.Drawing.Size(45, 45);
             this.btnClose.MinimumSize = new System.Drawing.Size(45, 45);
@@ -170,26 +166,26 @@ namespace InvoicePrinter.Customer
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(1);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Fuchsia;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.Padding = new System.Windows.Forms.Padding(1);
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Fuchsia;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(1);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.MenuText;
+            dataGridViewCellStyle12.Padding = new System.Windows.Forms.Padding(1);
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridView1.ColumnHeadersHeight = 30;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
@@ -210,37 +206,33 @@ namespace InvoicePrinter.Customer
             this.dataGridView1.DataSource = this.customersBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(5, 97);
+            this.dataGridView1.Location = new System.Drawing.Point(5, 55);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridView1.RowHeadersWidth = 4;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridView1.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridView1.RowTemplate.Height = 32;
             this.dataGridView1.RowTemplate.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1040, 348);
+            this.dataGridView1.Size = new System.Drawing.Size(1040, 390);
             this.dataGridView1.TabIndex = 25;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
-            // 
-            // customersBindingSource
-            // 
-            this.customersBindingSource.DataSource = typeof(Entities.Customers);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -367,15 +359,19 @@ namespace InvoicePrinter.Customer
             // clbtnedit
             // 
             this.clbtnedit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.NullValue = "Edit";
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(1);
-            this.clbtnedit.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.NullValue = "Edit";
+            dataGridViewCellStyle13.Padding = new System.Windows.Forms.Padding(1);
+            this.clbtnedit.DefaultCellStyle = dataGridViewCellStyle13;
             this.clbtnedit.HeaderText = "Edit Info";
             this.clbtnedit.MinimumWidth = 6;
             this.clbtnedit.Name = "clbtnedit";
             this.clbtnedit.ReadOnly = true;
             this.clbtnedit.Text = "Edit";
+            // 
+            // customersBindingSource
+            // 
+            this.customersBindingSource.DataSource = typeof(Entities.Customers);
             // 
             // AddCustomerToInvoice
             // 
@@ -386,12 +382,12 @@ namespace InvoicePrinter.Customer
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnAddNewCustomer);
             this.Controls.Add(this.lbInv);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximumSize = new System.Drawing.Size(1050, 450);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1050, 450);
             this.Name = "AddCustomerToInvoice";
-            this.Padding = new System.Windows.Forms.Padding(5, 50, 5, 5);
+            this.Padding = new System.Windows.Forms.Padding(5, 10, 5, 5);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -406,7 +402,7 @@ namespace InvoicePrinter.Customer
         /// <summary>
         /// here start the backend
         /// </summary>
-        GMessage GMessage = new GMessage(); 
+        GMessage GMessage = new GMessage();
         private int ID;
 
         private void LoadCustomers()
@@ -446,8 +442,6 @@ namespace InvoicePrinter.Customer
                 dataGridView1.DataSource = cusls;
             }
             catch (Exception Ex) { Console.WriteLine(Ex.Message); }
-            finally { }
-
         }
         private void AddCustomerToInvoice_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
@@ -465,7 +459,7 @@ namespace InvoicePrinter.Customer
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 14) // inde start from 0
+            if (e.ColumnIndex == 14) // index start from 0
             {
                 try
                 {
@@ -473,7 +467,7 @@ namespace InvoicePrinter.Customer
                 }
                 catch (Exception ex)
                 {
-                    GMessage.Show( ID + Environment.NewLine + ex.Message, "Marshell's");
+                    GMessage.Show(ID + Environment.NewLine + ex.Message, "Marshell's");
                 }
 
             }
@@ -490,7 +484,7 @@ namespace InvoicePrinter.Customer
 #if DEBUG
                 catch (Exception ex)
                 {
-                    GMessage.Show("EDIT FAILS!" +Environment.NewLine +ex.Message);
+                    GMessage.Show("EDIT FAILS!" + Environment.NewLine + ex.Message);
                 }
 #else
                 catch (Exception)
@@ -502,7 +496,7 @@ namespace InvoicePrinter.Customer
         {
             try
             {
-             
+
                 int index = dataGridView1.CurrentRow.Index;
                 ID = System.Convert.ToInt32(dataGridView1[0, index].Value);
                 cusname = (string)(dataGridView1[2, index].Value);
@@ -514,7 +508,7 @@ namespace InvoicePrinter.Customer
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if( e.RowIndex  > 0 || e.ColumnIndex >0)
+            if (e.RowIndex > 0 || e.ColumnIndex > 0)
             {
 
             }
@@ -546,7 +540,7 @@ namespace InvoicePrinter.Customer
             {
 
             }
-        } 
+        }
 
         private void AddCustomerToInvoice_SystemColorsChanged(object sender, EventArgs e)
         {
@@ -562,14 +556,22 @@ namespace InvoicePrinter.Customer
         {
             try
             {
-                int index = dataGridView1.CurrentRow.Index;
-                ID = System.Convert.ToInt32(dataGridView1[0, index].Value);
-                cusname = (string)(dataGridView1[1, index].Value);
-                Sid = (int)System.Convert.ToInt32(ID);
-                ow += (float)System.Convert.ToDecimal(dataGridView1[8, index].Value);
+                if (dataGridView1.Rows.Count > 0)
+                {
+                    int index = dataGridView1.CurrentRow.Index;
+                    if (index > 0)
+                    {
+                        ID = System.Convert.ToInt32(dataGridView1[0, index].Value);
+                        cusname = (string)(dataGridView1[1, index].Value);
+                        Sid = (int)System.Convert.ToInt32(ID);
+                        ow += (float)System.Convert.ToDecimal(dataGridView1[8, index].Value);
+                        this.DialogResult = DialogResult.OK;
+                    }
+                    else { this.DialogResult = DialogResult.Cancel; }
+                }
             }
             catch { }
-            this.DialogResult = DialogResult.OK;
+
         }
     }
 }

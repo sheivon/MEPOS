@@ -28,7 +28,6 @@ Partial Class MSettings
         Me.Panel2 = New GUIHelper.GPanel()
         Me.GButton8 = New GUIHelper.GButton(Me.components)
         Me.GButton7 = New GUIHelper.GButton(Me.components)
-        Me.GButton6 = New GUIHelper.GButton(Me.components)
         Me.GButton1 = New GUIHelper.GButton(Me.components)
         Me.GButton5 = New GUIHelper.GButton(Me.components)
         Me.GButton3 = New GUIHelper.GButton(Me.components)
@@ -70,7 +69,6 @@ Partial Class MSettings
         '
         Me.Panel2.Controls.Add(Me.GButton8)
         Me.Panel2.Controls.Add(Me.GButton7)
-        Me.Panel2.Controls.Add(Me.GButton6)
         Me.Panel2.Controls.Add(Me.GButton1)
         Me.Panel2.Controls.Add(Me.GButton5)
         Me.Panel2.Controls.Add(Me.GButton3)
@@ -91,7 +89,7 @@ Partial Class MSettings
         Me.GButton8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.GButton8.Image = CType(resources.GetObject("GButton8.Image"), System.Drawing.Image)
         Me.GButton8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.GButton8.Location = New System.Drawing.Point(6, 323)
+        Me.GButton8.Location = New System.Drawing.Point(6, 281)
         Me.GButton8.Name = "GButton8"
         Me.GButton8.Size = New System.Drawing.Size(191, 39)
         Me.GButton8.TabIndex = 10
@@ -110,7 +108,7 @@ Partial Class MSettings
         Me.GButton7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.GButton7.Image = CType(resources.GetObject("GButton7.Image"), System.Drawing.Image)
         Me.GButton7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.GButton7.Location = New System.Drawing.Point(6, 278)
+        Me.GButton7.Location = New System.Drawing.Point(6, 236)
         Me.GButton7.Name = "GButton7"
         Me.GButton7.Size = New System.Drawing.Size(191, 39)
         Me.GButton7.TabIndex = 9
@@ -118,25 +116,6 @@ Partial Class MSettings
         Me.GButton7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.GButton7.UIStyle = GUIHelper.GButton.Style.Flat
         Me.GButton7.UseVisualStyleBackColor = False
-        '
-        'GButton6
-        '
-        Me.GButton6.BackColor = System.Drawing.Color.Transparent
-        Me.GButton6.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.GButton6.FlatAppearance.BorderSize = 0
-        Me.GButton6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(42, Byte), Integer), CType(CType(42, Byte), Integer))
-        Me.GButton6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer))
-        Me.GButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GButton6.Image = CType(resources.GetObject("GButton6.Image"), System.Drawing.Image)
-        Me.GButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.GButton6.Location = New System.Drawing.Point(6, 233)
-        Me.GButton6.Name = "GButton6"
-        Me.GButton6.Size = New System.Drawing.Size(191, 39)
-        Me.GButton6.TabIndex = 8
-        Me.GButton6.Text = "Print Sheet Settings"
-        Me.GButton6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.GButton6.UIStyle = GUIHelper.GButton.Style.Flat
-        Me.GButton6.UseVisualStyleBackColor = False
         '
         'GButton1
         '
@@ -167,7 +146,7 @@ Partial Class MSettings
         Me.GButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.GButton5.Image = CType(resources.GetObject("GButton5.Image"), System.Drawing.Image)
         Me.GButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.GButton5.Location = New System.Drawing.Point(3, 368)
+        Me.GButton5.Location = New System.Drawing.Point(3, 326)
         Me.GButton5.Name = "GButton5"
         Me.GButton5.Size = New System.Drawing.Size(194, 39)
         Me.GButton5.TabIndex = 7
@@ -275,7 +254,6 @@ Partial Class MSettings
     Friend WithEvents GButton4 As GUIHelper.GButton
     Friend WithEvents GButton5 As GUIHelper.GButton
     Friend WithEvents Panel2 As GPanel
-    Friend WithEvents GButton6 As GUIHelper.GButton
     Friend WithEvents GButton7 As GButton
     Friend WithEvents GButton8 As GButton
 End Class

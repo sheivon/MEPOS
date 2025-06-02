@@ -1,0 +1,324 @@
+﻿
+@{
+    ViewBag.Title = "Sales";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card border-2 border-success">
+    <div class="card-header shadow py-1 d-flex">
+        <div class="col-3">
+            <h4 class="col-4">Sales</h4> 
+        </div>
+        <button class="btn btn-sm btn-success btn-round ms-auto mx-1 py-0 my-0" onclick="print()">
+            <i class="fa fa-print"></i>
+            Print @ViewBag.Title
+        </button>
+    </div>
+    <div class="card-body px-2 py-0 ">
+        <div class="table-responsive small table-responsive-sm">
+            <table class="table table-sm table-responsive table-responsive-sm table-hover" width="100%" cellspacing="0" cellpadding="0" id="tblsales">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Order Number</th>
+                        <th>Total</th>
+                        <th>Customer</th>
+                        <th>Payment Method</th>
+                        <th>Sales Date</th>
+                        <th width="5%"></th> 
+                    </tr>
+                </thead>
+                <tbody> 
+                </tbody> 
+            </table>
+        </div>
+    </div>
+</div> 
+
+<!-- Modal for Add/Edit Sales -->
+<div class="modal fade" id="salesModal" tabindex="-1" aria-labelledby="salesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content py-0">
+            <div class="modal-header bg-success text-white py-1">
+                <h5 class="modal-title" id="salesModalLabel">Add/Edit Sale</h5>
+                <button type="button" class="btn btn-outline-success btn-print" >Print</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body small py-0">
+                <form id="salesForm">
+                    <div class="mb-3">
+                        <label for="sale_date" class="form-label">Sale Date</label>
+                        <input type="datetime-local" class="form-control" id="sale_date" name="sale_date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="total_amount" class="form-label">Total Amount</label>
+                        <input type="number" step="0.01" class="form-control" id="total_amount" name="total_amount" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customer_id" class="form-label">Customer</label>
+                        <select class="form-select" id="customer_id" name="customer_id">
+                            <option value="">Select Customer</option>
+                            <!-- Dynamically populate customer options here -->
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="payment_method" class="form-label">Payment Method</label>
+                        <input type="text" class="form-control" id="payment_method" name="payment_method">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Save Sale</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="Viewsalesitems" class="modal fade modal-lg">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h4 id="txtinv">Sales Items</h4>
+                <a class="btn btn-sm btn-outline-primary" onclick="print();"><i class="fa fa-print"></i> Print</a>
+                <a class="btn btn-sm btn-outline-dark" data-bs-dismiss="modal"><i class="fa fa-times"></i></a>
+            </div>
+            <div class="modal-body small">
+                <div class="table-responsive">
+                    <table class="table table-sm table-responsive" id="tblsalesitems" cellpadding="0" cellspacing="0" width="100%">
+                        <thead><tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>SubTotal</th>
+                            <th>Discount</th>
+                            <th>Description</th> 
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+@section scripts{ 
+    <script>
+        var tmpid;
+        // Function to load sales data via AJAX
+        let tblsales = $("#tblsales").dataTable({
+            searching: true,
+            Responsive: true,
+            Ordering: false,
+            "ajax": {
+                url: '@Url.Action("GetSales", "Products")', // This calls the GetSales action in SalesController
+                type: 'GET',
+                dataType: 'json'
+            },
+                "columns": [
+                    { "data": "SaleId" },
+                    { "data": "OrderNumber" },
+                    {
+                        "data": "TotalAmount",
+                        "render": function (data) {
+                            return "C$ " + data.toFixed(2) ;
+                        }
+                    },
+                    {
+                        "data": "Customers", "render": function (data) {
+                            return data.first_name + ' ' + data.last_name;
+                        }
+                    },
+                    { "data": "PaymentMethod" },
+                    { "data": "SaleDate", render: function (data) { return parseDotNetDate2(data); } },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return `<div class="d-flex"><a class="btn btn-link btn-primary btn-sm py-0" onclick="View(${row.SaleId}, '${row.OrderNumber}')"><i class="fa fa-eye"></i></a></div>`;
+                        },
+                        Ordering: false,
+                        searching:false
+                    }
+                ]
+        });
+
+        // Show the modal
+        function openSalesModal() {
+            // Reset the form
+            document.getElementById('salesForm').reset();
+            $('#salesModal').modal('show');
+        }
+
+        // Handle form submission (you can adjust this to send data to your backend)
+        document.getElementById('salesForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const saleData = {
+                sale_date: document.getElementById('sale_date').value,
+                total_amount: document.getElementById('total_amount').value,
+                customer_id: document.getElementById('customer_id').value,
+                payment_method: document.getElementById('payment_method').value
+            };
+             // After saving, you might want to update the sales table or show a success message
+
+            $('#salesModal').modal('hide');
+        });
+
+        // Example: Populate customer options dynamically (this would be part of your script)
+        function populateCustomerOptions() {
+            // Replace this with an actual AJAX call to your server to fetch customer data
+            const customers = [
+                { customer_id: 1, name: 'John Doe' },
+                { customer_id: 2, name: 'Jane Smith' }
+            ];
+
+            const customerSelect = document.getElementById('customer_id');
+            customers.forEach(customer => {
+                const option = document.createElement('option');
+                option.value = customer.customer_id;
+                option.textContent = customer.name;
+                customerSelect.appendChild(option);
+            });
+        }
+
+        // Call this function when the page loads or when opening the modal
+        populateCustomerOptions();
+
+        function View(id, ordN) {
+            $("#txtinv").text(ordN);
+            tmpid = id;
+            $("#Viewsalesitems").modal('show');
+            if ($.fn.dataTable.isDataTable('#tblsalesitems')) {
+                // Destroy the existing DataTable instance
+                $('#tblsalesitems').DataTable().clear().destroy();
+            }
+
+            // Reinitialize the DataTable
+            let sitems = $("#tblsalesitems").DataTable({
+                // Your DataTable options here
+                "paging": true,
+                "searching": true,
+                "info": true,
+                "ajax": {
+                    url: '@Url.Action("GetCartItems", "Products")', // This calls the GetSales action in SalesController
+                    type: 'GET',
+                    dataType: 'json',
+                    "data": function (dat) {
+                        //console.log("loga:data", {
+                        //    ord: ordN,
+                        //    sid: id
+                        //});
+                        return {
+                            ord:ordN,
+                            sid:id
+                        };
+                    },
+                    "contentType": "application/json"
+                },
+                "columns": [
+                    { "data": "CartItemId" },
+                    { "data": "ProductName" },
+                    {
+                        "data": "Price",
+                        "render": function (data) {
+                            return "C$ " + data.toFixed(2);
+                            /*return "C$ " + data;*/
+                        }
+                        },
+                        {
+                        "data": "Quantity", render: function (data) {
+                            return `<span class="text-center ">${data.toFixed(2)}</span>`;
+                        }
+                        },
+                        {
+                            "data": "TotalPrice",
+                            "render": function (data) {
+                                return "C$ " + data.toFixed(2);
+                            }
+                        },
+                        { "data": "Discount" },
+                        { "data": "ProductDescription" },
+                        //{
+                        //    "data": null,
+                        //    "render": function (data, type, row) {
+                        //        return `<div class="d-flex"><a class="btn btn-link btn-primary btn-sm py-0" onclick="returning(${row.SaleId}, '${row.OrderNumber}')"><i class="fa fa-eye"></i></a></div>`;
+                        //    },
+                        //    Ordering: false
+                        //}
+                    ]
+            });
+        }
+
+        function parseDotNetDate2(dotNetDateString) {
+            // Extract the milliseconds from the .NET date string
+            const milliseconds = parseInt(dotNetDateString.replace(/\/Date\((-?\d+)\)\//, '$1'));
+
+            // Create a JavaScript Date object
+            const date = new Date(milliseconds);
+
+            // Format the date to dd-MM-yyyy
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const year = date.getFullYear();
+
+            return `${day}-${month}-${year}`;
+        }
+
+        function printInvoice() {
+             $.ajax({
+                 url: '@Url.Action("PrintInvoice", "Print")',
+                 type: 'GET',
+                 "data": function (dat) {
+                     return {
+                         ord: $("#txtinv").text(),
+                         sid: tmpid
+                     };
+                 },
+                 xhrFields: {
+                     responseType: 'blob'
+                 },
+                 success: function (data) {
+                     var blob = new Blob([data], { type: 'application/pdf' });
+                     var url = window.URL.createObjectURL(blob);
+                   /*  $('#reportContainer').html('<iframe src="' + url + '" width="100%" height="600px"></iframe>');*/
+                     var prt = window.open(url, '_blank');
+                     if (prt) {
+                         prt.onload = function () {
+                             prt.document.title = 'Imprimir';
+                         }
+                     }
+                 },
+                 error: function () {
+                     swal({icon:"warning"})
+                 }
+             });
+        }
+
+         function print() {
+              $.ajax({
+                  url: '@Url.Action("PrintSales", "Print")',
+                  type: 'GET', 
+                  xhrFields: {
+                      responseType: 'blob'
+                  },
+                  success: function (data) {
+                      var blob = new Blob([data], { type: 'application/pdf' });
+                      var url = window.URL.createObjectURL(blob);
+                    /*  $('#reportContainer').html('<iframe src="' + url + '" width="100%" height="600px"></iframe>');*/
+                      var prt = window.open(url, '_blank');
+                      if (prt) {
+                          prt.onload = function () {
+                              prt.document.title = 'Imprimir';
+                          }
+                      }
+                  },
+                  error: function () {
+                      swal({icon:"warning"})
+                  }
+              });
+         }
+
+
+    </script>
+
+}

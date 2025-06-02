@@ -1,5 +1,4 @@
 ﻿Imports MessagingToolkit.Barcode
-Imports System
 
 Public Class Barcode
     Private Property GetBCfromSetting As String = My.Settings.Barcode

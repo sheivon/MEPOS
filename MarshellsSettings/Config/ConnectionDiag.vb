@@ -1,9 +1,6 @@
-﻿Imports GUIHelper
-
+﻿Imports System.Windows.Forms
+Imports GUIHelper
 Imports MySql.Data.MySqlClient
-
-Imports MarshellsSettings.MSetting
-Imports System.Windows.Forms
 
 Public Class ConnectionDiag
     Private GMessage As New GMessage()

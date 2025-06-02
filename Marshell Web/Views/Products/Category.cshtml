@@ -1,0 +1,305 @@
+﻿@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card border-2 border-success">
+    <div class="card-header py-1 shadow">
+        <div class="d-flex align-items-center">
+            <h4 class="card-title">@ViewBag.Title</h4>
+            <button class="btn btn-sm btn-primary btn-round ms-auto"
+                    data-bs-toggle="modal"
+                    data-bs-target="#categoryModal" onclick="clearModal()">
+                <i class="fa fa-plus"></i>
+                Add @ViewBag.Title
+            </button>
+            <button class="btn btn-sm btn-success btn-round mx-1" onclick="print()">
+                <i class="fa fa-print"></i>
+                Print @ViewBag.Title
+            </button>
+        </div>
+    </div>
+    <div class="card-body small px-2 py-0 ">
+        <div class="table-responsive table-responsive-sm">
+            <table id="CatTable" class="display table table-sm table-hover " cellpadding="0" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Created</th>
+                        <th>Modified</th>
+                        <th>Active</th>
+                        <th style="width: 5%">Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Created</th>
+                        <th>Modified</th>
+                        <th>Active</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal-lg fade" id="categoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">
+                    <span class="fw-mediumbold" id="categoryModalLabel">@ViewBag.Title</span>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <p class="small">
+                    Form for Saving @ViewBag.Title
+                </p>
+                <form class="col-12" id="categoryForm">
+                    <div class="row ">
+                        <input type="hidden" id="categoryId" name="categoryId" />
+                        <div class="form-group col-6">
+                            <label for="categoryName">@ViewBag.Title Name</label>
+                            <input type="text" class="form-control" id="categoryName" required />
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="categoryActive">Status</label>
+                            <select class="form-control" id="categoryActive">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <label for="txtdescription">Descriptions</label>
+                            <textarea id="txtdescription" class="form-control" required>...</textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearModal()">Close</button>
+                <button type="button" class="btn btn-primary" id="saveBtn" onclick="submitCategory()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        let table = $('#CatTable').DataTable({
+            responsive: true,
+            ordering: true,
+            searching: false,
+            "ajax": {
+                "url": "@Url.Action("Categories", "Products")",
+                "type": "GET",
+                //"dataSrc": function (json) {
+                //    console.log(json);  // Log the response to check the structure
+                //    return json;        // Ensure that the data is passed through correctly
+                //}
+            },
+            "columns": [
+                { "data": "CategoryId" },
+                { "data": "Name" },
+                { "data": "Description" },
+                {
+                    "data": "CreatedAt",
+                    "render": function (data, type, row) {
+                        // Parse the /Date(...) format to a JavaScript Date object
+                        var date = new Date(parseInt(data.replace(/\/Date\((\d+)\)\//, '$1')));
+                        return date.toLocaleString(); // Format it as a local string, e.g., "12/26/2024, 2:00 PM"
+                    }
+                },
+                {
+                    "data": "UpdatedAt",
+                    "render": function (data, type, row) {
+                        // Parse the /Date(...) format to a JavaScript Date object
+                        var date = new Date(parseInt(data.replace(/\/Date\((\d+)\)\//, '$1')));
+                        return date.toLocaleString(); // Format it as a local string, e.g., "12/26/2024, 2:00 PM"
+                    }
+                }
+                , {
+                    "data": "Active", "render": function (data) {
+                        if (data == true || data == 1) {
+                            return '<span class="badge badge-sm bg-primary d-flex justify-content-center align-items-center">Yes</span>';
+                        }
+                        else {
+                            return '<span class="badge badge-sm bg-warning d-flex justify-content-center align-items-center">No</span>';
+                        }
+                    }
+                }, {
+                    "data": null,
+                    "render": function (data, type, row) {
+                        return `<div class="d-flex align-self-center">
+				                    <a class="btn btn-link btn-primary py-0" onclick="editCategory(${row.CategoryId})"><i class="fa fa-edit"></i></a>
+				                    <a class="btn btn-link btn-danger py-0" onclick="deleteCategory(${row.CategoryId})"><i class="fa fa-trash"></i></a>
+			                     </div> `;
+                    }
+                }],
+            "dom": 'Bfrtip',  // Adds the buttons to the DOM
+            "buttons": [
+                'copy',  // Copy the table data to clipboard
+                'excel', // Export table to Excel
+                'pdf',   // Export table to PDF
+                'print'  // Print the table
+            ]
+        });
+
+        //handel click event on options btns
+        $("#CatTable tbody").on("click", '.btn-edit', function(){
+            row = $(this).closest("tr");
+            //console.log((table).row(row).data());
+            var dt = (table).row(row).data();
+            //console.log(dt);
+            editCategory(dt.CategoryId);
+        });
+
+        $("#CatTable tbody").on("click", '.btn-rem', function(){
+            //row = $(this).closest("tr");
+            ////console.log((table).row(row).data());
+            //var dt = (table).row(row).data();
+            ////console.log(dt);
+            //editCategory(dt.CategoryId);
+            swal({ icon: "warning", title: "Delete Category", text: "Are your sure you want to delete category?" });
+        });
+
+        // Function to clear modal fields (for adding a new category)
+        function clearModal() {
+            $("#categoryForm")[0].reset(); // Reset form fields
+            $("#categoryId").val(0); // Reset hidden categoryId
+            $("#txtdescription").text("");
+            $("#categoryModalLabel").text('New @ViewBag.Title'); // Change modal title for Add
+            $("#categoryActive").val(1); // Set default value to Active true
+            $("#categoryModal").modal('show');
+        }
+
+        // Submit Add or Edit category based on categoryId
+        function submitCategory() {
+            var cId = $('#categoryId').val();
+            var cName = $('#categoryName').val();
+            var description = $("#txtdescription").val();
+            var cActive = $('#categoryActive').val() == 0 ? 'false' : 'true'; // Convert to boolean
+
+            var cat = {
+                CategoryId: cId,
+                Name: cName,
+                Description:description,
+                Active: cActive
+            };
+            //hide Dialog Before Submit
+            $("#categoryModal").modal('hide');
+
+            @*////var url = cId != 0 ? '@Url.Action("EditCategory", "Category")' : '@Url.Action("AddCategory", "Category")';*@
+
+            $.ajax({
+                /* url: url,*/
+                url: '@Url.Action("SaveCategory", "Products")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({cat: cat }),
+                success: function (response) {
+                    $('#CatTable').DataTable().ajax.reload(); // Reload DataTable
+                    swal({ icon: "success", title: '!! Saved !!' });
+                },
+                error: function () {
+                    swal({ icon: "error", title: '!! Error occurred !!' });
+                    //show Dialog On submition error
+                    $("#categoryModal").modal('show');
+                }
+            });
+        }
+
+         function editCategory(categoryId) {
+                $.ajax({
+                    url: '@Url.Action("GetCategory", "Products")',
+                    type: 'GET',
+                    data: { id: categoryId },
+                    success: function (response) {
+                        // Access the first object in the data array
+                        const category = response.data[0];
+
+                        // Set modal inputs with the correct properties
+                        $("#categoryId").val(category.CategoryId);
+                        $("#categoryName").val(category.Name);
+                        $("#txtdescription").val(category.Description);
+                        $("#categoryActive").val(category.Active == false ? 1 : 0);
+
+                        // Update modal title and show modal
+                        $("#categoryModalLabel").text('Edit Category');
+                        $("#categoryModal").modal('show');
+                    },
+                    error: function () {
+                        swal({ title: 'Error occurred while loading category data', icon: "error" });
+                    }
+                });
+         }
+
+        function deleteCategory(cid){
+            swal({
+                title: "Are you sure?",
+                text: "Do you really want to delete this?",
+                icon: "warning",
+                buttons: ["No", "Yes"],
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    // Proceed with the deletion
+                    $.ajax({
+                        url: '@Url.Action("Delete","Products")', // Replace with your correct controller and action
+                        type: 'POST',
+                        data: { id: cid },
+                        success: function (response) {
+                            if (response.data !== -1) {
+                                swal("Deleted!", "The category has been deleted.", "success")
+                                    .then(() => {
+                                        location.reload(); // or some DOM manipulation to remove the item
+                                    });
+                            } else {
+                                swal("Error", "Something went wrong. Please try again.", "error");
+                            }
+                        },
+                        error: function () {
+                            swal("Error", "There was an issue processing your request.", "error");
+                        }
+                    });
+                } else {
+                    swal("Cancelled", "Your safe.", "info");
+                }
+            });
+
+        }
+
+        function print() {
+             $.ajax({
+                 url: '@Url.Action("PrintCategory", "Print")',
+                 type: 'GET',
+                 xhrFields: {
+                     responseType: 'blob'
+                 },
+                 success: function (data) {
+                     var blob = new Blob([data], { type: 'application/pdf' });
+                     var url = window.URL.createObjectURL(blob);
+                   /*  $('#reportContainer').html('<iframe src="' + url + '" width="100%" height="600px"></iframe>');*/
+                     var prt = window.open(url, '_blank');
+                     if (prt) {
+                         prt.onload = function () {
+                             prt.document.title = 'Imprimir';
+                         }
+                     }
+                 },
+                 error: function () {
+                     swal({icon:"warning"})
+                 }
+             });
+        }
+
+    </script>
+
+}

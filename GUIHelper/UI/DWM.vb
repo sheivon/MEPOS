@@ -1,8 +1,5 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.Text
+﻿Imports System.Drawing
 Imports System.Runtime.InteropServices
-Imports System.Drawing
 Public Class Dwm
     <StructLayout(LayoutKind.Explicit)>
     Public Structure RECT

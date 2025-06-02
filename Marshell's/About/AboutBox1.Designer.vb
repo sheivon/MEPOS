@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class AboutBox1
-    Inherits System.Windows.Forms.Form
+    Inherits DevExpress.XtraEditors.XtraForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -161,14 +161,15 @@ Partial Class AboutBox1
         '
         'AboutBox1
         '
+        Me.Appearance.Options.UseFont = True
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(72, Byte), Integer), CType(CType(72, Byte), Integer), CType(CType(72, Byte), Integer))
         Me.CancelButton = Me.OKButton
         Me.ClientSize = New System.Drawing.Size(842, 413)
         Me.Controls.Add(Me.TableLayoutPanel)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.IconOptions.Icon = CType(resources.GetObject("AboutBox1.IconOptions.Icon"), System.Drawing.Icon)
+        Me.IconOptions.ShowIcon = False
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.MaximizeBox = False
         Me.MaximumSize = New System.Drawing.Size(842, 413)
@@ -177,7 +178,6 @@ Partial Class AboutBox1
         Me.Name = "AboutBox1"
         Me.Opacity = 0.99R
         Me.Padding = New System.Windows.Forms.Padding(14)
-        Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

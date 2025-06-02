@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-//import to use
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using GUIHelper;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
-
-
-using GUIHelper;
 using System.Threading;
+//import to use
+using System.Windows.Forms;
 
 namespace Marshell_Updater
 {
@@ -20,7 +14,7 @@ namespace Marshell_Updater
         // Dec by coder
         GMessage GMessage = new GMessage();
 
-        string path = Application.ExecutablePath; 
+        string path = Application.ExecutablePath;
         string newversion = string.Empty;
         string filename = "update.zip";
 
@@ -34,7 +28,7 @@ namespace Marshell_Updater
         // Init Dec of vars
         private readonly string versionlink = "https://www.dropbox.com/s/kpppi3x19tls1dn/version.txt?dl=1";
         private GButton gButton1;
-        private readonly string  updatelink = "https://www.dropbox.com/s/5qfbg7u20he7gv5/update.zip?dl=1"; //https://www.dropbox.com/s/5qfbg7u20he7gv5/update.zip?dl=1
+        private readonly string updatelink = "https://www.dropbox.com/s/5qfbg7u20he7gv5/update.zip?dl=1"; //https://www.dropbox.com/s/5qfbg7u20he7gv5/update.zip?dl=1
 
         #region "UI DESIGN"
         private void InitializeComponent()
@@ -142,7 +136,7 @@ namespace Marshell_Updater
         // version.txt link https://www.dropbox.com/s/kpppi3x19tls1dn/version.txt?dl=0 change 0 to 1 to download and view
         private void GetVersion()
         {
-           
+
             newversion = "1.0.0.2";
 
             //update checking if version update available
@@ -158,7 +152,7 @@ namespace Marshell_Updater
             {
                 btnDownloadUpdate.Enabled = true; lbUpdatev.Text = string.Format("Available Version : {0} {1} Current Version : {2}", newversion, Environment.NewLine, Application.ProductVersion);
             }
-             
+
         }
 
         private void btnDownloadUpdate_Click(object sender, EventArgs e)
@@ -178,24 +172,24 @@ namespace Marshell_Updater
             gpb.Visible = false;
         }
         private void DownloadUpdate()
-        { 
+        {
             try
             {
 
                 using (WebClient wc = new WebClient())
                 {
                     wc.DownloadFileAsync(new Uri(updatelink), filename);
-                     
+
                     while (!wc.IsBusy)
-                         ZipFile.ExtractToDirectory(filename, path + @"\update");
-                     foreach (string file in Directory.GetFiles(path + @"\Update\", "*.*"))
-                     {
-                         File.Move(@file, path);
-                     }
+                        ZipFile.ExtractToDirectory(filename, path + @"\update");
+                    foreach (string file in Directory.GetFiles(path + @"\Update\", "*.*"))
+                    {
+                        File.Move(@file, path);
+                    }
 
                     File.Delete(path + filename);
                 }
-                   
+
             }
 #if DEUBUG
             catch

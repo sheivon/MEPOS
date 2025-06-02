@@ -25,7 +25,7 @@ Public Class Decrypt
         TripleDes.Key = TruncateHash(key, TripleDes.KeySize \ 8)
         TripleDes.IV = TruncateHash("", TripleDes.BlockSize \ 8)
     End Sub
-      Public Function DecryptData(ByVal encryptedtext As String) As String
+    Public Function DecryptData(ByVal encryptedtext As String) As String
 
         ' Convert the encrypted text string to a byte array.
         Dim encryptedBytes() As Byte = Convert.FromBase64String(encryptedtext)

@@ -1,5 +1,4 @@
 ﻿Imports System.Drawing
-Imports System.Runtime.CompilerServices
 
 Public Class Theme
     ''' <summary>

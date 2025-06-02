@@ -8,35 +8,33 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataBase
 {
-    public static class DataModule 
+    public static class DataModule
     {
-        private static readonly string EncText = "1234567890"; 
+        private static readonly string EncText = "1234567890";
         private static readonly GMessage GMessage = new GMessage();
         // --------------------------------------
         //              Server DB Stat
         // --------------------------------------
         #region SeverStats
-        public enum ServerStatus { Online = 1, Offline = 2 } 
+        public enum ServerStatus { Online = 1, Offline = 2 }
         public static ServerStatus GetServerStatus()
         {
-            ServerStatus ss = new ServerStatus(); 
+            ServerStatus ss = new ServerStatus();
             try
             {
                 var o = GetEmployees().Count;
 
-                if (o > 0 )
+                if (o > 0)
                 {
                     ss = ServerStatus.Online;
                 }
                 else
                 {
                     ss = ServerStatus.Offline;
-                } 
+                }
             }
             catch (Exception ex)
             {
@@ -61,9 +59,9 @@ namespace DataBase
                 }
                 else // else filter the data acording to keyword
                 {
-                    param = string.Format("WHERE CONCAT(ID,CNAME,SRNAME,IDNUMBER,MOBILE) like '%{0}%';", keyword);
+                    param = string.Format("WHERE CONCAT(first_name,last_name,CEDULA,phone) like '%{0}%';", keyword);
                 }
-                string qr = string.Format("SELECT ID,CNAME,SRNAME,ifnull(IDNUMBER,'626-NICA') IDNUMBER,MOBILE,ifnull(LOCATION,'NIC') LOCATION,ifnull(NATIONALITY,'NIC') NATIONALITY,GENDER,BLKCUS,OW,CUR,ACTIVE FROM CUSTOMER {0}", param);
+                string qr = string.Format("SELECT customer_ID,first_name,last_name,ifnull(CEDULA,'626-NICA') CEDULA,email,phone,created_at,del FROM CUSTOMERs ORDER BY customer_id DESC", param);
                 using (MySqlConnection cc = new MySqlConnection(MSetting.GetConnectionstring()))
                 {
                     cc.Open();
@@ -76,18 +74,12 @@ namespace DataBase
                             //read 
                             c.id = dr.GetInt32(0); // System.Convert.ToInt32(Dr["ID"].ToString());
                             c.name = dr.GetString(1); // Dr["CNAME"].ToString();
-                            c.srname = dr.GetString(2);  //sDr["SRNAME"].ToString();
-                            c.idcard = dr.GetString(3);// Dr["IDNUMBER"].ToString();
-                            c.mobile = dr.GetString(4); // Dr["MOBILE"].ToString();
-                            c.location = dr.GetString(5); // Dr["LOCATION"].ToString();
-                            c.nacionality = dr.GetString(6);// Dr["NATIONALITY"].ToString();
-                            c.gender = dr.GetString(7); // Dr["GENDER"].ToString();
-                                                        // int blk = dr.GetInt32(8) == 1 ?false:true; //["BLKCUS"].ToString();
-                            c.blocked = dr.GetBoolean(8); //dr.GetInt32(8) == 1 ?false:true;// (blk == 0 )? false : true;
-                            c.owing = dr.GetDecimal(9);
-                            string cur = dr.GetString(10);
-                            c.money = (cur == "NIO") ? "C$" : (cur == "USD") ? "$" : "€";
-                            c.active = (dr.GetInt32(11) == 0) ? false : true;
+                            c.srname = dr.GetString(2);
+                            c.idcard = dr.GetString(3);
+                            c.email = dr.GetString(4);
+                            c.mobile = dr.GetString(5);
+                            c.active = (dr.GetInt32(7) == 0) ? false : true;
+                            c.Created = dr.GetDateTime(6);
 
                             // save to list
                             cs.Add(c);
@@ -95,7 +87,6 @@ namespace DataBase
                     }
                     cc.Close();
                 }
-
 
             }
             catch (Exception ex)
@@ -112,7 +103,7 @@ namespace DataBase
                 using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
                 {
                     cn.Open();
-                    using (MySqlCommand cm = new MySqlCommand("SELECT * FROM CUSTOMER WHERE id=@id", cn))
+                    using (MySqlCommand cm = new MySqlCommand("SELECT customer_ID,first_name,last_name,ifnull(CEDULA,'626-NICA') CEDULA,email,phone,created_at,del FROM CUSTOMERs WHERE customer_ID=@id ORDER BY customer_id DESC ", cn))
                     {
                         cm.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
@@ -122,19 +113,14 @@ namespace DataBase
 
                             Customers c = new Customers();
                             //read 
-                            c.id = Rows.GetInt32(0);
-                            c.name = Rows.GetString(1);
+                            c.id = Rows.GetInt32(0); // System.Convert.ToInt32(Dr["ID"].ToString());
+                            c.name = Rows.GetString(1); // Dr["CNAME"].ToString();
                             c.srname = Rows.GetString(2);
                             c.idcard = Rows.GetString(3);
-                            c.mobile = Rows.GetString(4);
-                            c.location = Rows.GetString(5);
-                            c.nacionality = Rows.GetString(6);
-                            c.gender = Rows.GetString(7);
-                            int blk = Rows.GetInt32(8);
-                            c.blocked = (blk == 0) ? false : true;
-                            c.owing = Rows.GetDecimal(9);
-                            string cur = Rows.GetString(10);
-                            c.money = (cur == "NIO") ? "C$" : (cur == "USD") ? "$" : "€";
+                            c.email = Rows.GetString(4);
+                            c.mobile = Rows.GetString(5);
+                            c.active = (Rows.GetInt32(7) == 0) ? false : true;
+                            c.Created = Rows.GetDateTime(6);
 
                             // save to list
                             cs = c;
@@ -158,7 +144,7 @@ namespace DataBase
         }
         public static List<Customers> GetOwingCustomers(string keyword = "")
         {
-            List<Customers> cs = new List<Customers>(); 
+            List<Customers> cs = new List<Customers>();
             //[Obsolute]
             //MySqlControl msql = new MySqlControl(MSetting.GetConnectionstring());
             try
@@ -172,40 +158,18 @@ namespace DataBase
                 {
                     param = string.Format("WHERE CONCAT(ID,CNAME,SRNAME,IDNUMBER,MOBILE,BLKCUS) like '%{0}%' AND (OW > 0);", keyword);
                 }
-                //[Obsolute]
-                //msql.ExecQuery(string.Format("SELECT * FROM CUSTOMER {0}", param));
-                //foreach (DataRow Dr in msql.DBDT.Rows)
-                //{
-                //    Customers c = new Customers();
-                //    //read 
-                //    c.id = System.Convert.ToInt32(Dr["ID"].ToString());
-                //    c.name = Dr["CNAME"].ToString();
-                //    c.srname = Dr["SRNAME"].ToString();
-                //    c.idcard = Dr["IDNUMBER"].ToString();
-                //    c.mobile = Dr["MOBILE"].ToString();
-                //    c.location = Dr["LOCATION"].ToString();
-                //    c.nacionality = Dr["NATIONALITY"].ToString();
-                //    c.gender = Dr["GENDER"].ToString();
-                //    string blk = Dr["BLKCUS"].ToString();
-                //    c.blocked = (blk == "0") ? false : true;
-                //    c.owing = (Decimal)Dr["OW"];
-                //    string cur = Dr["CUR"].ToString();
-                //    c.money = (cur == "NIO") ? "C$" : (cur == "USD") ? "$" : "€";
-
-                //    // save to list
-                //    cs.Add(c);
-                //}
-                using(MySqlConnection con =  new MySqlConnection(MSetting.GetConnectionstring()))
+                using (MySqlConnection con = new MySqlConnection(MSetting.GetConnectionstring()))
                 {
                     con.Open();
-                    using(MySqlCommand cm = new MySqlCommand(string.Format("SELECT ID,CNAME,SRNAME,ifnull(IDNUMBER,'N/A') IDNUMBER,ifnull(MOBILE,'N/A') MOBILE,ifnull(LOCATION,'N/A') LOCATION,ifnull(NATIONALITY,'N/A') NATIONALITY,GENDER,BLKCUS,OW,CUR,ACTIVE FROM CUSTOMER {0}", param), con))
+                    using (MySqlCommand cm = new MySqlCommand(string.Format("SELECT ID,CNAME,SRNAME,ifnull(IDNUMBER,'N/A') IDNUMBER,ifnull(MOBILE,'N/A') MOBILE,ifnull(LOCATION,'N/A') LOCATION,ifnull(NATIONALITY,'N/A') NATIONALITY,GENDER,BLKCUS,OW,CUR,ACTIVE FROM CUSTOMER {0}", param), con))
                     {
                         cm.CommandType = CommandType.Text;
                         cm.Connection = con;
                         var r = cm.ExecuteReader();
 
-                        while(r.Read()) {
-                            cs.Add(new Customers() { id = r.GetInt32(0),name = r.GetString("CNAME"),srname = r.GetString("SRNAME"), idcard = r.GetString("IDNUMBER"), mobile = r.GetString("MOBILE"), location = r.GetString("LOCATION"), nacionality = r.GetString("NATIONALITY"), gender = r.GetString("GENDER"), blocked = r.GetBoolean("BLKCUS"), owing = r.GetDecimal("OW"), money = r.GetString("CUR") == "NIO"?"C$" :"$", active = r.GetBoolean("Active") });
+                        while (r.Read())
+                        {
+                            cs.Add(new Customers() { id = r.GetInt32(0), name = r.GetString("CNAME"), srname = r.GetString("SRNAME"), idcard = r.GetString("IDNUMBER"), active = r.GetBoolean("Active") });
                         }
                     }
                 }
@@ -402,17 +366,29 @@ namespace DataBase
                 //SELECT ID,CNAME,SRNAME,IDNUMBER,MOBILE,LOCATION,NATIONALITY,GENDER,BLKCUS,OW,CUR,ACTIVE FROM CUSTOMER;
                 if (cus.id == 0)
                 {
-                    qr = "INSERT INTO CUSTOMER (CNAME,SRNAME,IDNUMBER,MOBILE,LOCATION,NATIONALITY,GENDER,BLKCUS,OW,CUR) VALUES(@cn,@sr,@idn,@cel,@loc,@nat,@sx,@blk,@ow,@mn);";
+                    qr = "INSERT INTO CUSTOMERs (first_name, last_name, email, CEDULA, phone) VALUES(@fn,@ln,@em,@ced,@te);";
                 }
                 else
                 {
-                    qr = "UPDATE CUSTOMER SET CNAME=@cn,SRNAME=@sr,IDNUMBER=@iid,MOBILE=@tel,=";
+                    qr = "UPDATE CUSTOMERs SET first_name=@fn,last_name=@ln,email=@em, CEDULA=@ced, phone=@tel";
                 }
                 using (MySqlConnection cc = new MySqlConnection(MSetting.GetConnectionstring()))
                 {
                     cc.Open();
                     using (MySqlCommand cm = new MySqlCommand(qr, cc))
                     {
+                        cm.Parameters.AddWithValue("@fn", cus.name);
+                        cm.Parameters.AddWithValue("@ln", cus.srname);
+                        cm.Parameters.AddWithValue("@em", cus.email);
+                        cm.Parameters.AddWithValue("@ced", cus.idcard);
+                        cm.Parameters.AddWithValue("@te", cus.mobile);
+
+                        cm.Connection = cc;
+                        cm.CommandType = CommandType.Text;
+                        cm.CommandText = qr;
+
+                        cm.ExecuteNonQuery();
+
                     }
                 }
             }
@@ -428,7 +404,7 @@ namespace DataBase
         #region Users
         public static Users Login(string usr, string pass)
         {
-            Users u = new Users(); 
+            Users u = new Users();
             var password = EncryptPassword(pass);
 
             try
@@ -466,7 +442,7 @@ namespace DataBase
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message + Environment.NewLine + "Fail to load Customers data");
-            } 
+            }
             return u;
         }
         public static Users GetUsersByID(int id)
@@ -835,13 +811,52 @@ namespace DataBase
 #if DEBUG
             catch (Exception ex)
             {
-                GMessage.Show(ex.Message + Environment.NewLine + "Fail to Load Products");
+                Console.WriteLine(ex.Message + Environment.NewLine + "Fail to Load Products");
             }
 #else
             catch (Exception)
             { }
 #endif
             return lp;
+        }
+        public static DataTable GetrptProducts(string Keyword = "")
+        {
+            var dt = new DataTable();
+            try
+            {
+                using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
+                {
+                    cn.Open();
+                    using (MySqlCommand cm = new MySqlCommand(string.Format("SELECT ID,PRODUCTCODE,PRODUCTNAME,PRODUCTSTOCK QTY,PRODUCTPRICE PRICE,CUR,TYPE,ACTIVE FROM PRODUCT"), cn))
+                    {
+                        MySqlDataReader r = cm.ExecuteReader();
+                        while (r.Read())
+                        {
+                            //l init
+                            Products p = new Products();
+                            //load
+                            p.Id = r.IsDBNull(0) ? 0 : r.GetInt32(0);
+                            p.Name = r.GetString(2);
+                            p.Barcode = r.GetString(1);
+                            p.Stock = r.IsDBNull(3) ? 0 : r.GetInt32(3);
+                            p.Price = r.IsDBNull(4) ? 0 : r.GetDecimal(4);
+                            p.Cur = r.GetString("CUR");
+                            p.type = (r.IsDBNull(6) ? true : (r.GetInt32(6) == 0) ? true : false);
+                            p.active = r.IsDBNull(7) ? true : (r.GetInt32(7) == 1 ? true : false);
+                            //STORE
+
+                            dt.Rows.Add(p);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                GMessage.Show(ex.Message + Environment.NewLine + "Fail to Load Products");
+                return new DataTable();
+            }
+            return dt;
         }
         public static List<Products> GetProductsServices(string Keyword = "")
         {
@@ -901,32 +916,33 @@ namespace DataBase
             List<Products> lp = new List<Products>();
             try
             {
-
-                using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
-                {
-                    cn.Open();
-                    using (MySqlCommand cm = new MySqlCommand("SELECT * FROM PRODUCT WHERE ACTIVE=1 AND TYPE=0", cn))
-                    {
-                        MySqlDataReader r = cm.ExecuteReader();
-                        while (r.Read())
-                        {
-                            //l init
-                            Products p = new Products();
-                            //load
-                            p.Id = r.IsDBNull(0) ? 0 : r.GetInt32("ID");
-                            p.Name = r.GetString("PRODUCTNAME");
-                            p.Barcode = r.GetString("PRODUCTCODE");
-                            p.Stock = r.IsDBNull(3) ? 0 : r.GetInt32("PRODUCTSTOCK");
-                            //p.sold = r.IsDBNull(6) ? 0 : r.GetInt32("PRODUCTOUT");
-                            p.Price = r.IsDBNull(4) ? 0  : r.GetDecimal("PRODUCTPRICE");
-                            p.Cur = r.GetString("CUR");
-                            p.type = (r.IsDBNull(8) ? true : (r.GetInt32(8) == 0) ? true : false);
-                            p.active = r.IsDBNull(7) ? true : (r.GetInt32(7) == 1 ? true : false);
-                            //STORE
-                            lp.Add(p);
-                        }
-                    }
-                }
+                lp = GetProducts().Where(p => p.active == true).ToList();
+                //[Obsolute]
+                //using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
+                //{
+                //    cn.Open();
+                //    using (MySqlCommand cm = new MySqlCommand("SELECT * FROM PRODUCT WHERE ACTIVE=1 AND TYPE=0", cn))
+                //    {
+                //        MySqlDataReader r = cm.ExecuteReader();
+                //        while (r.Read())
+                //        {
+                //            //l init
+                //            Products p = new Products();
+                //            //load
+                //            p.Id = r.IsDBNull(0) ? 0 : r.GetInt32("ID");
+                //            p.Name = r.GetString("PRODUCTNAME");
+                //            p.Barcode = r.GetString("PRODUCTCODE");
+                //            p.Stock = r.IsDBNull(3) ? 0 : r.GetInt32("PRODUCTSTOCK");
+                //            //p.sold = r.IsDBNull(6) ? 0 : r.GetInt32("PRODUCTOUT");
+                //            p.Price = r.IsDBNull(4) ? 0  : r.GetDecimal("PRODUCTPRICE");
+                //            p.Cur = r.GetString("CUR");
+                //            p.type = (r.IsDBNull(8) ? true : (r.GetInt32(8) == 0) ? true : false);
+                //            p.active = r.IsDBNull(7) ? true : (r.GetInt32(7) == 1 ? true : false);
+                //            //STORE
+                //            lp.Add(p);
+                //        }
+                //    }
+                //}
 
             }
 #if DEBUG
@@ -943,37 +959,40 @@ namespace DataBase
         public static List<Products> GetProductsLow()
         {
             int low = 10;//init
-            //replace
+            //replace default 10
             low = System.Convert.ToInt32(MSetting.GetStockLowWarn);
             List<Products> lp = new List<Products>();
             try
             {
-                using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
-                {
-                    cn.Open();
-                    using (MySqlCommand cm = new MySqlCommand("SELECT * FROM PRODUCT WHERE PRODUCTSTOCK <=@am and active=1 and type=0;", cn))
-                    {
-                        cm.Parameters.Add("@am", MySqlDbType.Int32).Value = low;
-                        MySqlDataReader r = cm.ExecuteReader();
-                        while (r.Read())
-                        {
-                            //l init
-                            Products p = new Products();
-                            //load
-                            p.Id = System.Convert.ToInt32(r["ID"].ToString());
-                            p.Name = (r["PRODUCTNAME"].ToString());
-                            p.Barcode = (r["PRODUCTCODE"].ToString());
-                            p.Stock = System.Convert.ToInt32(r["PRODUCTSTOCK"].ToString());
-                            p.Price = System.Convert.ToDecimal(r["PRODUCTPRICE"].ToString());
-                            p.Cur = r["CUR"].ToString();
-                            p.type = (r.IsDBNull(8) ? true : (r.GetInt32(8) == 0) ? true : false);
-                            p.active = r.IsDBNull(7) ? true : (r.GetInt32(7) == 1 ? true : false);
-                            //STORE
-                            lp.Add(p);
-                        }
-                    }
-                    cn.Close();
-                }
+                lp = GetProducts().Where(p => p.Stock <= low).ToList();
+                return lp;
+                //[Obsolute]
+                //using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
+                //{
+                //    cn.Open();
+                //    using (MySqlCommand cm = new MySqlCommand("SELECT * FROM PRODUCT WHERE PRODUCTSTOCK <=@am and active=1 and type=0;", cn))
+                //    {
+                //        cm.Parameters.Add("@am", MySqlDbType.Int32).Value = low;
+                //        MySqlDataReader r = cm.ExecuteReader();
+                //        while (r.Read())
+                //        {
+                //            //l init
+                //            Products p = new Products();
+                //            //load
+                //            p.Id = System.Convert.ToInt32(r["ID"].ToString());
+                //            p.Name = (r["PRODUCTNAME"].ToString());
+                //            p.Barcode = (r["PRODUCTCODE"].ToString());
+                //            p.Stock = System.Convert.ToInt32(r["PRODUCTSTOCK"].ToString());
+                //            p.Price = System.Convert.ToDecimal(r["PRODUCTPRICE"].ToString());
+                //            p.Cur = r["CUR"].ToString();
+                //            p.type = (r.IsDBNull(8) ? true : (r.GetInt32(8) == 0) ? true : false);
+                //            p.active = r.IsDBNull(7) ? true : (r.GetInt32(7) == 1 ? true : false);
+                //            //STORE
+                //            lp.Add(p);
+                //        }
+                //    }
+                //    cn.Close();
+                //}
             }
 #if DEBUG
             catch (Exception ex)
@@ -1047,45 +1066,48 @@ namespace DataBase
             Products rp = null;
             try
             {
-                using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
-                {
-                    cn.Open();
-                    using (MySqlCommand cm = new MySqlCommand())
-                    {
-                        cm.Connection = cn;
-                        cm.CommandText = "SELECT ID,PRODUCTCODE,PRODUCTNAME,PRODUCTSTOCK,PRODUCTPRICE,CUR,TYPE,ACTIVE FROM PRODUCT WHERE ID=@BC LIMIT 1;";
+                rp = GetProducts().Where(p => p.Id == ID).FirstOrDefault();
 
-                        cm.Parameters.AddWithValue("@BC", MySqlDbType.VarChar).Value = ID;
-                        cm.CommandType = CommandType.Text;
+                //[Obsolute]
+                //using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
+                //{
+                //    cn.Open();
+                //    using (MySqlCommand cm = new MySqlCommand())
+                //    {
+                //        cm.Connection = cn;
+                //        cm.CommandText = "SELECT ID,PRODUCTCODE,PRODUCTNAME,PRODUCTSTOCK,PRODUCTPRICE,CUR,TYPE,ACTIVE FROM PRODUCT WHERE ID=@BC LIMIT 1;";
 
-                        MySqlDataReader r = cm.ExecuteReader();
-                        while (r.Read())
-                        {
-                            //rp = new Products()
-                            //{
-                            //    Id = r.GetInt32(0),
-                            //    Barcode = r.GetString(1),
-                            //    Name = r.GetString(2),
-                            //    Stock = r.GetInt32(3)+0,
-                            //    Price = r.GetFloat(4),
-                            //    Cur = r.GetString(5),
-                            //    sold = r.GetInt32(6)+0
-                            //};
-                            Products p = new Products();
-                            //load
-                            p.Id = r.GetInt32(0);
-                            p.Name = r.GetString(2);
-                            p.Barcode = r.GetString(1);
-                            p.Stock = r.IsDBNull(3) ? 0 : r.GetInt32(3);
-                            p.Price = r.IsDBNull(4) ? 0 : r.GetDecimal(4);
-                            p.Cur = r.GetString(5);
-                            p.type = (r.IsDBNull(6) ? true : (r.GetInt32(6) == 0) ? true : false);
-                            p.active = r.IsDBNull(7) ? true : (r.GetInt32(7) == 1) ? true : false;
-                            rp = p;
-                        }
-                    }
-                    cn.Close();
-                }
+                //        cm.Parameters.AddWithValue("@BC", MySqlDbType.VarChar).Value = ID;
+                //        cm.CommandType = CommandType.Text;
+
+                //        MySqlDataReader r = cm.ExecuteReader();
+                //        while (r.Read())
+                //        {
+                //            //rp = new Products()
+                //            //{
+                //            //    Id = r.GetInt32(0),
+                //            //    Barcode = r.GetString(1),
+                //            //    Name = r.GetString(2),
+                //            //    Stock = r.GetInt32(3)+0,
+                //            //    Price = r.GetFloat(4),
+                //            //    Cur = r.GetString(5),
+                //            //    sold = r.GetInt32(6)+0
+                //            //};
+                //            Products p = new Products();
+                //            //load
+                //            p.Id = r.GetInt32(0);
+                //            p.Name = r.GetString(2);
+                //            p.Barcode = r.GetString(1);
+                //            p.Stock = r.IsDBNull(3) ? 0 : r.GetInt32(3);
+                //            p.Price = r.IsDBNull(4) ? 0 : r.GetDecimal(4);
+                //            p.Cur = r.GetString(5);
+                //            p.type = (r.IsDBNull(6) ? true : (r.GetInt32(6) == 0) ? true : false);
+                //            p.active = r.IsDBNull(7) ? true : (r.GetInt32(7) == 1) ? true : false;
+                //            rp = p;
+                //        }
+                //    }
+                //    cn.Close();
+                //}
             }
             catch { }
             return rp;
@@ -1124,7 +1146,7 @@ namespace DataBase
             }
             catch { }
         }
-         
+
         public static void SaveProduct(Products p)
         {
             try
@@ -1146,7 +1168,7 @@ namespace DataBase
                         {
                             cm.CommandText = "UPDATE PRODUCT SET PRODUCTCODE=@bc, PRODUCTNAME=@pn, PRODUCTSTOCK=@pi, PRODUCTPRICE=@pp, type=@tp, CUR=@mn,ACTIVE=@ac WHERE ID=@id;";
                             // if updating then add extra params
-                            cm.Parameters.Add("@id", MySqlDbType.Int32).Value = p.Id; 
+                            cm.Parameters.Add("@id", MySqlDbType.Int32).Value = p.Id;
                         }
 
                         cm.Parameters.Add("@bc", MySqlDbType.VarChar, 50).Value = p.Barcode;
@@ -1174,7 +1196,64 @@ namespace DataBase
         //              Category's      
         // --------------------------------------
         #region Category
+        public static List<Category> GetCategories()
+        {
+            var lcat = new List<Category>();
+            try  //Table is Categories
+            {
+                using (MySqlConnection con = new MySqlConnection(MSetting.GetConnectionstring()))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        cmd.Connection = con;
 
+                        cmd.CommandType = CommandType.Text;
+
+                        string qry = "SELECT category_id, name,ACTIVE, created_at, updated_at FROM categories;";
+
+                        cmd.CommandText = qry;
+
+                        MySqlDataReader r = cmd.ExecuteReader();
+                        while (r.Read())
+                        {
+                            lcat.Add(new Category() { Id = r.GetInt32(0), Name = r.GetString(1), Active = r.GetBoolean(2), CreatedAt = r.GetDateTime(3), UpdatedAt = r.GetDateTime(4) });
+                        }
+                    }
+                }
+
+            }
+            catch { }
+
+            return lcat;
+        }
+        public static void SaveCategory(Category cat)
+        {
+            try
+            {
+                var qr = string.Empty;
+                if (cat.Id == 0)
+                { qr = "INSERT INTO CATEGORIES(NAME,ACTIVE) VALUES(@N,@A);"; }
+                else { qr = "UPDATE CATEGORIES SET NAME=@N,ACTIVE=@A WHERE CATEGORY_ID=@ID"; }
+                using (MySqlConnection cc = new MySqlConnection(MSetting.GetConnectionstring()))
+                {
+                    cc.Open();
+                    using (MySqlCommand cm = new MySqlCommand(qr, cc))
+                    {
+                        cm.Parameters.AddWithValue("@N", cat.Name);
+                        cm.Parameters.AddWithValue("@A", cat.Active == true ? 1 : 0);
+
+                        if (cat.Id > 0)
+                        {
+                            cm.Parameters.AddWithValue("@ID", cat.Id);
+                        }
+                        cm.ExecuteNonQuery();
+                    }
+
+                }
+            }
+            catch { }
+        }
         #endregion
         // --------------------------------------    
         //              Money's  
@@ -1236,13 +1315,41 @@ namespace DataBase
         //              Invoice's
         // --------------------------------------
         #region Invoices
+
+        public static int GenerateInvoice()
+        {
+            int id = -1;
+            try
+            {
+                using (MySqlConnection c = new MySqlConnection(MSetting.GetConnectionstring()))
+                {
+                    c.Open();
+                    using (MySqlCommand cm = new MySqlCommand())
+                    {
+                        cm.Connection = c;
+                        cm.CommandText = "SELECT ifnull(MAX(InvoiceID),0) ID   FROM marshell.invoice;";
+                        cm.CommandType = CommandType.Text;
+
+                        var r = cm.ExecuteReader();
+                        while (r.Read())
+                        {
+                            id = r.GetInt32(0);
+                            id += 1;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); return id; }
+            return id;
+        }
         public static List<InvoiceDetails> GetInvoiceDetails()
         {
             List<InvoiceDetails> li = new List<InvoiceDetails>();
             try
             {
                 //string qry = "Select C.ID as CID, P.PRODUCTCODE AS BCODE, C.CDATE AS CDATE, C.ITEMID AS IID, C.QNT AS QNT,C.OWIN AS OW,C.STAT AS STATU, P.PRODUCTNAME AS ITEM, P.PRODUCTPRICE AS UNITPRICE,P.PRODUCTPRICE* C.QNT AS TOTAL, P.CUR as CUR,(SELECT PRODUCTNAME FROM PRODUCT AS PP WHERE C.ITEMID = PP.ID) AS PN FROM CREDITS as C LEFT OUTER JOIN PRODUCT AS P ON C.ITEMID = P.ID WHERE P.ID = C.ITEMID AND C.BARCODE = '" + invoice + "';";
-                string qry = "SELECT ID,INVID,DATE,PID,QTY,(SELECT PRODUCTNAME FROM PRODUCT WHERE ID=PID) ITEM,PRICE,OFF,ACTIVE FROM INVOICEDETAILS;";
+                //string qry = "SELECT ID,INVID,DATE,PID,QTY,(SELECT PRODUCTNAME FROM PRODUCT WHERE ID=PID) ITEM,PRICE,OFF,ACTIVE FROM INVOICEDETAILS;"; 
+                string qry = "SELECT InvoiceDetailID,INVoiceID,CreatedAT,ProductID,total,(SELECT PRODUCTNAME FROM PRODUCT WHERE ID=ProductID) ITEM,unitPRICE,Discount  FROM INVOICEDETAILS;";
                 using (MySqlConnection c = new MySqlConnection(MSetting.GetConnectionstring()))
                 {
                     c.Open();
@@ -1259,7 +1366,7 @@ namespace DataBase
                                 IID = Rows.GetInt32(3),
                                 QTY = Rows.GetInt32(4),
                                 ITEM = Rows.GetString(5),
-                                UNITPRICE = Rows.GetDecimal(6), 
+                                UNITPRICE = Rows.GetDecimal(6),
                                 Off = Rows.GetDecimal(7),
                                 Active = Rows.GetBoolean(8)
                             });
@@ -1271,7 +1378,7 @@ namespace DataBase
                     }
                 }
             }
-            catch(Exception xs) { Console.WriteLine(xs.Message); return li; }
+            catch (Exception xs) { Console.WriteLine(xs.Message); return li; }
             return li;
         }
         public static List<Invoices> GetInvoices(string Keyword = "", bool active = true)
@@ -1325,8 +1432,8 @@ namespace DataBase
                                 Exchange = Rows.GetDecimal(10),
                                 Cur = Rows.GetString(11),
                                 //active = Rows.IsDBNull(12) ? false : (Rows.GetByte(12) == 0) ? false : true, 
-                                active = Rows.IsDBNull(12) ? false : Rows.GetBoolean(12), 
-                                cashed = Rows.GetDecimal(13) 
+                                active = Rows.IsDBNull(12) ? false : Rows.GetBoolean(12),
+                                cashed = Rows.GetDecimal(13)
                             });
                         }
                     }
@@ -1334,15 +1441,15 @@ namespace DataBase
                 }
 
             }
-//#if DEBUG
+            //#if DEBUG
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message + Environment.NewLine + "Fail to Load Invoices");
             }
-//#else
-//            catch (Exception)
-//            { }
-//#endif
+            //#else
+            //            catch (Exception)
+            //            { }
+            //#endif
             return li;
         }
         public static List<Invoices> GetInvoicesDateToDate(DateTime D1, DateTime D2)
@@ -1363,8 +1470,8 @@ namespace DataBase
                         Customer = (r["CUSTOMER"].ToString()),
                         Seller = (r["SELLER"].ToString()),
                         Date = (DateTime)r["IDATE"],//, "yyyy-MM-dd H:m", provider);
-                        Stat = System.Convert.ToBoolean(r["STAT"]) ,
-                        Total =  System.Convert.ToDecimal(r["TOTAL"].ToString()),
+                        Stat = System.Convert.ToBoolean(r["STAT"]),
+                        Total = System.Convert.ToDecimal(r["TOTAL"].ToString()),
                         Cur = r["CUR"].ToString()
                     });
                 }
@@ -1472,7 +1579,7 @@ namespace DataBase
         }
         public static List<Invoices> GetPendientsInvoices()
         {
-           List<Invoices> pen = GetInvoices().Where(i => i.Stat = false).ToList();
+            List<Invoices> pen = GetInvoices().Where(i => i.Stat = false).ToList();
             return pen;
         }
 
@@ -1569,18 +1676,18 @@ namespace DataBase
                         }
                         else
                         {
-                            qry = "INSERT INTO Invoices(CUSTOMER,CusId,usrId,DATE,TOTAL,STAT,OFF,EXRATE,NIO,ACTIVE,Cashed,FACN) VALUES(@Cus,@cid,@uid,@dt,@ttl,stt,@dc,@x,@mn,@act,@csh,@fn);"; 
+                            qry = "INSERT INTO Invoices(CUSTOMER,CusId,usrId,DATE,TOTAL,STAT,OFF,EXRATE,NIO,ACTIVE,Cashed,FACN) VALUES(@Cus,@cid,@uid,@dt,@ttl,@stt,@dc,@x,@mn,@act,@csh,@fn);";
                         }
                         cm.Parameters.AddWithValue("@Cus", inv.Customer);
                         cm.Parameters.AddWithValue("@cid", inv.CusId);
-                        cm.Parameters.AddWithValue("@uid",inv.usrId);
+                        cm.Parameters.AddWithValue("@uid", inv.usrId);
                         cm.Parameters.AddWithValue("@dt", inv.Date);
                         cm.Parameters.AddWithValue("@ttl", inv.Total);
-                        cm.Parameters.AddWithValue("@stt", inv.Stat == true?1:0);
+                        cm.Parameters.AddWithValue("@stt", inv.Stat == true ? 1 : 0);
                         cm.Parameters.AddWithValue("@dc", inv.off);
                         cm.Parameters.AddWithValue("@x", inv.Exchange);
                         cm.Parameters.AddWithValue("@mn", inv.Cur);
-                        cm.Parameters.AddWithValue("@act", inv.active == true? 1:0);
+                        cm.Parameters.AddWithValue("@act", inv.active == true ? 1 : 0);
                         cm.Parameters.AddWithValue("@csh", inv.cashed);
                         cm.Parameters.AddWithValue("@fn", inv.Invoice);
                     }
@@ -1588,6 +1695,37 @@ namespace DataBase
             }
             catch (Exception isv) { Console.WriteLine(isv.Message); return -1; }
             return -1;
+        }
+        public static void SaveInvoceDetails(List<InvoiceDetails> invlist)
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(MSetting.GetConnectionstring()))
+                {
+                    con.Open();
+                    using (MySqlCommand cm = new MySqlCommand())
+                    {
+                        cm.Connection = con;
+                        string qry = string.Empty;
+                        if (invlist.Count != 0)
+                        {
+                            qry = "INSERT INTO Invoicesdetails(`INVID`,`PID`,`QTY`,`PRICE`,`OFF`,`DATE`,`Active`) VALUES(@inv,@pid,@qty,@prc,@off,@dt,@act);";
+
+                            foreach (InvoiceDetails inv in invlist)
+                            {
+                                cm.Parameters.AddWithValue("@inv", inv.BCODE);
+                                cm.Parameters.AddWithValue("@pid", inv.IID);
+                                cm.Parameters.AddWithValue("@qty", inv.QTY);
+                                cm.Parameters.AddWithValue("@prc", inv.UNITPRICE);
+                                cm.Parameters.AddWithValue("@off", inv.Off);
+                                cm.Parameters.AddWithValue("@dt", inv.CDATE);
+                                cm.Parameters.AddWithValue("@act", inv.Active == true ? 1 : 0);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception isv) { Console.WriteLine(isv.Message); }
         }
         #endregion
         // --------------------------------------
@@ -1630,6 +1768,69 @@ namespace DataBase
             {
             }
         }
+        #endregion
+        // --------------------------------------
+        //              Supplier          
+        // --------------------------------------
+        #region Supplier
+        public static List<Supplier> GetSupplier()
+        {
+            List<Supplier> suppliers = new List<Supplier>();
+            try
+            {
+                using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
+                {
+                    cn.Open();
+                    using (MySqlCommand cm = new MySqlCommand())
+                    {
+                        cm.Connection = cn;
+                        cm.CommandText = "SELECT supplier_id,name,contact_info,created_at FROM suppliers;";
+                        var dr = cm.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            suppliers.Add(new Supplier() { Id = dr.GetInt32(0), Name = dr["name"].ToString(), ContactInfo = dr.GetString(2), Created = dr.GetDateTime(3) });
+                        }
+                    }
+                    cn.Close();
+                }
+            }
+            catch (Exception ps) { Console.WriteLine(ps.Message); return new List<Supplier>(); }
+            return suppliers;
+        }
+        public static void SaveSupplier(Supplier sup)
+        {
+            try
+            {
+                using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
+                {
+                    cn.Open();
+                    using (MySqlCommand cm = new MySqlCommand())
+                    {
+                        cm.Connection = cn;
+
+                        string qry = string.Empty;
+                        if (sup.Id == 0)
+                        {
+                            qry = "INSERT INTO SUPPLIERS(name,contact_info) VALUES (@na,@ci);";
+                        }
+                        else
+                        {
+                            qry = "UPDATE SUPPLIERS SET name=@na,contact_info=@ci WHERE supplier_id=@id";
+                            cm.Parameters.AddWithValue("@id", sup.Id);
+                        }
+                        cm.Parameters.AddWithValue("@na", sup.Name);
+                        cm.Parameters.AddWithValue("@ci", sup.ContactInfo);
+
+                        cm.CommandText = qry;
+
+                        cm.ExecuteNonQuery();
+                    }
+                    cn.Close();
+                }
+            }
+            catch (Exception ps) { Console.WriteLine(ps.Message); }
+        }
+
         #endregion
         // --------------------------------------
         //              Dashboard           
@@ -1678,7 +1879,7 @@ namespace DataBase
                         {
                             numProductsType = r.GetInt32(0);
                         }
-                    } 
+                    }
                 }
             }
             catch (Exception p) { Console.WriteLine(p.Message); }
@@ -1898,6 +2099,51 @@ namespace DataBase
                 Console.WriteLine(sd + " - " + ed);
             }
             return tmp;
+        }
+        #endregion// --------------------------------------
+        // --------------------------------------
+        //              Sales           
+        // --------------------------------------
+        #region Sales
+        public static List<sales> GetSales()
+        {
+           var lsales = new List<sales>();
+            try
+            {
+                using (MySqlConnection cn = new MySqlConnection(MSetting.GetConnectionstring()))
+                {
+                    cn.Open();
+                    using (MySqlCommand cm = new MySqlCommand())
+                    {
+                        cm.Connection = cn;
+                        cm.CommandText = "SELECT SaleId,OrderNumber,SaleDate,TotalAmount,TaxAmount,ShippingCost,DiscountAmount,CustomerId,PaymentMethod,SaleStatus,CreatedAt,ShippingAddress,CustomerEmail,CustomerPhone FROM sales;";
+                        var dr = cm.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            var cus = GetCustomerbyID(dr.GetInt32(7));
+                            lsales.Add(new sales() { Saleid = dr.GetInt32(0),
+                                OrderNumber= dr.GetString(1),
+                                SaleDate =  dr.GetDateTime(2).ToString(),
+                                TotalAmount = dr.GetDecimal(3),
+                                TaxAmount = dr.GetDecimal(4),
+                                ShippingCost = dr.GetDecimal(5),
+                                Discount = dr.GetDecimal(6),
+                                customers = cus,
+                                PaymentMethod = dr.GetString(8),
+                                SaleStatus = dr.GetString(9),
+                                CreatedAt = dr.GetDateTime(10),
+                                ShippingAddess = dr.GetString(11),
+                                CustomerEmail = dr.GetString(12),
+                                CustomerPhone = dr.GetString(13)
+                                
+                            });
+                        }
+                    }
+                    cn.Close();
+                }
+            }
+            catch (Exception ps) { Console.WriteLine(ps.Message); return new List<sales>(); }
+            return lsales;
         }
         #endregion
     }

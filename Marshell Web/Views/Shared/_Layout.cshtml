@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - GEPOS</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="icon" href="~/Marshell.ico" type="image/x-icon" /> 
+    <style>
+        .dropdown, .dropdown-menu {
+            z-index: 9999 !important;
+        }
+        .scrollable-container {
+            height: 100%;
+            width: calc(100% - 220px);
+            min-height: 100%;
+            overflow: auto; /* This will enable scrolling if the content exceeds the container */
+            overflow-y: auto;
+        }
+
+    </style>
+</head>
+<body> 
+    <div class="d-flex vh-100">
+        <!--Start Side menu-->
+        <div id="sidemenu" class="d-flex flex-column flex-shrink-0 text-bg-dark " style="width: 220px;background: linear-gradient(75deg, #ff00ff, #8900f2)">
+            <a href="/" class="d-flex align-items-center justify-content-center text-white text-decoration-none">
+                <img src="~/Marshell.ico" alt=".logo" style="width:100px; height:100px;" />
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column p-1">
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
+                    <span class="hide-menu">COMPONENTS</span>
+                </li>
+                <li>
+                    <a class="nav-link text-white" href="@Url.Action("index","home")"> <i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Sales","Products")" class="nav-link text-white">
+                        <i class="fas fa-balance-scale" aria-hidden="true"></i>&nbsp;Sales
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","Products")" class="nav-link text-white">
+                        <i class="fas fa-project-diagram"></i>&nbsp;Products
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Users","Account")" class="nav-link text-white">
+                        <i class="fa fa-user-friends"></i>&nbsp;Users
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="nav-link text-white" href="@Url.Action("Customers","Account")">
+                        <i class="fa fa-user-lock"></i>
+                        <span class="sub-item">Customers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Category","Products")">
+                        <i class="fas fa-th-large" aria-hidden="true"></i>
+                        <span class="sub-item">
+                            Category
+                        </span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="nav-link text-white" href="@Url.Action("Supplier","Products")">
+                        <i class="fa fa-truck" aria-hidden="true"></i>
+                        <span class="sub-item">
+                            Suppliers
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("index","cart")">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span class="sub-item">Cart</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("returns","Products")">
+                        <i class="fas fa-exchange-alt"></i>&nbsp;Returns
+                    </a>
+                </li>
+                <li class="nav-small-cap">
+                    <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-6"></iconify-icon>
+                    <span class="hide-menu">Info</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("About","Home")">
+                        <i class="fas fa-users-cog"></i>
+                        <span class="sub-item">About</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown justify-content-center px-2 mx-2">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <strong>Account</strong> 
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow px-2 mx-2">
+                    <li><a class="dropdown-item rounded-2" href="#"><i class="fas fa-cog"></i>&nbsp;Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    @if (Session["user"] != null)  // Check if user is logged in
+                    {
+                        Marshell_Web.Models.Users user = Session["user"] as Marshell_Web.Models.Users;  // Assuming User is the object type
+                        <li class="px-1 mx-1">Welcome, @user.UNAME!</li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <li><a class="dropdown-item" href="@Url.Action("Logout","Account")">Sign out</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="dropdown-item" href="@Url.Action("Login", "Account")">Login</a></li> 
+                    }
+                </ul>
+            </div> 
+        </div> 
+        <!--  Header End -->
+        <div class="scrollable-container mx-1"> 
+            <div class="dropdown position-fixed top-0 end-0 mb-3 me-3 z-index-9999 bd-mode-toggle" style="z-index:9999 !important;">
+                <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center btn-outline-success" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
+                    <i class="fas fa-adjust my-1 theme-icon-active" style="font-size: 1em;"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow z-index-9999" aria-labelledby="bd-theme-text">
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+                            <i class="fas fa-sun me-2 opacity-50" style="font-size: 1em;"></i>&nbsp;
+                            Light
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                            <i class="fas fa-moon me-2 opacity-50" style="font-size: 1em;"></i>
+                            Dark
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="indigo" aria-pressed="false">
+                            <i class="fas fa-palette me-2 opacity-50" style="font-size: 1em;"></i>
+                            Indigo
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="purple" aria-pressed="false">
+                            <i class="fas fa-paint-brush me-2 opacity-50" style="font-size: 1em;"></i>
+                            Purple
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+                            <i class="fas fa-adjust me-2 opacity-50" style="font-size: 1em;"></i>
+                            Auto
+                        </button>
+                    </li>
+                </ul>
+            </div>
+             
+            <br class="mb-2" />
+            <br class="mb-2" />
+            @RenderBody()
+        </div>
+    </div>
+    
+    <footer class="sticky-bottom mt-0 pt-0" style="background: linear-gradient(50deg, #ff00ff, #8900f2);">
+        <div class="container-fluid d-flex justify-content-between">
+            <nav class="pull-left">
+                <ul class="nav">
+                    <li class="nav-item mr-auto">
+                        <a class="nav-link text-white" target="_blank" href="https://gamboatech.site">Gamboa&nbsp;Tech</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="@Url.Action("About","Home")"> Help </a>
+                    </li> 
+                </ul>
+            </nav>
+        </div>
+    </footer>  
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Entities
 {
@@ -11,19 +6,22 @@ namespace Entities
     {
         [DisplayName("#")]//,Browsable(false)]
         public int id { get; set; }
+        [DisplayName("Product Id")]
+        public int ProductId { get; set; }
         [DisplayName("DESCRIPTION")]
         public string Name { get; set; }
         [DisplayName("UNIT PRICE")]
-        public float price { get; set; }
+        public decimal price { get; set; }
         [DisplayName("AMOUNT")]
         public int amount { get; set; }
         [DisplayName("SUBTOTAL")]
-        public float SubTotal { get { return amount * price; } }
+        public decimal SubTotal { get { return amount * price; } }
 
         [DisplayName("MONEY")]
         public string cur { get; set; }
         [DisplayName("TYPE")]
         public bool type { set; get; }
+
         //{
 
         //    get {

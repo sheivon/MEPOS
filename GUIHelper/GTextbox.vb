@@ -1,7 +1,7 @@
 ﻿
 Imports System.ComponentModel
-Imports System.Windows.Forms
 Imports System.Runtime.InteropServices
+Imports System.Windows.Forms
 Public Class GTextbox
     Inherits TextBox
 

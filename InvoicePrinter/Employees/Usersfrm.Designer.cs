@@ -33,6 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Usersfrm));
             this.empviewer = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,8 +52,8 @@
             this.Panelmain = new System.Windows.Forms.Panel();
             this.Panel1 = new System.Windows.Forms.Panel();
             this.btnNewEmployee = new GUIHelper.GButton(this.components);
-            this.GButton2 = new GUIHelper.GButton(this.components);
             this.btnEditInfo = new GUIHelper.GButton(this.components);
+            this.btnPrintUsrs = new GUIHelper.GButton(this.components);
             this.btnDeleteRec = new GUIHelper.GButton(this.components);
             this.GButton1 = new GUIHelper.GButton(this.components);
             this.TopPanel = new System.Windows.Forms.Panel();
@@ -84,10 +85,11 @@
             this.empviewer.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.empviewer.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Fuchsia;
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(1);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.WindowFrame;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Gray;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Fuchsia;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.empviewer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
@@ -134,10 +136,13 @@
             this.empviewer.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.empviewer.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.empviewer.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.empviewer.RowTemplate.DividerHeight = 2;
             this.empviewer.RowTemplate.Height = 50;
+            this.empviewer.RowTemplate.ReadOnly = true;
+            this.empviewer.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.empviewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.empviewer.ShowEditingIcon = false;
-            this.empviewer.Size = new System.Drawing.Size(1026, 319);
+            this.empviewer.Size = new System.Drawing.Size(1026, 436);
             this.empviewer.TabIndex = 24;
             this.empviewer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.empviewer_CellClick);
             // 
@@ -258,14 +263,14 @@
             this.Panelmain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Panelmain.Location = new System.Drawing.Point(5, 78);
             this.Panelmain.Name = "Panelmain";
-            this.Panelmain.Size = new System.Drawing.Size(1026, 373);
+            this.Panelmain.Size = new System.Drawing.Size(1026, 490);
             this.Panelmain.TabIndex = 9;
             // 
             // Panel1
             // 
             this.Panel1.Controls.Add(this.btnNewEmployee);
-            this.Panel1.Controls.Add(this.GButton2);
             this.Panel1.Controls.Add(this.btnEditInfo);
+            this.Panel1.Controls.Add(this.btnPrintUsrs);
             this.Panel1.Controls.Add(this.btnDeleteRec);
             this.Panel1.Controls.Add(this.GButton1);
             this.Panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -281,9 +286,9 @@
             this.btnNewEmployee.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
             this.btnNewEmployee.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.btnNewEmployee.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNewEmployee.Image = global::InvoicePrinter.Properties.Resources.Plus;
+            this.btnNewEmployee.Image = ((System.Drawing.Image)(resources.GetObject("btnNewEmployee.Image")));
             this.btnNewEmployee.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewEmployee.Location = new System.Drawing.Point(62, 7);
+            this.btnNewEmployee.Location = new System.Drawing.Point(165, 6);
             this.btnNewEmployee.MaximumSize = new System.Drawing.Size(171, 49);
             this.btnNewEmployee.MinimumSize = new System.Drawing.Size(160, 40);
             this.btnNewEmployee.Name = "btnNewEmployee";
@@ -295,25 +300,6 @@
             this.btnNewEmployee.UseVisualStyleBackColor = true;
             this.btnNewEmployee.Click += new System.EventHandler(this.btnNewEmployee_Click);
             // 
-            // GButton2
-            // 
-            this.GButton2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.GButton2.FlatAppearance.BorderSize = 0;
-            this.GButton2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            this.GButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.GButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.GButton2.Location = new System.Drawing.Point(594, 7);
-            this.GButton2.MaximumSize = new System.Drawing.Size(171, 49);
-            this.GButton2.MinimumSize = new System.Drawing.Size(160, 40);
-            this.GButton2.Name = "GButton2";
-            this.GButton2.Size = new System.Drawing.Size(160, 40);
-            this.GButton2.TabIndex = 7;
-            this.GButton2.Text = "Re-Hired Employee";
-            this.GButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.GButton2.UIStyle = GUIHelper.GButton.Style.Flat;
-            this.GButton2.UseVisualStyleBackColor = true;
-            // 
             // btnEditInfo
             // 
             this.btnEditInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -321,9 +307,9 @@
             this.btnEditInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
             this.btnEditInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.btnEditInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditInfo.Image = global::InvoicePrinter.Properties.Resources.Edit;
+            this.btnEditInfo.Image = global::InvoicePrinter.Properties.Resources.icons8_Edit_30px;
             this.btnEditInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditInfo.Location = new System.Drawing.Point(240, 7);
+            this.btnEditInfo.Location = new System.Drawing.Point(376, 6);
             this.btnEditInfo.MaximumSize = new System.Drawing.Size(171, 49);
             this.btnEditInfo.MinimumSize = new System.Drawing.Size(160, 40);
             this.btnEditInfo.Name = "btnEditInfo";
@@ -335,6 +321,26 @@
             this.btnEditInfo.UseVisualStyleBackColor = true;
             this.btnEditInfo.Click += new System.EventHandler(this.btnEditInfo_Click);
             // 
+            // btnPrintUsrs
+            // 
+            this.btnPrintUsrs.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnPrintUsrs.FlatAppearance.BorderSize = 0;
+            this.btnPrintUsrs.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.btnPrintUsrs.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnPrintUsrs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrintUsrs.Image = global::InvoicePrinter.Properties.Resources.icons8_Print_30px_1;
+            this.btnPrintUsrs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrintUsrs.Location = new System.Drawing.Point(889, 6);
+            this.btnPrintUsrs.MaximumSize = new System.Drawing.Size(171, 49);
+            this.btnPrintUsrs.MinimumSize = new System.Drawing.Size(100, 40);
+            this.btnPrintUsrs.Name = "btnPrintUsrs";
+            this.btnPrintUsrs.Size = new System.Drawing.Size(134, 40);
+            this.btnPrintUsrs.TabIndex = 5;
+            this.btnPrintUsrs.Text = "Print";
+            this.btnPrintUsrs.UIStyle = GUIHelper.GButton.Style.Flat;
+            this.btnPrintUsrs.UseVisualStyleBackColor = true;
+            this.btnPrintUsrs.Click += new System.EventHandler(this.gButton3_Click);
+            // 
             // btnDeleteRec
             // 
             this.btnDeleteRec.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -342,9 +348,9 @@
             this.btnDeleteRec.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
             this.btnDeleteRec.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.btnDeleteRec.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteRec.Image = global::InvoicePrinter.Properties.Resources.Delete__2_;
+            this.btnDeleteRec.Image = global::InvoicePrinter.Properties.Resources.icons8_Trash_30px_1;
             this.btnDeleteRec.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeleteRec.Location = new System.Drawing.Point(771, 7);
+            this.btnDeleteRec.Location = new System.Drawing.Point(723, 3);
             this.btnDeleteRec.MaximumSize = new System.Drawing.Size(171, 49);
             this.btnDeleteRec.MinimumSize = new System.Drawing.Size(160, 40);
             this.btnDeleteRec.Name = "btnDeleteRec";
@@ -362,13 +368,13 @@
             this.GButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.GButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.GButton1.Location = new System.Drawing.Point(417, 7);
+            this.GButton1.Location = new System.Drawing.Point(557, 6);
             this.GButton1.MaximumSize = new System.Drawing.Size(171, 49);
             this.GButton1.MinimumSize = new System.Drawing.Size(160, 40);
             this.GButton1.Name = "GButton1";
             this.GButton1.Size = new System.Drawing.Size(160, 40);
             this.GButton1.TabIndex = 1;
-            this.GButton1.Text = "Fired Employee";
+            this.GButton1.Text = "Fired / Re-Hired";
             this.GButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.GButton1.UIStyle = GUIHelper.GButton.Style.Flat;
             this.GButton1.UseVisualStyleBackColor = true;
@@ -389,7 +395,7 @@
             this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSearch.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.ForeColor = System.Drawing.Color.DarkOrchid;
+            this.txtSearch.ForeColor = System.Drawing.Color.Fuchsia;
             this.txtSearch.Location = new System.Drawing.Point(60, 35);
             this.txtSearch.MaxLength = 2500;
             this.txtSearch.Name = "txtSearch";
@@ -418,7 +424,7 @@
             this.Controls.Add(this.TopPanel);
             this.Name = "Usersfrm";
             this.Padding = new System.Windows.Forms.Padding(5);
-            this.Size = new System.Drawing.Size(1036, 456);
+            this.Size = new System.Drawing.Size(1036, 573);
             this.Load += new System.EventHandler(this.Usersfrm_Load);
             this.BackColorChanged += new System.EventHandler(this.Usersfrm_BackColorChanged);
             ((System.ComponentModel.ISupportInitialize)(this.empviewer)).EndInit();
@@ -435,7 +441,6 @@
         private System.Windows.Forms.DataGridView empviewer;
         internal System.Windows.Forms.Panel Panelmain;
         internal System.Windows.Forms.Panel Panel1;
-        internal GUIHelper.GButton GButton2;
         internal GUIHelper.GButton btnEditInfo;
         internal GUIHelper.GButton btnDeleteRec;
         internal GUIHelper.GButton GButton1;
@@ -457,5 +462,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nationalityDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn loginDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn passDataGridViewTextBoxColumn;
+        internal GUIHelper.GButton btnPrintUsrs;
     }
 }

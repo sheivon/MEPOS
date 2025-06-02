@@ -1,9 +1,6 @@
-﻿Imports System
-Imports System.Drawing
+﻿Imports System.Drawing
 Imports System.Drawing.Drawing2D
 Imports System.Windows.Forms
-
-Imports GUIHelper.ToggleSwitch
 
 Public MustInherit Class ToggleSwitchRendererBase
     ' Methods

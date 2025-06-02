@@ -1,7 +1,4 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.Text
-Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.InteropServices
 Public Class WinApi
 #Region "Api"
     ' This is the default layout for a structure

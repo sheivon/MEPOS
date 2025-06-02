@@ -24,12 +24,11 @@ Partial Class Login
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Me.MainUI = New GUIHelper.GGrandiantPanel()
-        Me.BtnSubmit = New GUIHelper.GButton(Me.components)
+        Me.btnViewPass = New GUIHelper.GButton()
+        Me.BtnSubmit = New GUIHelper.GButton()
         Me.Pass = New GUIHelper.GTxt()
         Me.Usrname = New GUIHelper.GTxt()
-        Me.btnViewPass = New GUIHelper.GButton(Me.components)
         Me.MainUI.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -51,6 +50,23 @@ Partial Class Login
         Me.MainUI.RoundCornerRadius = 50
         Me.MainUI.Size = New System.Drawing.Size(642, 262)
         Me.MainUI.TabIndex = 5
+        '
+        'btnViewPass
+        '
+        Me.btnViewPass.BackColor = System.Drawing.Color.Transparent
+        Me.btnViewPass.FlatAppearance.BorderSize = 0
+        Me.btnViewPass.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(42, Byte), Integer), CType(CType(42, Byte), Integer))
+        Me.btnViewPass.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer))
+        Me.btnViewPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnViewPass.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnViewPass.Image = Global.Marshell.My.Resources.Resources.icons8_Eye_32px
+        Me.btnViewPass.Location = New System.Drawing.Point(473, 121)
+        Me.btnViewPass.Margin = New System.Windows.Forms.Padding(0)
+        Me.btnViewPass.Name = "btnViewPass"
+        Me.btnViewPass.Size = New System.Drawing.Size(35, 35)
+        Me.btnViewPass.TabIndex = 3
+        Me.btnViewPass.UIStyle = GUIHelper.GButton.Style.Cicle
+        Me.btnViewPass.UseVisualStyleBackColor = False
         '
         'BtnSubmit
         '
@@ -104,23 +120,6 @@ Partial Class Login
         Me.Usrname.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.Usrname.WatermarkText = "Username"
         Me.Usrname.WordWrap = False
-        '
-        'btnViewPass
-        '
-        Me.btnViewPass.BackColor = System.Drawing.Color.White
-        Me.btnViewPass.FlatAppearance.BorderSize = 0
-        Me.btnViewPass.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(42, Byte), Integer), CType(CType(42, Byte), Integer))
-        Me.btnViewPass.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer))
-        Me.btnViewPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnViewPass.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnViewPass.Location = New System.Drawing.Point(473, 121)
-        Me.btnViewPass.Margin = New System.Windows.Forms.Padding(0)
-        Me.btnViewPass.Name = "btnViewPass"
-        Me.btnViewPass.Size = New System.Drawing.Size(35, 35)
-        Me.btnViewPass.TabIndex = 3
-        Me.btnViewPass.Text = "ōɹō"
-        Me.btnViewPass.UIStyle = GUIHelper.GButton.Style.Cicle
-        Me.btnViewPass.UseVisualStyleBackColor = False
         '
         'Login
         '

@@ -1,13 +1,8 @@
 ﻿using GUIHelper;
+using MarshellsSettings;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-
-
-using MarshellsSettings; 
-
-using System.Threading.Tasks;
-using System.Threading;
 
 
 namespace InvoicePrinter
@@ -22,10 +17,10 @@ namespace InvoicePrinter
         }
 
         public Image GetBarcode(string Barcode)
-        { 
+        {
             string BarcodeType = MSetting.GetBarcodeType();
             MessagingToolkit.Barcode.BarcodeEncoder Encode = new MessagingToolkit.Barcode.BarcodeEncoder(Barcode);
-           
+
             Image img;
             try
             {
@@ -442,7 +437,7 @@ namespace InvoicePrinter
             catch (Exception ex)
             {
 
-                Console.WriteLine(ex.Message); 
+                Console.WriteLine(ex.Message);
                 return null;
             }
 #else

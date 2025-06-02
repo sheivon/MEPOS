@@ -1,11 +1,7 @@
-﻿Imports System.Windows.Forms
-Imports System
-Imports System.ComponentModel
+﻿Imports System.ComponentModel
 Imports System.Drawing
-Imports System.Runtime.CompilerServices
-Imports System.Threading
 Imports System.Drawing.Drawing2D
-Imports GUIHelper
+Imports System.Windows.Forms
 
 Public Class GButton
     Inherits Button

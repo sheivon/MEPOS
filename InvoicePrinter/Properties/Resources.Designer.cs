@@ -163,6 +163,26 @@ namespace InvoicePrinter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_Customer_100px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_Customer_100px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_Customer_100px1 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_Customer_100px1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_Delete_Row_50px {
             get {
                 object obj = ResourceManager.GetObject("icons8_Delete_Row_50px", resourceCulture);
@@ -176,6 +196,16 @@ namespace InvoicePrinter.Properties {
         public static System.Drawing.Bitmap icons8_Discount_50px {
             get {
                 object obj = ResourceManager.GetObject("icons8_Discount_50px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_Edit_30px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_Edit_30px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,6 +243,16 @@ namespace InvoicePrinter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_Print_30px_1 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_Print_30px_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_Receipt_50px {
             get {
                 object obj = ResourceManager.GetObject("icons8_Receipt_50px", resourceCulture);
@@ -226,6 +266,16 @@ namespace InvoicePrinter.Properties {
         public static System.Drawing.Bitmap icons8_Search_50px {
             get {
                 object obj = ResourceManager.GetObject("icons8_Search_50px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_Trash_30px_1 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_Trash_30px_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

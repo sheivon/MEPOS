@@ -1,0 +1,314 @@
+﻿@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ 
+<div class="card border-2 border-success">
+    <div class="card-header shadow py-1">
+        <div class="d-flex align-items-center">
+            <h4 class="card-title ">@ViewBag.Title</h4>
+            <button class="btn btn-sm btn-outline-success btn-round ms-auto"
+                    data-bs-toggle="modal"
+                    data-bs-target="#userModal">
+                <i class="fa fa-plus"></i>
+                Add @ViewBag.Title
+            </button> 
+            <button class="btn btn-sm btn-success btn-round mx-1" onclick="print()">
+                <i class="fa fa-print"></i>
+                Print @ViewBag.Title
+            </button>
+        </div>
+    </div>
+    <div class="card-body small px-2 py-0 ">
+        <!-- Modal -->
+        <div class="modal modal-lg fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title">
+                            <span class="fw-mediumbold" id="userModalLabel">@ViewBag.Title</span>
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="small">
+                            Form for Saving @ViewBag.Title
+                        </p>
+                        <form class="col-12">
+                            <div class="row col-12">
+                                <input type="hidden" id="userId" value="0" /> <!-- Hidden field for user ID when editing -->
+                                <div class="form-group col-6">
+                                    <label for="userName">First Name</label>
+                                    <input type="text" class="form-control" id="userName" required />
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="userSrName">Last Name</label>
+                                    <input type="text" class="form-control" id="userSrName" required />
+                                </div>
+                            </div>
+                            <div class="row col-12">
+                                <div class="form-group col-4">
+                                    <label for="userIdNumber">ID Number</label>
+                                    <input type="text" class="form-control" id="userIdNumber" required />
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="userMobile">Mobile</label>
+                                    <input type="text" class="form-control" id="userMobile" />
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="userLocation">Location</label>
+                                    <input type="text" class="form-control" id="userLocation" />
+                                </div>
+                            </div>
+                            <div class="row col-12">
+                                <div class="form-group col-4">
+                                    <label for="userRole">Role</label>
+                                    <select class="form-control" id="userRole">
+                                        <option value="CASHIER">Cashier</option>
+                                        <option value="MANAGER">Manager</option>
+                                        <option value="SYSTEMADMINISTRATOR">Admin</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="userStatus">Status</label>
+                                    <select class="form-control" id="userStatus">
+                                        <option value="0">Active</option>
+                                        <option value="1">Inactive</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="userStatus">Gender</label>
+                                    <select class="form-control" id="userGender">
+                                        <option value="MALE">MALE</option>
+                                        <option value="FEMALE">FEMALE</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row col-12">
+                                <div class="form-group col-6">
+                                    <label for="userStatus">Login</label>
+                                    <input type="text" class="form-control" id="login" />
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="userStatus">pass</label>
+                                    <input type="password" class="form-control" id="pass" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <hr />
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveUserBtn" onclick="saveUser()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive table-responsive-sm small">
+            <table id="UserTable" class="display table table-sm table-striped table-hover ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Mobile</th>
+                        <th>Location</th>
+                        <th>Gender</th>
+                        <th>Role</th>
+                        <th>Active</th>
+                        <th style="width: 5%">Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Mobile</th>
+                        <th>Location</th>
+                        <th>Gender</th>
+                        <th>Role</th>
+                        <th>Active</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div> 
+
+<!-- RESET PASS MODAL-->
+<div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="ResetPassDX" aria-labelledby="ResetPassDXLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="ResetPassDXLabel">Reset User's Password</h5> 
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                Reset password for selected user
+                <h6 id="resetinguser">User: {FirstName} {LastName}</h6>
+            </div>
+            <div class="form-control">
+                <form action="@Url.Action("ResetPassword", "Account")" method="post">
+                    <input id="id" hidden/>
+                    <!-- Specify the correct action URL -->
+                    <div class="form-group">
+                        <label for="rpass">Password</label>
+                        <input type="password" class="form-control" id="rpass" name="rpass" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="rpass1">Confirm Password</label> <!-- Updated label -->
+                        <input type="password" class="form-control" id="rpass1" name="rpass1" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-control" onclick="validatepassword">Reset Password</button> <!-- Add a submit button --> 
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#UserTable').DataTable({
+                "ajax": {
+                    "url": "@Url.Action("GetUsers", "Account")", // Controller action for fetching users
+                    "type": "GET",
+                    "dataSrc": "data" // Data will be mapped from 'data' in the JSON response 
+                },
+                "columns": [
+                    { "data": "ID" },
+                    { "data": "UNAME" },
+                    { "data": "SRNAME" }, // You can concatenate first and second name to show Full Name
+                    { "data": "MOBILE" },
+                    { "data": "LOCATION" },
+                    { "data": "GENDER" },
+                    { "data": "ROLE" },
+                    //{ "data": "FIRED", "render": function (data, type, row) {
+                    //    return data === 0 ? "Active" : "Inactive";
+                    //}},
+                    {
+                        "data": "FIRED",
+                        "render": function (data, type, row) {
+                            return data === 0 ? '<span class="badge bg-success px-1 ">Active</span>' : '<span class="badge bg-danger  px-1 ">Inactive</span>';
+                        }
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return '<div class="d-flex  w-90" p-0 m-0>' +
+                                    '<button class="btn btn-outline-primary btn-sm py-0 px-1 mx-1" onclick="EditUser(' + row.ID + ')"><i class="fa fa-edit p-0 m-0"></i></button>' +
+                                    '<button class="btn btn-danger btn-sm" onclick="editUser(' + row.ID + ')"><i class="fa fa-trash"></i></button>' +
+                                    '<button class="btn btn-warning btn-sm  py-0 px-1 mx-1" data-bs-toggle="offcanvas" data-bs-target="#ResetPassDX" aria-controls="ResetPassDX" onclick="resetP(' + row.ID + ')"><i class="fa fa-key"></i></button>' +
+                                    '</div>';
+                        },
+                        Ordering: false,
+                        Searchable:false
+                    }
+                ]
+            });
+        });
+
+        // Open modal to edit an existing user
+        function EditUser(userId) {
+            $.ajax({
+                url: '/Account/GetUserById', // Adjust URL to match your route
+                type: 'GET',
+                data: { id: userId },
+                success: function (response) {
+                    var data = response.data[0]; 
+                    $('#userId').val(data.ID);
+                    $('#userName').val(data.UNAME);
+                    $('#userSrName').val(data.SRNAME);
+                    $('#userIdNumber').val(data.IDNUMBER);
+                    $('#userMobile').val(data.MOBILE);
+                    $('#userLocation').val(data.LOCATION);
+                    $('#userRole').val(data.ROLE);
+                    $('#userStatus').val(data.FIRED);
+                    $('#login').val(data.LOGIN);
+                    $('#pass').attr('disable','disabled');
+                    $('#userGender').val(data.GENDER);
+                    $('#userModalLabel').text('Edit User'); // Change the modal title to 'Edit User'
+                    $('#userModal').modal('show');
+                }
+            });
+        }
+
+        // Clear the modal form for new user
+        function clearModal() {
+            $('#userForm')[0].reset();
+            $('#userId').val('0');
+            $('#pass').removeattr('disable');
+        }
+
+        // Save or update the user data
+        function saveUser() {
+            var user = {
+                ID: $('#userId').val(),
+                UNAME: $('#userName').val(),
+                SRNAME: $('#userSrName').val(),
+                IDNUMBER: $('#userIdNumber').val(),
+                MOBILE: $('#userMobile').val(),
+                LOCATION: $('#userLocation').val(),
+                ROLE: $('#userRole').val(),
+                FIRED: $('#userStatus').val(),
+                LOGIN: $("#login").val(),
+                PASS: $("#pass").val(),
+                GENDER: $('#userGender').val()
+            };
+            console.log(user);
+            //var url = user.ID ? '/User/UpdateUser' : '/User/AddUser'; // Check if it's Add or Update
+            var url = user.ID != 0 ? '@Url.Action("UpdateUser", "Account")' : '@Url.Action("AddUser", "Account")'; // Check if it's Add or Update
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: user,
+                success: function (response) {
+                    $('#userModal').modal('hide');
+                    $('#UserTable').DataTable().ajax.reload(); // Reload the DataTable to show updated data
+
+                },
+                error: function (err) {
+                    console.log(err);
+                    swal({ icon: "error", title: "Error saving user." });
+                }
+            });
+        }
+
+        function resetP(id) {
+            $.ajax({
+                url: '@Url.Action("GetUserById", "Account")', // Ensure this is correctly rendered on the server side
+                type: 'GET',
+                data: { id: id }, // Pass `id` instead of `userId`
+                success: function (response) {
+                    var data = response.data[0];
+                    /*console.log(response);*/
+                    var usrid = data.IDNUMBER; // Assuming this is a unique identifier
+                    $('#login').val(data.LOGIN); // Populate login input
+                    $('#id').val(id);
+                    $('#resetinguser').text("User: " + data.UNAME + " " + data.SRNAME); // Show user name
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching user data: ", error); // Error handling
+                }
+            });
+        }
+
+        function validatepassword() {
+            var p = $("#rpass").val();
+            var p1 = $("#rpass1").val();
+            if (p != p1) {
+                swal({ icon:"danger", title:"!! Password not matched !!"});
+            }
+        }
+
+
+    </script>
+}

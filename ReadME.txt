@@ -1,6 +1,4 @@
 
-
-
 ////////////// PRODUCT UPDATES /////////////////////
 
 USE MARSHELL;
@@ -17,7 +15,6 @@ ALTER TABLE PRODUCT ADD COLUMN ACTIVE BIT NOT NULL DEFAULT 1;
 
 //////////// CUSTOMERS /////////////////////////////
 
-
 SELECT ID,CNAME,SRNAME,ifnull(IDNUMBER,'626-NICA') IDNUMBER,MOBILE,ifnull(LOCATION,'NIC') LOCATION,ifnull(NATIONALITY,'NIC') NATIONALITY,GENDER,BLKCUS,OW,CUR,active FROM marshell.customer;
 
 
@@ -26,8 +23,6 @@ ALTER TABLE CUSTOMER ADD COLUMN ACTIVE BIT NOT NULL DEFAULT 1;
 ALTER TABLE CUSTOMER DROP COLUMN ACTIVE ; 
 
  
-
-
 ///////////////// NEW INVOICE TABLES  //////////////////////////////
  
 CREATE TABLE `marshell`.`invoice` (
@@ -112,9 +107,7 @@ CREATE TABLE MONEY
     SIMBOL VARCHAR(4) NOT NULL UNIQUE,
     ACTIVE BIT(1) NOT NULL DEFAULT 1
 );
-
-
-
+ 
 
 DELIMITER //
 
@@ -159,3 +152,71 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+ 
+// *****************************************************************************************************
+// ********************            UPDAETE VERSION AGOST 2024                ***************************
+// *****************************************************************************************************
+
+DROP TABLES FROM INVOICE AND INVOICE DETAILS  AND CREATE NEW ONE'S 
+HERE IS THE SCRIPTS
+
+//
+//UPDATE FOR INVOICE TABLES
+//
+
+CREATE TABLE Invoice (
+    InvoiceID INT AUTO_INCREMENT PRIMARY KEY,
+    InvoiceNumber VARCHAR(50) NOT NULL,
+    CustomerID INT,
+    InvoiceDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    TotalAmount DECIMAL(10, 2) NOT NULL,
+    PaidAmount DECIMAL(10, 2),
+    DueAmount DECIMAL(10, 2),
+    Status VARCHAR(20) CHECK (Status IN ('Paid', 'Unpaid', 'Partially Paid')),
+    PaymentMethod VARCHAR(50),
+    Notes TEXT,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (CustomerID) REFERENCES Customer(ID)
+);
+
+//
+//UPDATE FOR INVOICE DETAILS TABLES
+//
+
+CREATE TABLE InvoiceDetails (
+    InvoiceDetailID INT AUTO_INCREMENT PRIMARY KEY,
+    InvoiceID INT NOT NULL,
+    ProductID INT NOT NULL,
+    Quantity INT NOT NULL,
+    UnitPrice DECIMAL(10, 2) NOT NULL,
+    Discount DECIMAL(10, 2),
+    Total DECIMAL(10, 2) GENERATED ALWAYS AS (Quantity * UnitPrice - COALESCE(Discount, 0)) STORED,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (InvoiceID) REFERENCES Invoice(InvoiceID),
+    FOREIGN KEY (ProductID) REFERENCES Product(ID)
+);
+
+//
+//UPDATE FOR CUSTOMERS TABLES
+//
+ALTER TABLE CUSTOMER ADD CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE CUSTOMER ADD UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+
+//
+//UPDATE FOR PRODUCT TABLES
+//
+ALTER TABLE PRODUCT ADD CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE PRODUCT ADD UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+
+
+//
+// ALTER TABLE TO ADD USERS
+//
+ALTER TABLE users
+ADD COLUMN IsDeleted BOOLEAN DEFAULT FALSE;

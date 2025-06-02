@@ -1,25 +1,24 @@
-﻿using GUIHelper;
-using System;
-using System.Data;
-using System.Windows.Forms;
-
-using MarshellsSettings;
-using System.Net.Configuration;
+﻿using DataBase;
 using Entities;
-using DataBase;
+using GUIHelper;
+using System;
+using System.Windows.Forms;
 
 namespace InvoicePrinter.Customer
 {
     public partial class AddCustomer : GUIHelper.GForm
-    { 
+    {
         GMessage GMessage = new GMessage();
         string Title = "Marshell's";
 
         /// <summary>
         /// int id  to edit when ready
         /// </summary>
-        private int idcusto = 0; 
+        private int idcusto = 0;
         private Customers cust = new Customers();
+
+        //
+        public Customers NCustomers = new Customers();
         public AddCustomer()
         {
             InitializeComponent();
@@ -27,36 +26,29 @@ namespace InvoicePrinter.Customer
         public AddCustomer(int id)
         {
             InitializeComponent();
-            idcusto = id; 
+            idcusto = id;
         }
 
         private void OK_Button_Click(object sender, EventArgs e)
-        {  
-            try 
-            { 
-                string gender = "FEMALE"; // by default gender is female
-                if (GENDERCBX.Text != "SELECT GENDER")
+        {
+            try
+            {
+                cust = new Customers()
                 {
-                    gender = GENDERCBX.SelectedItem.ToString();
-                } 
-                cust =  new Customers() {
-                    id = (idcusto == 0? 0: System.Convert.ToInt32(lbid.Tag)), 
-                    name = USERNAME.Text, 
-                    srname = SRNAME.Text, 
+                    id = (idcusto == 0 ? 0 : System.Convert.ToInt32(lbid.Tag)),
+                    name = USERNAME.Text,
+                    srname = SRNAME.Text,
                     idcard = IDNUMBER.Text,
                     mobile = MOBILE.Text,
-                    location = LLOCATION.Text,
-                    nacionality = NATIONALITY.Text,
-                    gender = gender,
-                    blocked = cbBlockedusers.CheckState == CheckState.Checked,
-                    owing = System.Convert.ToDecimal(OW.Text)
-                }; 
+                    email = EMAIL.Text,
+                };
+                NCustomers = cust;
             }
             catch (Exception EX)
             {
                 Console.WriteLine(EX.Message + Environment.NewLine + @"Unable to Add Customer", Title);
             }
-            DialogResult = DialogResult.OK; 
+            DialogResult = DialogResult.OK;
         }
 
         private void Cancel_Button_Click(object sender, EventArgs e)
@@ -85,7 +77,7 @@ namespace InvoicePrinter.Customer
         }
 
         private void AddCustomer_Load(object sender, EventArgs e)
-        { 
+        {
             try
             {
                 if (idcusto > 0)
@@ -100,27 +92,17 @@ namespace InvoicePrinter.Customer
                         SRNAME.Text = cust.srname;
                         IDNUMBER.Text = cust.idcard;
                         MOBILE.Text = cust.mobile;
-                        LLOCATION.Text = cust.location;
-                        NATIONALITY.Text = cust.nacionality;
-                        OW.Text = cust.owing.ToString();
-                        GENDERCBX.ResetText();// reset gender text to load
-                        string Gender = cust.gender;
-                        GENDERCBX.SelectedText = Gender;
-                        GENDERCBX.Text = Gender;
-                    }                             
+                        EMAIL.Text = cust.email;
+                    }
                 }
 
             }
-#if DEBUG 
-            catch (Exception ex)
-            {
-                GMessage.Show("Loading Data to UI Fails !" + Environment.NewLine + ex.Message, Title);
-               
-            }
-#else
             catch (Exception ex)
             { Console.WriteLine(ex.Message.ToString()); }
-#endif 
+        }
+        private void EMAIL_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

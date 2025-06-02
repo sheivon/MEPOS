@@ -1,36 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DevExpress.Office.Crypto;
-using GUIHelper;
-
-
-using Encryption;
-using DevExpress.Xpo.Exceptions;
-using System.Security.Cryptography;
-using DevExpress.Office.Utils;
-using DevExpress.CodeParser;
+﻿using DataBase;
 using Entities;
-using DevExpress.DataAccess.Native.EntityFramework;
-using DevExpress.XtraCharts;
-using DataBase;
+using GUIHelper;
+using System;
+using System.Windows.Forms;
 namespace InvoicePrinter.Employees
 {
     public partial class UsersDX : GForm
     {
-         
+
         private int _id = 0;
         public UsersDX(int id = 0)
         {
             InitializeComponent();
             _id = id;
-            if(id != 0)
+            if (id != 0)
             {
                 LoadUsers();
             }
@@ -47,7 +30,7 @@ namespace InvoicePrinter.Employees
 
         private void OK_Button_Click(object sender, EventArgs e)
         {
-           var encpass = DataModule.EncryptPassword(txtpass.Text);
+            var encpass = DataModule.EncryptPassword(txtpass.Text);
             var usr = new Users();
             try
             {
@@ -57,7 +40,7 @@ namespace InvoicePrinter.Employees
                 usr.Srname = txtsrname.Text;
                 usr.IDNumber = txtIDnumber.Text;
                 usr.Mobile = txtcel.Text;
-                usr.RegDate =  txthireddate.Text;
+                usr.RegDate = txthireddate.Text;
 
                 //login
                 usr.login = txtusrlogin.Text;
@@ -68,7 +51,7 @@ namespace InvoicePrinter.Employees
             catch (Exception sd) { Console.WriteLine(sd.Message); }
 
         }
-        
+
         private void UsersDX_Load(object sender, EventArgs e)
         {
 
@@ -107,7 +90,7 @@ End Function
 
             try
             {
-                lbid.Text = string.Format("ID: {0}",E.Id);
+                lbid.Text = string.Format("ID: {0}", E.Id);
                 lbid.Tag = E.Id;                //Save for editing
                 txtusrname.Text = E.Name;
                 txtsrname.Text = E.Srname;
@@ -136,7 +119,8 @@ End Function
                     this.cbxgender.Enabled = true;
                     //Me.GENDERCBX.Enabled = False
                 }
-                else {  
+                else
+                {
                     this.cbxactive.Enabled = false;
                     //Me.FIREDCBX.Enabled = True
                     this.cbxrole.Enabled = false;
@@ -145,8 +129,8 @@ End Function
                     //Me.GENDERCBX.Enabled = True
                 }
             }
-            catch(Exception ex) { Console.WriteLine(ex.Message); }
-           
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
         }
 
         private void btnShowPass_CheckedChanged(object sender, EventArgs e)
@@ -155,7 +139,7 @@ End Function
             {
                 txtpass.UseSystemPasswordChar = false;
             }
-            else { txtpass.UseSystemPasswordChar= true; }
+            else { txtpass.UseSystemPasswordChar = true; }
 
         }
 

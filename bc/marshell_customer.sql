@@ -43,7 +43,7 @@ CREATE TABLE `customer` (
   CONSTRAINT `customer_chk_1` CHECK ((`GENDER` in (_utf8mb4'F',_utf8mb4'M',_utf8mb4'FEMALE',_utf8mb4'MALE',_utf8mb4'FEMENINA',_utf8mb4'MASCULINO'))),
   CONSTRAINT `customer_chk_2` CHECK ((`BLKCUS` in (0,1))),
   CONSTRAINT `customer_chk_3` CHECK ((`CUR` in (_utf8mb4'NIO',_utf8mb4'USD',_utf8mb4'EUR')))
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

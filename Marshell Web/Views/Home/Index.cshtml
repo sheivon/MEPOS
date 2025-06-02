@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row py-0 mt-4 mb-4">
+    <div class="col-sm-6 col-md-3 py-0">
+        <div class="card card-stats card-round border-bottom border-warning border-bottom-5 shadow border-2">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-icon">
+                        <div class="icon-big text-center icon-primary bubble-shadow-small py-0">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0 py-0">
+                        <div class="numbers py-0">
+                            <p class="card-category text-center py-0">Users</p>
+                            <h4 class="card-title text-center py-0" id="txtusers"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round border-bottom border-secondary border-bottom-5  border-2">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-icon">
+                        <div class="icon-big text-center icon-info bubble-shadow-small">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                        <div class="numbers">
+                            <p class="card-category text-center">Customers</p>
+                            <h4 class="card-title text-center" id="txtcustomers"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round  border-2">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-icon">
+                        <div class="icon-big text-center icon-success bubble-shadow-small">
+                            <i class="fas fa-luggage-cart"></i>
+                        </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                        <div class="numbers">
+                            <p class="card-category text-center">Sales</p>
+                            <h4 class="card-title text-center" id="txtsales"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round shadow-sm border-left border-warning  border-2">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-icon">
+                        <div class="icon-big text-center icon-secondary bubble-shadow-small">
+                            <i class="far fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                        <div class="numbers">
+                            <p class="card-category text-center">Suppliers</p>
+                            <h4 class="card-title text-center" id="txtsuppliers"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <div class="card border-2 border-success">
+        <div class="card-header py-1 bg-success shadow">
+            <div class="card-title text-light">Top 5 Transaction History</div>
+        </div>
+        <div class="card-body small p-1">
+            <div class="table-responsive">
+                <!-- Projects table -->
+                <table class="table align-items-center mb-0 table-hover" id="tbltop5">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Order Number</th>
+                            <th scope="col" class="text-end">Date & Time</th>
+                            <th scope="col" class="text-end">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+        var qtyUsers = 0;
+        jQuery.ajax({
+            url: "@Url.Action("Totalusers", "Home")",
+            type: "GET",
+            datatype: "Json",
+            ContentType: "applicacion/json; Chartset=utf-8 ",
+            success: function (data) {
+                qtyUsers = data.data;
+                $("#txtusers").text(data.data);
+               /* console.log(data);*/
+            }
+        });
+        jQuery.ajax({
+            url: "@Url.Action("Totalusers", "Home")",
+            type: "GET",
+            datatype: "Json",
+            ContentType: "applicacion/json; Chartset=utf-8 ",
+            success: function (data) {
+                $("#txtcustomers").text(data.data);
+               /* console.log(data);*/
+            }
+        });
+        jQuery.ajax({
+            url: "@Url.Action("Totalsales", "Home")",
+            type: "GET",
+            datatype: "Json",
+            ContentType: "applicacion/json; Chartset=utf-8 ",
+            success: function (data) {
+                $("#txtsales").text(data.data);
+               /* console.log(data);*/
+            }
+        });
+        jQuery.ajax({
+            url: "@Url.Action("Totalsuppliers", "Home")",
+            type: "GET",
+            datatype: "Json",
+            ContentType: "applicacion/json; Chartset=utf-8 ",
+            success: function (data) {
+                $("#txtsuppliers").text(data.data);
+               /* console.log(data);*/
+            }
+        });
+
+
+        var top5sales = $("#tbltop5").DataTable({
+            responsive: true,
+            ordering: false,
+            searching: false,
+            paging:false,
+            "ajax": {
+                "url": "@Url.Action("Top5Sales", "Home")", // Controller action for fetching users
+                "type": "GET",
+                "dataSrc": "data", // Data will be mapped from 'data' in the JSON response
+                datatype: "Json",
+                ContentType: "application/json; charset=utf-8",
+            },
+            "columns": [
+                {
+                    "data": "OrderNumber"
+                    ,"render": function (data) {
+                        return `<button class="btn btn-icon btn-round btn-success btn-sm me-2">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                                Payment for # ${data}`;
+                    }
+                },
+                { "data": "TotalAmount" },
+                {
+                    "data": "TotalAmount", render: function (t) {
+                        return '<a class="text-success d-flex justify-content-end align-items-end" style="height: 100%;">C$ ' + t.toFixed(2) + '</a>'
+;
+                    }
+                }
+            ],
+         "dom": 'Bfrt'   // Adds the buttons to the DOM
+        });
+
+
+
+    </script>
+
+
+
+}

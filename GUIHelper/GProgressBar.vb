@@ -1,10 +1,5 @@
-﻿Imports System.Drawing
-Imports System.Windows.Forms
-Imports System
-Imports System.ComponentModel
-Imports System.Runtime.CompilerServices
-Imports System.Threading
-Imports System.Drawing.Drawing2D
+﻿Imports System.ComponentModel
+Imports System.Drawing
 Public Class GProgressBar
     Private Sub GProgressBar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CheckForIllegalCrossThreadCalls = False
@@ -18,10 +13,10 @@ Public Class GProgressBar
         If Panel2.Location.X >= CInt(Me.Size.Width - Panel2.Size.Width) Then
             Panel2.Location = New Point(0, Panel2.Location.Y)
         Else
-			if Bk.isbusy() = true then
-			else
-            Bk.RunWorkerAsync()
-			end if
+            if Bk.isbusy() = true then
+            else
+                Bk.RunWorkerAsync()
+            end if
         End If
     End Sub
 
@@ -29,10 +24,10 @@ Public Class GProgressBar
         If Panel3.Location.X <= 0 Then
             Panel3.Location = New Point(CInt(Me.Size.Width - Panel3.Width), Panel3.Location.Y)
         Else
-           if Bk2.isbusy() = true then
-			else
-            Bk2.RunWorkerAsync()
-			end if
+            if Bk2.isbusy() = true then
+            else
+                Bk2.RunWorkerAsync()
+            end if
         End If
     End Sub
 

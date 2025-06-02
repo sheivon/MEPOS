@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Drawing
-Imports System.Windows.Forms
 Imports System.Runtime.InteropServices
+Imports System.Windows.Forms
 
 
 Public Class GTxt
@@ -146,8 +146,8 @@ Public Class GTxt
                 ForeColor = Color.Maroon
             End If
             SendMessage(Me.Handle, &H1501, New IntPtr(1), WaterText)
-            Else
-                If BackColor = Theme.Light Then
+        Else
+            If BackColor = Theme.Light Then
                 ForeColor = Color.LightCoral
             ElseIf BackColor = Theme.Dark Then
                 ForeColor = Color.MediumAquamarine

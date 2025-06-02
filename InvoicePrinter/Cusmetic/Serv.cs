@@ -1,23 +1,21 @@
 ﻿using DataBase;
-using GUIHelper; 
+using GUIHelper;
 using InvoicePrinter.Product;
 using System;
-using System.Data;
 using System.Windows.Forms;
 
 namespace InvoicePrinter.Cusmetic
 {
     public partial class Serv : Form
     {
-        GMessage GMessage = new GMessage(); 
+        GMessage GMessage = new GMessage();
         public int ID;
-         
+
         public int AM = 1;
-        private Form Ow;
-        public Serv(Form Owner)
+
+        public Serv()
         {
             InitializeComponent();
-            Ow = Owner;
         }
         private void Serv_Load(object sender, EventArgs e)
         {
@@ -27,9 +25,9 @@ namespace InvoicePrinter.Cusmetic
         {
             try
             {
-                dataGridView1.DataSource = DataModule.GetProductsServices(Search);
+                DGV.DataSource = DataModule.GetProductsServices(Search);
             }
-            catch { } 
+            catch { }
         }
 
         private void Serv_KeyDown(object sender, KeyEventArgs e)
@@ -49,17 +47,17 @@ namespace InvoicePrinter.Cusmetic
             if (e.ColumnIndex == 2) // this is when description is clicked
             {
                 try
-                { 
-                    int index = dataGridView1.CurrentRow.Index;
-                    ID = (int)(dataGridView1[0, index].Value);
+                {
+                    int index = DGV.CurrentRow.Index;
+                    ID = (int)(DGV[0, index].Value);
                     //
                     //QTY
                     AM = 1;
-                    DialogResult = DialogResult.OK;  
+                    DialogResult = DialogResult.OK;
                 }
                 catch (Exception ex)
                 {
-                    GMessage.Show(Ow, ID + Environment.NewLine + ex.Message, "Marshell's");
+                    GMessage.Show(ID + Environment.NewLine + ex.Message, "Marshell's");
                 }
 
             }
@@ -77,28 +75,28 @@ namespace InvoicePrinter.Cusmetic
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            int index = dataGridView1.CurrentRow.Index;
-            ID = (int)(dataGridView1[0, index].Value);
+            int index = DGV.CurrentRow.Index;
+            ID = (int)(DGV[0, index].Value);
 
         }
 
         private void Serv_BackColorChanged(object sender, EventArgs e)
         {
-            dataGridView1.BackgroundColor = this.BackColor;
+            DGV.BackgroundColor = this.BackColor;
         }
 
         private void txtSeach_TextChanged(object sender, EventArgs e)
         {
             string srch = txtSeach.Text;
-            if(srch.Length > 0) 
+            if (srch.Length > 0)
             {
                 LoadServices(srch);
             }
-            else 
+            else
             {
                 LoadServices();
             }
-                
+
         }
 
         private void BTNADDNEW_Click(object sender, EventArgs e)
@@ -128,6 +126,6 @@ namespace InvoicePrinter.Cusmetic
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
-        } 
+        }
     }
 }

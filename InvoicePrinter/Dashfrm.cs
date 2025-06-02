@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using GUIHelper;
-using InvoicePrinter.dash;
 
 namespace InvoicePrinter
 {
@@ -16,9 +7,6 @@ namespace InvoicePrinter
     {
         //Fields
         private dashboard model;
-
-        //props
-        GMessage GMessage;
 
         //Constructor
         public Dashfrm()
@@ -34,7 +22,7 @@ namespace InvoicePrinter
                 model = new dashboard();
                 LoadData();
             }
-            catch (Exception d) { GMessage.Show(d.Message); } 
+            catch (Exception d) { Console.WriteLine(d.Message); }
         }
 
         //Private methods
@@ -44,7 +32,7 @@ namespace InvoicePrinter
             {
                 var refreshData = model.LoadData(dtpStartDate.Value, dtpEndDate.Value);
                 if (refreshData == true)
-                { 
+                {
 
                     chartGrossRevenue.DataSource = model.GrossRevenueList;
                     chartGrossRevenue.Series[0].XValueMember = "Date";

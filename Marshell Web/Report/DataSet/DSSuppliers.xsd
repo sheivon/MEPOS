@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSSuppliers" targetNamespace="http://tempuri.org/DSSuppliers.xsd" xmlns:mstns="http://tempuri.org/DSSuppliers.xsd" xmlns="http://tempuri.org/DSSuppliers.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSSuppliers" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="DSSuppliers" msprop:Generator_DataSetName="DSSuppliers">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DSSupliers" msprop:Generator_RowEvHandlerName="DSSupliersRowChangeEventHandler" msprop:Generator_RowDeletedName="DSSupliersRowDeleted" msprop:Generator_RowDeletingName="DSSupliersRowDeleting" msprop:Generator_RowEvArgName="DSSupliersRowChangeEvent" msprop:Generator_TablePropName="DSSupliers" msprop:Generator_RowChangedName="DSSupliersRowChanged" msprop:Generator_RowChangingName="DSSupliersRowChanging" msprop:Generator_TableClassName="DSSupliersDataTable" msprop:Generator_RowClassName="DSSupliersRow" msprop:Generator_TableVarName="tableDSSupliers" msprop:Generator_UserTableName="DSSupliers">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Supplier" msprop:Generator_ColumnPropNameInRow="Supplier" msprop:Generator_ColumnPropNameInTable="SupplierColumn" msprop:Generator_ColumnVarNameInTable="columnSupplier" msprop:Generator_UserColumnName="Supplier" type="xs:string" minOccurs="0" />
+              <xs:element name="ContactInfo" msprop:Generator_ColumnPropNameInRow="ContactInfo" msprop:Generator_ColumnPropNameInTable="ContactInfoColumn" msprop:Generator_ColumnVarNameInTable="columnContactInfo" msprop:Generator_UserColumnName="ContactInfo" type="xs:string" minOccurs="0" />
+              <xs:element name="CDate" msprop:Generator_ColumnPropNameInRow="CDate" msprop:Generator_ColumnPropNameInTable="CDateColumn" msprop:Generator_ColumnVarNameInTable="columnCDate" msprop:Generator_UserColumnName="CDate" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

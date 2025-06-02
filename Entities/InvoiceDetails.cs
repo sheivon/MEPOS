@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entities
 {
@@ -15,7 +11,7 @@ namespace Entities
         public string ITEM { get; set; } /*Does not save just read db*/
         public int QTY { get; set; }
         [DisplayName("Price")]
-        public decimal UNITPRICE { get; set; }  
+        public decimal UNITPRICE { get; set; }
         public decimal TOTAL { get { return UNITPRICE * QTY; } }
         public DateTime CDATE { get; set; }
         public decimal Off { get; set; }

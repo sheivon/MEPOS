@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - GEPOS</title>
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+
+    <link rel="icon"
+          href="~/Marshell.ico"
+          type="image/x-icon" /> 
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar" data-background-color="dark">
+            <div class="sidebar-wrapper scrollbar scrollbar-inner">
+                <div class="sidebar-content">
+                    <ul class="nav nav-secondary">
+                        <li class="logo-header justify-content-center mb-4">
+                            <a href="@Url.Action("Index","Home")" class="logo">
+                                <img src="~/Marshell.ico"
+                                     alt="navbar brand"
+                                     class="navbar-brand"
+                                     height="60" />
+                            </a>
+                        </li>
+                        <li class="nav-section">
+                            <span class="sidebar-mini-icon">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </span>
+                            <h4 class="text-section">Components</h4>
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#base">
+                                <i class="fas fa-users"></i> <!-- Updated icon for Users -->
+                                <p>Users</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="base">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="@Url.Action("Users","Account")">
+                                            <span class="sub-item">Users</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Customers","Account")">
+                                            <span class="sub-item">Customers</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#forms">
+                                <i class="fas fa-pen-square"></i>
+                                <p>Product</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="forms">
+                                <ul class="nav nav-collapse">
+                                    <!-- Products Menu -->
+                                    <li>
+                                        <a href="@Url.Action("Index","Products")">
+                                            <span class="sub-item">
+                                                <i class="fa fa-cogs" aria-hidden="true"></i> Products
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <!-- Category Menu -->
+                                    <li>
+                                        <a href="@Url.Action("Index","Category")">
+                                            <span class="sub-item">
+                                                <i class="fas fa-th-large" aria-hidden="true"></i> Category
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Sales Menu -->
+                                    <li>
+                                        <a href="@Url.Action("Sales","Products")">
+                                            <span class="sub-item">
+                                                <i class="fa fa-dollar-sign" aria-hidden="true"></i> Sales
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Suppliers Menu -->
+                                    <li>
+                                        <a href="@Url.Action("Supplier","Products")">
+                                            <span class="sub-item">
+                                                <i class="fa fa-truck" aria-hidden="true"></i> Suppliers
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li> 
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarLayouts">
+                                <i class="fas fa-th-list"></i>
+                                <p>Cart</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="sidebarLayouts">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="@Url.Action("index","cart")">
+                                            <span class="sub-item">Cart</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="icon-menu.html">
+                                            <span class="sub-item">UnSuccesfull Shoppin</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#tables">
+                                <i class="fas fa-table"></i>
+                                <p>Inventry</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="tables">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="tables/datatables.html">
+                                            <span class="sub-item">Inventry</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="tables/datatables.html">
+                                            <span class="sub-item">Inventry Adjustment</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("payment","Products")">
+                                            <span class="sub-item">Payments</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("returns","Products")">
+                                            <span class="sub-item">Returns</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#charts">
+                                <i class="fas fa-info-circle"></i> <!-- Updated icon for Info -->
+                                <p>Info</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="charts">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="@Url.Action("About","Home")">
+                                            <span class="sub-item"><i class="fas fa-users-cog"></i> About</span> <!-- About icon -->
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Contact","Home")">
+                                            <span class="sub-item"><i class="fas fa-phone-alt"></i> Contact</span> <!-- Contact icon -->
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- End Sidebar -->
+        <div class="main-panel vh-100">
+            <!-- Logo Header -->
+            <nav class="sticky-top navbar navbar-expand navbar-dark bg-dark">
+                <div class="mx-2 px-2"></div>
+                <div class="nav-toggle">
+                    <button class="btn btn-toggle toggle-sidebar ">
+                        <i class="gg-menu-right"></i>
+                    </button>
+                    <button class="btn btn-toggle sidenav-toggler ">
+                        <i class="gg-menu-left"></i>
+                    </button>
+                </div>
+                <!-- Navbar-->
+                <ul class="navbar-nav ms-auto d-none d-md-inline-block ms-auto ">
+                    <li class="nav-item topbar-user dropdown hidden-caret">
+                        <a class="dropdown-toggle profile-pic"
+                           data-bs-toggle="dropdown"
+                           href="#"
+                           aria-expanded="false">
+                            <div class="avatar-sm">
+                                <img src="~/marshell.ico"
+                                     alt="profile"
+                                     class="avatar-img rounded-circle" />
+                            </div>
+                            <span class="profile-username">
+                                <span class="op-7">Hi,</span>
+                                <span class="fw-bold">Hizrian</span>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user animated fadeIn">
+                            <div class="dropdown-user-scroll scrollbar-outer">
+                            <li>
+                                <div class="user-box">
+                                    <div class="avatar-lg">
+                                        <img src="~/marshell.ico"
+                                             alt="image profile"
+                                             class="avatar-img rounded" />
+                                    </div>
+                                    <div class="u-text">
+                                        <h4>Hizrian</h4>
+                                        <p class="text-muted">hello@example.com</p>
+                                        <a href="#"
+                                           class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">My Profile</a>
+                                <a class="dropdown-item" href="#">My Balance</a>
+                                <a class="dropdown-item" href="#">Inbox</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Account Setting</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Logout</a>
+                            </li>
+        </div>
+        </ul>
+        </li>
+        </ul> 
+        </nav>
+
+        <!-- End Logo Header -->
+
+        @RenderBody()
+
+        <footer class="footer ">
+            <div class="container-fluid d-flex justify-content-between">
+                <nav class="pull-left">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://gamboatech.com">
+                                Gamboa Tech
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("About","Home")"> Help </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"> Licenses </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright">
+                    2024, made with <i class="fa fa-heart heart text-danger"></i> by
+                    <a href="http://www.themekita.com">ThemeKita</a>
+                </div>
+                <div>
+                    Distributed by
+                    <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
+                </div>
+            </div>
+        </footer>
+    </div>
+    </div>  
+    <!-- Include JSZip for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- Include pdfMake for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

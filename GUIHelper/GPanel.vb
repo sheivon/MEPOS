@@ -1,6 +1,4 @@
-﻿Imports System.Drawing
-Imports System.Drawing.Drawing2D
-Imports System.Windows.Forms
+﻿Imports System.Windows.Forms
 
 Public Class GPanel
     Inherits Panel

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Marshell (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Marshell (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

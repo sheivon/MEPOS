@@ -190,7 +190,6 @@ Public Class GForm
     End Function
 
     Private Const BorderWidth As Integer = 5
-
     Private _resizeDir As ResizeDirection = ResizeDirection.None
 
     Private Sub Form1_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown
@@ -335,6 +334,17 @@ Public Class GForm
     <DllImport("user32.dll")>
     Public Shared Function SendMessage(ByVal hWnd As IntPtr, ByVal Msg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
     End Function
+
+    '   [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+    'Public Static extern IntPtr CreateRoundRectRgn
+    '(
+    '    int nLeftRect,
+    '    int nTopRect,
+    '    int nRightRect,
+    '    int nBottomRect,
+    '    int nWidthEllipse,
+    '    int nHeightEllipse
+    ');
 
     Private Const WM_NCLBUTTONDOWN As Integer = &HA1
     Private Const HTBORDER As Integer = 18

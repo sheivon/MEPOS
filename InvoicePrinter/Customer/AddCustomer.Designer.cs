@@ -29,42 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.GENDERCBX = new System.Windows.Forms.ComboBox();
-            this.LLOCATION = new GUIHelper.GTxt();
             this.TableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.OK_Button = new GUIHelper.GButton(this.components);
             this.Cancel_Button = new GUIHelper.GButton(this.components);
-            this.OW = new GUIHelper.GTxt();
-            this.NATIONALITY = new GUIHelper.GTxt();
             this.lbid = new System.Windows.Forms.Label();
             this.MOBILE = new GUIHelper.GTxt();
             this.IDNUMBER = new GUIHelper.GTxt();
             this.SRNAME = new GUIHelper.GTxt();
             this.USERNAME = new GUIHelper.GTxt();
-            this.cbBlockedusers = new System.Windows.Forms.CheckBox();
+            this.EMAIL = new GUIHelper.GTxt();
             this.TableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // GENDERCBX
-            // 
-            this.GENDERCBX.FormattingEnabled = true;
-            this.GENDERCBX.Items.AddRange(new object[] {
-            "MALE",
-            "FEMALE"});
-            this.GENDERCBX.Location = new System.Drawing.Point(516, 90);
-            this.GENDERCBX.Name = "GENDERCBX";
-            this.GENDERCBX.Size = new System.Drawing.Size(229, 24);
-            this.GENDERCBX.TabIndex = 29;
-            this.GENDERCBX.Text = "SELECT GENDER";
-            // 
-            // LLOCATION
-            // 
-            this.LLOCATION.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.LLOCATION.Location = new System.Drawing.Point(281, 146);
-            this.LLOCATION.Name = "LLOCATION";
-            this.LLOCATION.Size = new System.Drawing.Size(229, 22);
-            this.LLOCATION.TabIndex = 27;
-            this.LLOCATION.WatermarkText = "LOCATION";
             // 
             // TableLayoutPanel1
             // 
@@ -74,7 +49,7 @@
             this.TableLayoutPanel1.Controls.Add(this.OK_Button, 0, 0);
             this.TableLayoutPanel1.Controls.Add(this.Cancel_Button, 1, 0);
             this.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TableLayoutPanel1.Location = new System.Drawing.Point(10, 214);
+            this.TableLayoutPanel1.Location = new System.Drawing.Point(10, 186);
             this.TableLayoutPanel1.Name = "TableLayoutPanel1";
             this.TableLayoutPanel1.RowCount = 1;
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -106,30 +81,11 @@
             this.Cancel_Button.UIStyle = GUIHelper.GButton.Style.Flat;
             this.Cancel_Button.Click += new System.EventHandler(this.Cancel_Button_Click);
             // 
-            // OW
-            // 
-            this.OW.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.OW.Location = new System.Drawing.Point(516, 120);
-            this.OW.Name = "OW";
-            this.OW.Size = new System.Drawing.Size(229, 22);
-            this.OW.TabIndex = 32;
-            this.OW.WatermarkText = "OWING";
-            this.OW.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OW_KeyPress);
-            // 
-            // NATIONALITY
-            // 
-            this.NATIONALITY.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.NATIONALITY.Location = new System.Drawing.Point(281, 118);
-            this.NATIONALITY.Name = "NATIONALITY";
-            this.NATIONALITY.Size = new System.Drawing.Size(229, 22);
-            this.NATIONALITY.TabIndex = 28;
-            this.NATIONALITY.WatermarkText = "NATIONALITY";
-            // 
             // lbid
             // 
             this.lbid.AutoSize = true;
             this.lbid.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbid.Location = new System.Drawing.Point(27, 41);
+            this.lbid.Location = new System.Drawing.Point(27, 29);
             this.lbid.Name = "lbid";
             this.lbid.Size = new System.Drawing.Size(83, 31);
             this.lbid.TabIndex = 22;
@@ -137,69 +93,69 @@
             // 
             // MOBILE
             // 
+            this.MOBILE.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MOBILE.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.MOBILE.Location = new System.Drawing.Point(281, 90);
+            this.MOBILE.Location = new System.Drawing.Point(455, 61);
             this.MOBILE.Name = "MOBILE";
-            this.MOBILE.Size = new System.Drawing.Size(229, 22);
+            this.MOBILE.Size = new System.Drawing.Size(305, 27);
             this.MOBILE.TabIndex = 26;
-            this.MOBILE.WatermarkText = "MOBILE";
+            this.MOBILE.WatermarkText = "Telephone";
             this.MOBILE.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OW_KeyPress);
             // 
             // IDNUMBER
             // 
+            this.IDNUMBER.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IDNUMBER.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.IDNUMBER.Location = new System.Drawing.Point(46, 142);
+            this.IDNUMBER.Location = new System.Drawing.Point(455, 98);
             this.IDNUMBER.Name = "IDNUMBER";
-            this.IDNUMBER.Size = new System.Drawing.Size(229, 22);
+            this.IDNUMBER.Size = new System.Drawing.Size(305, 27);
             this.IDNUMBER.TabIndex = 25;
-            this.IDNUMBER.WatermarkText = "ID NUMBER";
+            this.IDNUMBER.WatermarkText = "Cedula";
             this.IDNUMBER.TextChanged += new System.EventHandler(this.IDNUMBER_TextChanged);
             // 
             // SRNAME
             // 
+            this.SRNAME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SRNAME.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.SRNAME.Location = new System.Drawing.Point(46, 118);
+            this.SRNAME.Location = new System.Drawing.Point(129, 98);
             this.SRNAME.Name = "SRNAME";
-            this.SRNAME.Size = new System.Drawing.Size(229, 22);
+            this.SRNAME.Size = new System.Drawing.Size(305, 27);
             this.SRNAME.TabIndex = 24;
-            this.SRNAME.WatermarkText = "SR.NAME";
+            this.SRNAME.WatermarkText = "Last Name";
             // 
             // USERNAME
             // 
+            this.USERNAME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.USERNAME.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.USERNAME.Location = new System.Drawing.Point(46, 90);
+            this.USERNAME.Location = new System.Drawing.Point(129, 61);
             this.USERNAME.Name = "USERNAME";
-            this.USERNAME.Size = new System.Drawing.Size(229, 22);
+            this.USERNAME.Size = new System.Drawing.Size(305, 27);
             this.USERNAME.TabIndex = 23;
-            this.USERNAME.WatermarkText = "NAME";
+            this.USERNAME.WatermarkText = "First Name";
             // 
-            // cbBlockedusers
+            // EMAIL
             // 
-            this.cbBlockedusers.AutoSize = true;
-            this.cbBlockedusers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbBlockedusers.Location = new System.Drawing.Point(516, 148);
-            this.cbBlockedusers.Name = "cbBlockedusers";
-            this.cbBlockedusers.Size = new System.Drawing.Size(194, 29);
-            this.cbBlockedusers.TabIndex = 33;
-            this.cbBlockedusers.Text = "Blocked Customer";
-            this.cbBlockedusers.UseVisualStyleBackColor = true;
+            this.EMAIL.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EMAIL.ForeColor = System.Drawing.Color.DarkOrchid;
+            this.EMAIL.Location = new System.Drawing.Point(129, 131);
+            this.EMAIL.Name = "EMAIL";
+            this.EMAIL.Size = new System.Drawing.Size(631, 27);
+            this.EMAIL.TabIndex = 25;
+            this.EMAIL.WatermarkText = "Email";
+            this.EMAIL.TextChanged += new System.EventHandler(this.EMAIL_TextChanged);
             // 
             // AddCustomer
             // 
-            this.ClientSize = new System.Drawing.Size(874, 274);
-            this.Controls.Add(this.cbBlockedusers);
-            this.Controls.Add(this.GENDERCBX);
-            this.Controls.Add(this.LLOCATION);
+            this.ClientSize = new System.Drawing.Size(874, 246);
             this.Controls.Add(this.TableLayoutPanel1);
-            this.Controls.Add(this.OW);
-            this.Controls.Add(this.NATIONALITY);
             this.Controls.Add(this.lbid);
             this.Controls.Add(this.MOBILE);
+            this.Controls.Add(this.EMAIL);
             this.Controls.Add(this.IDNUMBER);
             this.Controls.Add(this.SRNAME);
             this.Controls.Add(this.USERNAME);
             this.MaximumSize = new System.Drawing.Size(874, 274);
-            this.MinimumSize = new System.Drawing.Size(874, 274);
+            this.MinimumSize = new System.Drawing.Size(874, 204);
             this.Name = "AddCustomer";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -211,19 +167,14 @@
         }
 
         #endregion
-
-        internal System.Windows.Forms.ComboBox GENDERCBX;
-        internal GUIHelper.GTxt LLOCATION;
         internal System.Windows.Forms.TableLayoutPanel TableLayoutPanel1;
         internal GUIHelper.GButton OK_Button;
         internal GUIHelper.GButton Cancel_Button;
-        internal GUIHelper.GTxt OW;
-        internal GUIHelper.GTxt NATIONALITY;
         internal System.Windows.Forms.Label lbid;
         internal GUIHelper.GTxt MOBILE;
         internal GUIHelper.GTxt IDNUMBER;
         internal GUIHelper.GTxt SRNAME;
         internal GUIHelper.GTxt USERNAME;
-        internal System.Windows.Forms.CheckBox cbBlockedusers;
+        internal GUIHelper.GTxt EMAIL;
     }
 }

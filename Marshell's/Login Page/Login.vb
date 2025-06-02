@@ -1,11 +1,7 @@
-﻿Imports System.IO
-Imports System.Runtime.InteropServices
+﻿Imports DataBase
+Imports Entities
 Imports GUIHelper
 Imports MarshellsSettings
-Imports InvoicePrinter
-Imports MySql.Data.MySqlClient
-Imports Entities
-Imports DataBase
 
 Public Class Login
     Private Property Title As String = "Marshell's"
@@ -50,8 +46,7 @@ Public Class Login
                     Else              'if worker role is cashier then call the form as non admin
                         Form1.SystemAdmin = False
                     End If
-                    Form1.users = usr.Name
-                    Form1.UsrID = usr.Id
+                    Form1.users = usr
                     Form1.Label1.Text = String.Format("LOGIN AS | {0} | {1}", usr.Name.ToUpper, usr.Role)
                     Form1.Tag = usr.Name
                     Call Form1.UnlocK(True, usr)

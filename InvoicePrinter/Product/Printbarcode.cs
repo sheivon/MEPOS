@@ -52,7 +52,7 @@ namespace InvoicePrinter.Product
 
             }
             GTxt1.Text = bc;
-                Generate(bc);
+            Generate(bc);
         }
 
         private void GTxt1_TextChanged(object sender, EventArgs e)

@@ -1,53 +1,51 @@
 ﻿using DataBase;
-using DevExpress.XtraCharts;
-using DevExpress.XtraRichEdit.Model;
 using Entities;
 using GUIHelper;
 using InvoicePrinter.Cusmetic;
 using InvoicePrinter.Customer;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace InvoicePrinter.Cart
 {
     public partial class CartFrm : UserControl
     {
-        private string users;
-        private int usrID;
-        private decimal discount = 0;
-        private decimal total = 0;
-        private decimal cash = 0;
+        private string users = "";                              //Login Username
+        private int usrID = 1;                                  // Login UserID
+        private decimal discount = 0;                           // Actual Descount from fact
+        private decimal total = 0;                              // sum of all item
+        private decimal cash = 0;                               // Paying Amount in most case does be efective
+        private long currentTime = 0;                           // Generated Factura Id from Timestamp
+
+        private int selid = 0;                                  // Selected Customer ID
+        private string custna = String.Empty;                   // Selected Customer Name
+
+        private Customers cus = null;                           // new instance for customers 
+
+        private int Invoice = -1;                                // INIT for new Invoice #
 
 
-        private Customers cus = null;
         public CartFrm()
         {
             InitializeComponent();
         }
 
-        public CartFrm(string users, int usrID)
+        public CartFrm(string _users, int _usrID)
         {
             InitializeComponent();
-            this.users = users;
-            this.usrID = usrID; 
+            this.users = _users;
+            this.usrID = _usrID;
         }
 
         private void txtBarcode_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyData == Keys.Enter)
+            if (e.KeyData == Keys.Enter)
             {
                 //Console.WriteLine(txtBarcode.Text);
                 var o = DataModule.GetProductBC(txtBarcode.Text);
-                 
-                if(o != null && o.Id > 0)
+
+                if (o != null && o.Id > 0)
                 {   // Test Code
                     //GMessage gm = new GMessage();
                     //gm.Show("Product does exists " + o.Name);
@@ -55,7 +53,7 @@ namespace InvoicePrinter.Cart
                 }
                 else
                 {
-                    GMessage gm =  new GMessage();
+                    GMessage gm = new GMessage();
                     gm.Show("Product does not exists !! VERIFY BARCODE !!");
                 }
 
@@ -85,10 +83,10 @@ namespace InvoicePrinter.Cart
                     {
                         id = System.Convert.ToInt32(row.Cells[0].Value),
                         Name = System.Convert.ToString(row.Cells[1].Value),
-                        price = System.Convert.ToSingle(row.Cells[2].Value),
+                        price = System.Convert.ToDecimal(row.Cells[2].Value),
                         amount = System.Convert.ToInt32(row.Cells[3].Value),
                         cur = System.Convert.ToString(row.Cells[5].Value) // Assuming column index 5 contains currenc
-                       
+
                     };
                     //add suttotal 
                     total += System.Convert.ToDecimal(prod.SubTotal);
@@ -105,7 +103,7 @@ namespace InvoicePrinter.Cart
                 {
                     // Update the existing item
                     cc.Name = p.Name;
-                    cc.price = (float)p.Price;
+                    cc.price = p.Price;
                     cc.amount += 1;
                     //add suttotal 
                     total += System.Convert.ToDecimal(cc.price * cc.amount);
@@ -123,8 +121,8 @@ namespace InvoicePrinter.Cart
                 {
                     id = p.Id,
                     Name = p.Name,
-                    price = (float)p.Price,
-                    amount =  1,
+                    price = p.Price,
+                    amount = 1,
                     cur = p.Cur
                 });
                 total += System.Convert.ToDecimal(p.Price * 1); ;
@@ -133,8 +131,9 @@ namespace InvoicePrinter.Cart
             //
             //clear dgv
             //if not null set null to reasign
-            if(dgv.DataSource != null) { 
-            dgv.DataSource = null;
+            if (dgv.DataSource != null)
+            {
+                dgv.DataSource = null;
             }
             dgv.DataSource = tmplist;
             // Iterate through each row in the DataGridView
@@ -174,24 +173,74 @@ namespace InvoicePrinter.Cart
 
         private void UpdateLBS()
         {
-            decimal discountPercentage = (discount * total )  / (total*100);
+            decimal discountPercentage = (discount * total) / (total * 100);
 
             lbDisc.Text = string.Format("Discount: %{0} <= {1:c}", discount, discountPercentage);
-            lbTotal.Text = string.Format("Total: C$ {0}",total);
+            lbTotal.Text = string.Format("Total: C$ {0}", total);
+
+            dgv.Rows.Clear();
         }
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            if(dgv != null)
+            DateTime dt = DateTime.UtcNow;                      //Get Current Time
+            //try
             {
-                using(cashing c = new cashing())
+                if (dgv.Rows.Count > 0)
                 {
-                    if(c.ShowDialog() == DialogResult.OK)
+                    var ls = new List<InvoiceDetails>();        //New Invoice List
+                    var inv = new Invoices();                   //New Invoice
                     {
-                        cash = c.total; 
+                        inv.Invoice = currentTime.ToString();
+                        inv.CusId = (cus.id <= 0 ? 0 : cus.id);
+                        inv.usrId = usrID;
+                        inv.Total = total;
+                        inv.off = discount;
+                        inv.Date = dt;
+                    };
+
+                    foreach (DataGridViewRow r in dgv.Rows)
+                    {
+                        // Skip the last row, which is typically the new row for adding new data
+                        if (!r.IsNewRow)
+                        {
+                            // Create a new instance of CartItem and populate its properties
+                            InvoiceDetails prod = new InvoiceDetails()
+                            {
+                                IID = System.Convert.ToInt32(r.Cells[0].Value),
+                                ITEM = System.Convert.ToString(r.Cells[1].Value),
+                                UNITPRICE = System.Convert.ToDecimal(r.Cells[2].Value),
+                                QTY = System.Convert.ToInt32(r.Cells[3].Value),
+                                BCODE = currentTime.ToString()
+                                ,
+                                CDATE = dt,
+                                Active = true,
+                                Off = 0
+                            };
+
+                            // Add the data item to the list
+                            ls.Add(prod);
+                        }
+                    }
+                    // Paying DX
+                    using (cashing c = new cashing())
+                    {
+                        if (c.ShowDialog() == DialogResult.OK)
+                        {
+                            cash = c.total;
+                            if (cash >= total)
+                            {
+                                // Transaction Successful
+                                DataModule.SaveInvoice(inv);
+                                // Invoices Detials
+                                DataModule.SaveInvoceDetails(ls);
+                            }
+                        }
                     }
                 }
             }
+            //catch (Exception ps) { Console.WriteLine(ps.Message.ToString()); var g = new GMessage(); g.Show(ps.Message.ToString() /*+ Environment.NewLine + dt.ToString()*/); }
+
         }
 
         private void CartFrm_BackColorChanged(object sender, EventArgs e)
@@ -201,21 +250,19 @@ namespace InvoicePrinter.Cart
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            var selid = 0;
-            var custna = String.Empty;
             var owin = 0.0;
-            using(AddCustomerToInvoice  frm =  new AddCustomerToInvoice()) 
-            { 
-                if( frm.ShowDialog() == DialogResult.OK )
+            using (AddCustomerToInvoice frm = new AddCustomerToInvoice())
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
                 {
                     selid = frm.Sid;
                     custna = frm.cusname;
                     owin = frm.ow;
-
                     lbCustomer.Text = "Customer:" + custna;
                     lbCustomer.Tag = selid;
+                    // tmp cusid
+                    cus.id = selid;
 
-                    
                 }
             }
         }
@@ -228,10 +275,10 @@ namespace InvoicePrinter.Cart
         }
         //
         //CHAT GPT 3.5
-        public static long GenerateUniqueNumber()
+        public long GenerateUniqueNumber()
         {
             // Get the current time as a long value (ticks)
-            long currentTime = DateTime.UtcNow.Ticks;
+            currentTime = DateTime.UtcNow.Ticks;
 
             // You may also append milliseconds or other values for further uniqueness
             // long currentTimeWithMilliseconds = (DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond);
@@ -248,7 +295,7 @@ namespace InvoicePrinter.Cart
         // btn Addin discount
         private void simpleButton2_Click(object sender, EventArgs e)
         {
-            using(Discount ds = new Discount())
+            using (Discount ds = new Discount())
             {
                 if (ds.ShowDialog() == DialogResult.OK)
                 {
@@ -260,11 +307,11 @@ namespace InvoicePrinter.Cart
 
         private void btnService_Click(object sender, EventArgs e)
         {
-            using (Serv sr = new Serv(this.ParentForm))
+            using (Serv sr = new Serv())
             {
                 if (sr.ShowDialog() == DialogResult.OK)
                 {
-                   var tmpp = DataModule.GetProductID(sr.ID);
+                    var tmpp = DataModule.GetProductID(sr.ID);
                     if (tmpp != null)
                     {
                         tmpp.Stock = sr.AM;
@@ -273,5 +320,29 @@ namespace InvoicePrinter.Cart
                 }
             }
         }
+
+        private void bottompanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+
+
+        // -------------------------------------------------------------------
+        // ----------------- GENERATE NEW INVOICE NUMBER ---------------------
+        // -------------------------------------------------------------------
+        private int GenerateInvoice()
+        {
+            Invoice = DataModule.GenerateInvoice();
+            return Invoice;
+        }
+
+        private void btnGenerateInv_Click(object sender, EventArgs e)
+        {
+            GenerateInvoice();
+            // Refres lbInvoice
+            lbInvoice.Text = $"Invoice: {Invoice}";
+        }
+
     }
 }

@@ -42,6 +42,7 @@
             this.curselector = new System.Windows.Forms.ComboBox();
             this.cbxtype = new System.Windows.Forms.ComboBox();
             this.cbActive = new System.Windows.Forms.CheckBox();
+            this.btnCategory = new GUIHelper.GButton(this.components);
             this.TableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -218,11 +219,26 @@
             this.cbActive.UseVisualStyleBackColor = true;
             this.cbActive.CheckStateChanged += new System.EventHandler(this.cbActive_CheckStateChanged);
             // 
+            // btnCategory
+            // 
+            this.btnCategory.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.btnCategory.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCategory.Location = new System.Drawing.Point(674, 122);
+            this.btnCategory.Name = "btnCategory";
+            this.btnCategory.Size = new System.Drawing.Size(77, 67);
+            this.btnCategory.TabIndex = 18;
+            this.btnCategory.Text = "Category";
+            this.btnCategory.UIStyle = GUIHelper.GButton.Style.Flat;
+            this.btnCategory.UseVisualStyleBackColor = true;
+            this.btnCategory.Click += new System.EventHandler(this.btnCategory_Click);
+            // 
             // ProductEdit
             // 
             this.AcceptButton = this.OK_Button;
             this.CancelButton = this.Cancel_Button;
             this.ClientSize = new System.Drawing.Size(780, 273);
+            this.Controls.Add(this.btnCategory);
             this.Controls.Add(this.cbActive);
             this.Controls.Add(this.cbxtype);
             this.Controls.Add(this.curselector);
@@ -261,5 +277,6 @@
         private System.Windows.Forms.ComboBox curselector;
         private System.Windows.Forms.ComboBox cbxtype;
         private System.Windows.Forms.CheckBox cbActive;
+        private GUIHelper.GButton btnCategory;
     }
 }

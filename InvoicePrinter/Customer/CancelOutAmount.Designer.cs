@@ -37,10 +37,10 @@
             this.txtAmount.BackColor = System.Drawing.Color.DimGray;
             this.txtAmount.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAmount.Location = new System.Drawing.Point(12, 98);
+            this.txtAmount.Location = new System.Drawing.Point(12, 218);
             this.txtAmount.MaxLength = 4;
             this.txtAmount.Name = "txtAmount";
-            this.txtAmount.Size = new System.Drawing.Size(398, 57);
+            this.txtAmount.Size = new System.Drawing.Size(477, 57);
             this.txtAmount.TabIndex = 0;
             this.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtAmount.WatermarkText = "Amount";
@@ -49,7 +49,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 256);
+            this.ClientSize = new System.Drawing.Size(501, 496);
             this.Controls.Add(this.txtAmount);
             this.Name = "CancelOutAmount";
             this.Text = "CancelOutAmount";

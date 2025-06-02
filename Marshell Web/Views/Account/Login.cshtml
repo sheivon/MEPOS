@@ -1,0 +1,261 @@
+﻿@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="icon" href="~/Marshell.ico" type="image/x-icon" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            /*background-color: #333;*/ /*#a3118d; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .login-wrapper {
+            display: grid;
+            justify-content: center;
+           /* background: linear-gradient(70deg, #8f007b,#1612fb );*/
+            border: 3px solid #8f007b ;
+            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+
+        .login-div {
+            display: grid;
+            justify-content: center;
+            /* background: linear-gradient(70deg, #8f007b,#1612fb );*/
+            border: 2px solid #8f007b;
+            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .logo-container {
+            flex: 2;
+            text-align: center;
+        }
+        .logo-container2 {
+            flex: 1;
+            text-align: center;
+            align-content:center;
+        }
+
+        .logo-container1 {
+            margin: 5px;
+            padding: 0 5px;
+            text-align: center;
+        }
+
+        .logo-container img {
+            width: 120px;
+            height: 120px;
+        }
+
+        .logo-container1 img {
+            width: 140px;
+            height: 140px;
+        } 
+        .logo-container2 img {
+            width: 240px;
+            height: 240px;
+        } 
+        .login-container {
+            flex: 2;
+            padding-top: 5px;
+         /*   background: linear-gradient(50deg, #8f007b, #ca34b1);*/
+            border-radius: 10px;
+            text-align: center;
+            width: 100%;
+            min-width: 400px;
+          /*  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);*/
+        }
+        .login-panel {
+            flex: 1;
+            padding: 5px; 
+            border-radius: 10px;
+            text-align: center;
+            width: 100%; 
+            align-content:center;
+            justify-content:center;
+            align-self:center;
+            /*  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);*/
+        }
+
+            .login-panel input {
+                display: block;
+                width: 100% ;
+                margin: 15px auto;
+                padding: 15px;
+                border: 3px solid #8f007b;
+                border-radius: 5px;
+                color: white;
+            }
+            .login-container input {
+                display: block;
+                width: calc(100% - 20px);
+                margin: 15px auto;
+                padding: 15px;
+                border: 3px solid #8f007b;
+                border-radius: 5px;
+                color: white;
+            }
+
+            .login-container .eye-icon {
+                position: absolute;
+                margin-left: -30px;
+                cursor: pointer;
+            }
+
+            .login-container button {
+                width: 90%;
+                border-radius: 5px;
+                border: 3px solid #8f007b;
+                cursor: pointer;
+                font-size: 16px;
+                justify-content: center;
+                padding: 10px;
+                margin: 20px;
+            }
+            
+            .login-container button:hover { 
+                border: 3px solid #b6ff00;
+                cursor: pointer;  
+                color: aqua;
+            }
+        .vertical-line {
+            border-left: 2px solid #8f007b;  
+            height: 200px;  
+            padding:10px;
+            margin:10px;
+        }
+
+
+        .rounded-4 {
+            border-radius: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dropdown position-fixed top-0 end-0 mb-3 me-3 z-index-9999 bd-mode-toggle">
+        <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center btn-outline-success" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
+            <i class="fas fa-adjust my-1 theme-icon-active" style="font-size: 1em;"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow z-index-9999" aria-labelledby="bd-theme-text">
+            <li>
+                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+                    <i class="fas fa-sun me-2 opacity-50" style="font-size: 1em;"></i>&nbsp;
+                    Light
+                </button>
+            </li>
+            <li>
+                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                    <i class="fas fa-moon me-2 opacity-50" style="font-size: 1em;"></i>
+                    Dark
+                </button>
+            </li>
+            <li>
+                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="indigo" aria-pressed="false">
+                    <i class="fas fa-palette me-2 opacity-50" style="font-size: 1em;"></i>
+                    Indigo
+                </button>
+            </li>
+            <li>
+                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="purple" aria-pressed="false">
+                    <i class="fas fa-paint-brush me-2 opacity-50" style="font-size: 1em;"></i>
+                    Purple
+                </button>
+            </li>
+            <li>
+                <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+                    <i class="fas fa-adjust me-2 opacity-50" style="font-size: 1em;"></i>
+                    Auto
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="login-wrapper"style="display:none;">
+        <!-- Logo Section -->
+        <div class="logo-container1">
+            <img src="~/marshell.ico" alt="Logo" />
+        </div>
+        <!-- Login Form Section -->
+        <div class="login-container" style="display:none;">
+            <form action="/Account/Login" method="post">
+                <a class="ml-2">
+                    <i class="fas fa-lock"></i> Log In
+                </a>
+                <input class="form-control " type="text" name="username" placeholder="Username" required id="username">
+                <input class="form-control" type="password" name="password" placeholder="Password" required id="password">
+                <button class="form-control align-self-center justify-content-center btn-sm btn-success br-9 mb-3" type="submit">Sign In</button>
+                @{
+                    if (ViewBag.Error != null)
+                    {
+                        <div class="form-floating mb-2 ">
+                            <div class="alert alert-danger ">
+                                @ViewBag.Error
+                            </div>
+                        </div>
+                    }
+                }
+            </form>
+        </div>
+    </div>
+    <div class="login-div">
+        <div class="d-flex">
+            <div class="col-6">
+                <div class="login-panel">
+                    <form action="/Account/Login" method="post">
+                        <a class="ml-2">
+                            <i class="fas fa-lock"></i> Log In
+                        </a>
+                        <input class="form-control " type="text" name="username" placeholder="Username" required id="username">
+                        <input class="form-control" type="password" name="password" placeholder="Password" required id="password">
+                        <button class="form-control align-self-center justify-content-center btn-sm btn-success br-9 mb-3" type="submit">Sign In</button>
+                        @{
+                            if (ViewBag.Error != null)
+                            {
+                                <div class="form-floating mb-2 ">
+                                    <div class="alert alert-danger ">
+                                        @ViewBag.Error
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </form>
+                </div>
+            </div>
+            <div class="vertical-line"></div>
+            <div class="col-6"> 
+                <div class="logo-container2">
+                    <img src="~/marshell.ico" alt="Logo" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap") 
+</body>
+</html>

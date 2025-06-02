@@ -32,7 +32,7 @@ Public Class MSettings
         End If
     End Sub
 
-    Private Sub GButton6_Click(sender As Object, e As EventArgs) Handles GButton6.Click
+    Private Sub GButton6_Click(sender As Object, e As EventArgs)
         Panel1.Controls.Clear()
         Panel1.Controls.Add(New PrntPagae With {.Dock = DockStyle.Fill, .AutoScaleMode = Windows.Forms.AutoScaleMode.None})
     End Sub

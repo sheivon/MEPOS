@@ -1,0 +1,383 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card border-2 border-success">
+    <div class="row px-4 m-1 gamboa shadow">
+        <div class="col-3 py-0"><h4><b>Shopping Cart</b></h4></div>
+        <div class="col align-self-center text-right text-muted"></div>
+        <div class="col-3">
+            <input class="form-control form-control-sm" type="text" id="bcode" placeholder="Barcode" autocomplete="off" autofocus />
+        </div> 
+        <h6 class="col">Total Amount: <span id="cartTotal">C$0.00</span></h6> 
+        <button class="col-1 btn btn-sm btn-success py-0 my-0" id="checkoutBtn" onclick="checkoutCart()">Checkout</button>
+    </div>
+    <div class="row">
+        <div class="col-md-5 col-5 align-self-start">
+            <div class="table-responsive table-responsive-sm px-1 mx-0 py-0">
+                <table class="table table-sm table-responsive-sm table-hover" cellpadding="0" cellspacing="0" width="100%" id="tblprod">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-7 align-self-stretch">
+            @*top section*@
+            <div class="title card-header card-header-sm pt-1 pb-0 mt-1 mb-0 bg-success text-white"> 
+                <div class="row" >
+                    <div class="row main align-items-center">
+                        <div class="col">
+                            <div class="row ">Products</div>
+                        </div>
+                        <div class="col-2 row">U.Price</div>
+                        <div class="col-4"> Options</div>
+                    </div>
+                </div> 
+            </div>
+            @*rows*@
+            <div class="card-body mx-0 px-0 h-100" id="cartlist">
+                <div class="row border-top border-bottom mx-0 px-0">
+                    <div class="row main align-items-center"> 
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+<!-- Modal for Payment Details -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Checkout Payment</h5> 
+            </div>
+            <div class="modal-body">
+                <!-- Payment Method Selection -->
+                <div class="form-group mb-2">
+                    <label for="paymentMethod">Payment Method</label>
+                    <select id="paymentMethod" class="form-control">
+                        <option value="credit_card">Credit Card</option>
+                        <option value="cash">Cash</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="customers">Customers</label>
+                    <select id="customers" class="form-control"> 
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="phone">Phone</label>
+                    <input id="phone" class="form-control"/>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="email">Email</label>
+                    <input id="email" class="form-control" />
+                </div>
+                <!-- Amount -->
+                <div class="form-group">
+                    <label for="paymentAmount">Amount</label>
+                    <input type="number" class="form-control" id="paymentAmount" placeholder="Enter amount" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmPaymentBtn">Confirm Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        //laod costomers select
+       jQuery.ajax({
+           url: "@Url.Action("GetCustomer", "Account")",
+           type: "GET",
+           datatype: "Json",
+           ContentType: "applicacion/json; Chartset=utf-8 ",
+           success: function (data) {
+               $("<option>").attr({ "value": 0, "disabled": true }).text("- Select Customer -").appendTo("#customers");
+               $.each(data.data, function (index, Cus) {
+                   $("<option>").attr({ "value": Cus.customer_id }).text(Cus.first_name + ' ' +Cus.last_name).appendTo("#customers");
+               });
+           }
+       });
+
+        $("#customers").on("change", function () {
+            var cusid = $("#customers").val(); 
+            $.ajax({
+                url: "@Url.Action("GetCustomerDetails", "Account")?id=" + cusid ,
+                type: 'POST',
+                contentType: 'application/json',
+               /* data: JSON.stringify({ id,  }),*/
+                success: function (data) { 
+                    $('#phone').val(data.data.phone);
+                    $('#email').val(data.data.email);
+
+                },
+                error: function () {
+                    swal({icon:"danger",title:"fail to get customers details"})
+                }
+            });
+        }); 
+
+        let tblprod = $("#tblprod").DataTable({
+            searching: false,
+            Responsive: true,
+            Ordering: false, /*  "lengthMenu": [5, 10, 25, 50],"pageLength": 5,*/
+             "ajax": {
+                    "url": "@Url.Action("Loadproducts", "Products")", // Adjust this to your action method for products
+                    "type": "GET",
+                    "dataSrc": "data" // The actual data is inside the "data" property of the response
+                },
+                "columns": [
+                    { "data": "ProductId" },
+                    { "data": "Name" },
+                    { "data": "Price" },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return `<a class="btn btn-link btn-primary btn-sm py-0" onclick="AddToCart(${row.ProductId}, '${row.Name}', '${row.Price}')"><i class="fas fa-caret-square-right"></i></a>`;
+                        },
+                        Ordering: false
+                    }
+
+                ]
+        });
+
+        // Function to update item quantity
+        function updateQuantity(productId, action) {
+            if (cart[productId]) {
+                // Increase or decrease the quantity based on the action
+                if (action === 'increase') {
+                    cart[productId].quantity += 1;
+                } else if (action === 'decrease' && cart[productId].quantity > 1) {
+                    cart[productId].quantity -= 1;
+                }
+                // Update the cart display
+                updateCartDisplay();
+            }
+        }
+
+        // Function to remove an item from the cart
+        function removeItem(productId) {
+            // Remove item from the cart object
+            delete cart[productId];
+            // Remove the corresponding row from the cart display
+            $(`#cart-item-${productId}`).remove();
+            // Update the total amount
+            updateTotalAmount();
+             
+            saveCartToCookies();
+        }
+
+        // Function to checkout
+        function checkoutCart() {
+            $('#paymentModal').modal('show');
+        }
+
+        // Handle the payment confirmation
+        $('#confirmPaymentBtn').click(function () {
+            // Get payment method and amount
+            let paymentMethod = $('#paymentMethod').val();
+            let paymentAmount = parseFloat($('#paymentAmount').val());
+            // Payment information from modal
+            let shippingCost = parseFloat($('#shippingCost').val()) || 0;  // Make sure this field exists
+            let cEmail = $('#email').val(); // Example: Get customer email from form
+            let cPhone = $('#phone').val(); // Example: Get customer phone from form
+            // Validate the input
+            if (!paymentAmount || paymentAmount <= 0) {
+                swal({ title: 'Please enter a valid payment amount.', icon:"info" });
+                return;
+            }
+            // Prepare the cart data to be sent
+            let cartItems = []; //list of cart items
+            for (let productId in cart) {
+                let item = cart[productId];
+                cartItems.push({
+                    ProductId: productId,
+                    ProductName: item.name,
+                    Price: item.price,
+                    Quantity: item.quantity,
+                    Discount: item.discount || 0,  // Default to 0 if no discount is provided
+                    TaxAmount: item.taxAmount || 0,  // Default to 0 if no tax is provided
+                    ProductImage: item.productImage || null,
+                    ProductDescription: item.productDescription || null
+                });
+            }
+            
+            // Get the total cart amount
+            let totalAmount = 0;
+            for (let productId in cart) {
+                let item = cart[productId];
+                totalAmount += item.price * item.quantity;
+            }
+
+            // Check if payment is sufficient
+            if (paymentAmount < totalAmount) {
+                swal({ text: 'Payment amount is insufficient. Please enter a valid amount.', title: "!! Payment Error !!", icon: "warning" });
+                return;
+            }
+            //sales to pass via param
+            let sale = {
+                SaleId: 0,
+                OrderNumber: '0',
+                TotalAmount: totalAmount,
+                TaxAmount: 0,
+                ShippingCost: shippingCost,
+                DiscountAmount: 0,
+                CustomerId: $("#customers").val(),
+                PaymentMethod: paymentMethod,
+                AmountPaid: paymentAmount,
+                SaleStatus: "complete",
+                ShippingAddress: "N/A",
+                Email: cEmail,
+                Phone: cPhone,
+                Customers :{
+                    customer_id:$("#customers").val()
+                }
+            }
+            console.log(sale);
+            console.log(cartItems);
+            // Proceed with saving the cart items and the payment (You can make AJAX call here)
+            $.ajax({
+                url: '/Cart/Checkout', // Adjust this to your checkout action
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    CartItems: cartItems,            // Sending the cart data
+                    sales:sale
+                }),
+                success: function (response) {
+                    swal({ title: 'Checkout successful!' });
+                    // Optionally clear the cart or update the UI
+                    cart = {};  // Empty the cart
+                    updateCartDisplay(); // Refresh the cart UI
+                    $('#paymentModal').modal('hide'); // Hide the modal
+                },
+                error: function () {
+                    alert('An error occurred during checkout.');
+                }
+            });
+        });
+
+        // This will store the items in the cart, keying by product ID
+        let cart = {};
+
+        // Function to add items to the cart
+        function AddToCart(productId, productName, productPrice) {
+            // Check if the item already exists in the cart
+            if (cart[productId]) {
+                // If the item exists, increase the quantity
+                cart[productId].quantity += 1;
+            } else {
+                // If the item doesn't exist, create a new entry
+                cart[productId] = {
+                    name: productName,
+                    price: parseFloat(productPrice),
+                    quantity: 1
+                };
+            }
+            // Update the cart display with the new item or updated quantity
+            updateCartDisplay();
+            saveCartToCookies(); // Save the cart to cookies
+        }
+
+        // Function to update the cart's display when an item is added or its quantity is increased
+        function updateCartDisplay() {
+            // Clear the cart display and re-render it with updated quantities
+            let cartList = $("#cartlist");
+            cartList.empty(); // Clear existing cart items
+
+            // Loop through the cart object to display the items
+            for (let productId in cart) {
+                let item = cart[productId];
+                let cartItemHtml = `
+                <div class="row border-top border-bottom m-0 p-1" id="cart-item-${productId}">
+                    <div class="row main align-items-center">
+                        <div class="col">
+                            <div class="row text-muted">${item.name}</div>
+                        </div>
+                        <div class="col-2 d-flex">C$ ${item.price.toFixed(2)} </div>
+                        <div class="col-4">
+                            <div class="d-flex align-items-end">
+                                <a class="btn btn-sm btn-outline-success" onclick="updateQuantity(${productId}, 'decrease')"><i class="fas fa-minus"></i></a>
+                                <input class="input-fixed text-center" disabled style="width:40px" id="rowqty-${productId}" value="${item.quantity}" />
+                                <a class="btn btn-sm btn-outline-success" onclick="updateQuantity(${productId}, 'increase')"><i class="fas fa-plus"></i></a>
+                                <a class="btn btn-outline-danger btn-sm" onclick="removeItem(${productId})"> <i class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+                cartList.append(cartItemHtml);
+            }
+            updateTotalAmount();
+        }
+
+        // Function to update the total amount displayed on the page
+        function updateTotalAmount() {
+            let totalAmount = 0;
+            for (let productId in cart) {
+                let item = cart[productId];
+                totalAmount += item.price * item.quantity;
+            }
+            // Update the total amount displayed in the UI
+            $("#cartTotal").text(`C$${totalAmount.toFixed(2)}`);
+        }
+
+        // Save the cart to cookies
+        function saveCartToCookies() {
+            let cartString = JSON.stringify(cart);
+            document.cookie = `cart=${encodeURIComponent(cartString)}; path=/; max-age=86400`; // Store for 1 day
+        }
+
+        // Load the cart from cookies
+        function loadCartFromCookies() {
+            let cartCookie = document.cookie.split('; ').find(row => row.startsWith('cart='));
+            if (cartCookie) {
+                cart = JSON.parse(decodeURIComponent(cartCookie.split('=')[1]));
+                updateCartDisplay();
+            }
+        }
+
+        $("#bcode").on("change", function () {
+            $.ajax({
+                url: '@Url.Action("GetProduct","Cart")', // Adjust this to your checkout action
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    bcode: $("#bcode").val()
+                }),
+                success: function (response) { 
+                    if (response.data == "Fail Products not found!") {
+                        swal({ icon: "info", title: "Fail Products not found!" }); 
+                    }
+                    else { 
+                        AddToCart(response.data.ProductId, response.data.Name, response.data.Price); 
+                    }
+                    $("#bcode").val('');
+                    // Optionally clear the cart or update the UI 
+                },
+                error: function () {
+                    alert('An error occurred during checkout.');
+                }
+            }); 
+        });
+
+
+        // Load the cart from cookies when the page is loaded
+        $(document).ready(function () {
+            loadCartFromCookies();
+        });
+    </script>
+
+}

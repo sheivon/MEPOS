@@ -1,0 +1,206 @@
+﻿@{
+    ViewBag.Title = "Users List";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Adjust the layout if needed
+}
+
+<div class="card">
+    <div class="row card-header bg-success ">
+        <h5 class="font-weight-bold text-white col-sm-2">Users</h5>
+        <div class="col-sm-8">
+            <button class="btn btn-sm btn-outline-light" onclick="openAddUserModal()">Add User<i class="fas fa-fw fa-plus"></i>Nuevo</button>
+            <button class="btn btn-sm btn-outline-light" onclick="printa();"><i class="fas fa-fw fa-print"></i><span>Imprimir</span></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="UserTable" class="table table-bordered table-hover w-100" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Mobile</th>
+                    <th>Location</th>
+                    <th>Role</th>
+                    <th>Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add/Edit User Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalLabel">Add User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="userForm">
+                    <input type="hidden" id="userId" /> <!-- Hidden field for user ID when editing -->
+
+                    <div class="form-group">
+                        <label for="userName">Username</label>
+                        <input type="text" class="form-control" id="userName" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userSrName">Surname</label>
+                        <input type="text" class="form-control" id="userSrName" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userIdNumber">ID Number</label>
+                        <input type="text" class="form-control" id="userIdNumber" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userMobile">Mobile</label>
+                        <input type="text" class="form-control" id="userMobile" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userLocation">Location</label>
+                        <input type="text" class="form-control" id="userLocation" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userRole">Role</label>
+                        <select class="form-control" id="userRole">
+                            <option value="CASHIER">Cashier</option>
+                            <option value="MANAGER">Manager</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userStatus">Status</label>
+                        <select class="form-control" id="userStatus">
+                            <option value="0">Active</option>
+                            <option value="1">Inactive</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveUserBtn" onclick="saveUser()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#UserTable').DataTable({
+                "ajax": {
+                    "url": "@Url.Action("GetUsers", "Account")", // Controller action for fetching users
+                    "type": "GET",
+                    "dataSrc": "data" // Data will be mapped from 'data' in the JSON response
+                },
+                "columns": [
+                    { "data": "ID" },
+                    { "data": "UNAME" },
+                    { "data": "UNAME" }, // You can concatenate first and second name to show Full Name
+                    { "data": "MOBILE" },
+                    { "data": "LOCATION" },
+                    { "data": "ROLE" },
+                    { "data": "FIRED", "render": function (data, type, row) {
+                        return data === 0 ? "Active" : "Inactive";
+                    }},
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return '<button class="btn btn-primary btn-sm my-0" onclick="openEditUserModal(' + row.ID + ')">Edit</button><button class="btn btn-warning btn-sm my-0" onclick="editUser(' + row.ID + ')">Reset</button>';
+                        }
+                    }
+                ]
+            });
+        });
+
+        // Edit button click handler
+        function editUser(userId) {
+            // Call your Edit functionality here (maybe open a modal with user data)
+            alert('Edit User with ID: ' + userId);
+        }
+
+        // Open modal to add a new user
+        function openAddUserModal() {
+            clearModal(); // Clear the form for new user
+            $('#userModal').modal('show');
+            $('#userModalLabel').text('Add User'); // Change the modal title to 'Add User'
+        }
+
+        // Open modal to edit an existing user
+        function openEditUserModal(userId) {
+            $.ajax({
+                url: '/Account/GetUserById', // Adjust URL to match your route
+                type: 'GET',
+                data: { id: userId },
+                success: function (data) {
+                    $('#userId').val(data.ID);
+                    $('#userName').val(data.UNAME);
+                    $('#userSrName').val(data.SRNAME);
+                    $('#userIdNumber').val(data.IDNUMBER);
+                    $('#userMobile').val(data.MOBILE);
+                    $('#userLocation').val(data.LOCATION);
+                    $('#userRole').val(data.ROLE);
+                    $('#userStatus').val(data.FIRED);
+
+                    $('#userModalLabel').text('Edit User'); // Change the modal title to 'Edit User'
+                    $('#userModal').modal('show');
+                }
+            });
+        }
+
+        // Clear the modal form for new user
+        function clearModal() {
+            $('#userForm')[0].reset();
+            $('#userId').val('');
+        }
+
+        // Save or update the user data
+        function saveUser() {
+            var user = {
+                ID: $('#userId').val(),
+                UNAME: $('#userName').val(),
+                SRNAME: $('#userSrName').val(),
+                IDNUMBER: $('#userIdNumber').val(),
+                MOBILE: $('#userMobile').val(),
+                LOCATION: $('#userLocation').val(),
+                ROLE: $('#userRole').val(),
+                FIRED: $('#userStatus').val()
+            };
+
+            var url = user.ID ? '@Url.Action("UpdateUser", "Account")' : '@Url.Action("AddUser", "Account")'; // Check if it's Add or Update
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val(), // Include the CSRF token
+                    user: user
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#userModal').modal('hide');
+                        $('#UserTable').DataTable().ajax.reload(); // Reload the DataTable to show updated data
+                    } else {
+                        alert("Error saving user.");
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                    alert("Error saving user.");
+                }
+            });
+        }
+    </script>
+}

@@ -1,9 +1,6 @@
-﻿Imports System.Windows.Forms.Message
+﻿Imports System.Drawing
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
-Imports System.Drawing
-Imports System.Media
-Imports System.Threading
 
 <ComVisible(False)>
 Public Class GMessage

@@ -27,7 +27,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
     <FileAlignment>2048</FileAlignment>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,305 +47,44 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v22.2.Core, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.CodeParser.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.Desktop.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.DataAccess.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.DataAccess.v22.2.UI, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Drawing.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Images.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Office.v22.2.Core, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Pdf.v22.2.Core, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Pdf.v22.2.Drawing, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.PivotGrid.v22.2.Core, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v22.2.Core, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.RichEdit.v22.2.Core, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.RichEdit.v22.2.Export, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Sparkline.v22.2.Core, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Utils.v22.2.UI, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Xpo.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraBars.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraCharts.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraCharts.v22.2.Extensions, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraCharts.v22.2.Wizard, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraEditors.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGauges.v22.2.Core, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGrid.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraLayout.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraNavBar.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraPivotGrid.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraPrinting.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraReports.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraReports.v22.2.Extensions, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraRichEdit.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraTreeList.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraVerticalGrid.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="MessagingToolkit.Barcode">
       <HintPath>..\dll\MessagingToolkit.Barcode.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Configuration.8.0.0\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Logging, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Logging.8.0.0\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Options, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Options.8.0.0\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Primitives, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Primitives.8.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Maui, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Maui.Core.8.0.6\lib\netstandard2.0\Microsoft.Maui.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Maui.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Maui.Controls.Core.8.0.6\lib\netstandard2.0\Microsoft.Maui.Controls.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Maui.Controls.Compatibility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Maui.Controls.Compatibility.8.0.6\lib\netstandard2.0\Microsoft.Maui.Controls.Compatibility.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Maui.Controls.DesignTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Maui.Controls.Core.8.0.6\lib\netstandard2.0\Design\Microsoft.Maui.Controls.DesignTools.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Maui.Controls.Xaml, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Maui.Controls.Xaml.8.0.6\lib\netstandard2.0\Microsoft.Maui.Controls.Xaml.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Maui.Controls.Xaml.DesignTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Maui.Controls.Xaml.8.0.6\lib\netstandard2.0\Design\Microsoft.Maui.Controls.Xaml.DesignTools.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Maui.Essentials, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Maui.Essentials.8.0.6\lib\netstandard2.0\Microsoft.Maui.Essentials.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Maui.Graphics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Maui.Graphics.8.0.6\lib\netstandard2.0\Microsoft.Maui.Graphics.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1620.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1620.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1620.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1620.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1620.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Win32.Registry.AccessControl, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Win32.Registry.AccessControl.8.0.0\lib\net462\Microsoft.Win32.Registry.AccessControl.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Win32.SystemEvents, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Win32.SystemEvents.8.0.0\lib\net462\Microsoft.Win32.SystemEvents.dll</HintPath>
-    </Reference>
     <Reference Include="MySql.Data, Version=8.0.21.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.CodeDom, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.CodeDom.8.0.0\lib\net462\System.CodeDom.dll</HintPath>
-    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
-    </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Odbc, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.Odbc.8.0.0\lib\net462\System.Data.Odbc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.OleDb, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.OleDb.8.0.0\lib\net462\System.Data.OleDb.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.Data.SqlClient, Version=4.6.1.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SqlClient.4.8.5\lib\net461\System.Data.SqlClient.dll</HintPath>
-    </Reference>
     <Reference Include="System.Design" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Diagnostics.EventLog, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.EventLog.8.0.0\lib\net462\System.Diagnostics.EventLog.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Diagnostics.PerformanceCounter, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.PerformanceCounter.8.0.0\lib\net462\System.Diagnostics.PerformanceCounter.dll</HintPath>
-    </Reference>
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.DirectoryServices.Protocols" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Drawing.Common, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Drawing.Common.8.0.1\lib\net462\System.Drawing.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.IO.FileSystem.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.FileSystem.AccessControl.5.0.0\lib\net461\System.IO.FileSystem.AccessControl.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Packaging, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Packaging.8.0.0\lib\net462\System.IO.Packaging.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Pipes.AccessControl, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Pipes.AccessControl.5.0.0\lib\net461\System.IO.Pipes.AccessControl.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Ports, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Ports.8.0.0\lib\net462\System.IO.Ports.dll</HintPath>
-    </Reference>
     <Reference Include="System.Management" />
-    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
     <Reference Include="System.Printing" />
     <Reference Include="System.Reflection.Context" />
-    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
     <Reference Include="System.Security" />
-    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Cng, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Cng.5.0.0\lib\net47\System.Security.Cryptography.Cng.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Pkcs, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Pkcs.8.0.0\lib\net462\System.Security.Cryptography.Pkcs.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.ProtectedData, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.ProtectedData.8.0.0\lib\net462\System.Security.Cryptography.ProtectedData.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Xml, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Xml.8.0.0\lib\net462\System.Security.Cryptography.Xml.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Permissions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Permissions.8.0.0\lib\net462\System.Security.Permissions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
-    </Reference>
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Duplex, Version=4.10.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ServiceModel.Duplex.4.10.0\lib\net461\System.ServiceModel.Duplex.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceModel.Http, Version=4.10.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ServiceModel.Http.4.10.0\lib\net461\System.ServiceModel.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceModel.NetTcp, Version=4.10.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ServiceModel.NetTcp.4.10.0\lib\net461\System.ServiceModel.NetTcp.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceModel.Primitives, Version=4.10.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ServiceModel.Primitives.4.10.0\lib\net461\System.ServiceModel.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceModel.Security, Version=4.10.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ServiceModel.Security.4.10.0\lib\net461\System.ServiceModel.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceModel.Syndication, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ServiceModel.Syndication.8.0.0\lib\net462\System.ServiceModel.Syndication.dll</HintPath>
-    </Reference>
     <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.ServiceProcess.ServiceController, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ServiceProcess.ServiceController.8.0.0\lib\net462\System.ServiceProcess.ServiceController.dll</HintPath>
-    </Reference>
     <Reference Include="System.Speech" />
-    <Reference Include="System.Text.Encoding.CodePages, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encoding.CodePages.8.0.0\lib\net462\System.Text.Encoding.CodePages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.AccessControl, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.AccessControl.8.0.0\lib\net462\System.Threading.AccessControl.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Transactions" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Web.Services.Description, Version=4.10.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Web.Services.Description.4.10.0\lib\net461\System.Web.Services.Description.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization">
@@ -362,6 +101,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cart\Cart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cart\Cart.Designer.cs">
+      <DependentUpon>Cart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cart\CartFrm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -374,11 +119,23 @@
     <Compile Include="Cart\cashing.Designer.cs">
       <DependentUpon>cashing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cart\CheckoutDX.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cart\CheckoutDX.Designer.cs">
+      <DependentUpon>CheckoutDX.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cart\Pendient.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Cart\Pendient.Designer.cs">
       <DependentUpon>Pendient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cart\XtraForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cart\XtraForm1.Designer.cs">
+      <DependentUpon>XtraForm1.cs</DependentUpon>
     </Compile>
     <Compile Include="Cusmetic\Serv.cs">
       <SubType>Form</SubType>
@@ -401,11 +158,11 @@
     <Compile Include="Customer\CancelOutAmount.Designer.cs">
       <DependentUpon>CancelOutAmount.cs</DependentUpon>
     </Compile>
-    <Compile Include="Customer\CostomersFrm.cs">
+    <Compile Include="Customer\frmCustomers.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Customer\CostomersFrm.Designer.cs">
-      <DependentUpon>CostomersFrm.cs</DependentUpon>
+    <Compile Include="Customer\frmCustomers.Designer.cs">
+      <DependentUpon>frmCustomers.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer\OwincCustomers.cs">
       <SubType>UserControl</SubType>
@@ -426,24 +183,6 @@
     <Compile Include="Dashfrm.Designer.cs">
       <DependentUpon>Dashfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="dash\lowstock.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="dash\lowstock.Designer.cs">
-      <DependentUpon>lowstock.cs</DependentUpon>
-    </Compile>
-    <Compile Include="dash\Printprod.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="dash\Printprod.Designer.cs">
-      <DependentUpon>Printprod.cs</DependentUpon>
-    </Compile>
-    <Compile Include="dash\XtraReport1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="dash\XtraReport1.Designer.cs">
-      <DependentUpon>XtraReport1.cs</DependentUpon>
-    </Compile>
     <Compile Include="DGVPrinter.cs" />
     <Compile Include="Employees\UsersDX.cs">
       <SubType>Form</SubType>
@@ -463,85 +202,11 @@
     <Compile Include="Invoice\Invoicefrm.Designer.cs">
       <DependentUpon>Invoicefrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PRINT\Analicitprint.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PRINT\Analicitprint.Designer.cs">
-      <DependentUpon>Analicitprint.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\Datasets\InvoicesDTS.cs">
-      <DependentUpon>InvoicesDTS.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\Datasets\InvoicesDTS.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InvoicesDTS.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\facview.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PRINT\facview.Designer.cs">
-      <DependentUpon>facview.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\InvoiceReport.cs">
+    <Compile Include="Product\frmCategory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PRINT\InvoiceReport.Designer.cs">
-      <DependentUpon>InvoiceReport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\PrintProd.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PRINT\PrintProd.Designer.cs">
-      <DependentUpon>PrintProd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\Invocierpt.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PRINT\Invocierpt.Designer.cs">
-      <DependentUpon>Invocierpt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\lowprt.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PRINT\lowprt.Designer.cs">
-      <DependentUpon>lowprt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\PayingCustomer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PRINT\PayingCustomer.Designer.cs">
-      <DependentUpon>PayingCustomer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\PaymentHistory.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PRINT\PaymentHistory.Designer.cs">
-      <DependentUpon>PaymentHistory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\printanalitic.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PRINT\printanalitic.Designer.cs">
-      <DependentUpon>printanalitic.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\PrintInvoicefrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PRINT\PrintInvoicefrm.Designer.cs">
-      <DependentUpon>PrintInvoicefrm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PRINT\XtraReport1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PRINT\XtraReport1.Designer.cs">
-      <DependentUpon>XtraReport1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Product\Moneyfrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Product\Moneyfrm.Designer.cs">
-      <DependentUpon>Moneyfrm.cs</DependentUpon>
+    <Compile Include="Product\frmCategory.Designer.cs">
+      <DependentUpon>frmCategory.cs</DependentUpon>
     </Compile>
     <Compile Include="Product\Productsfrm.cs">
       <SubType>UserControl</SubType>
@@ -554,7 +219,26 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="sales.cs" />
+    <Compile Include="Proveedor\SupplierFrm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Proveedor\SupplierFrm.Designer.cs">
+      <DependentUpon>SupplierFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\DataSet\DSProducts.cs">
+      <DependentUpon>DSProducts.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Report\DataSet\DSProducts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSProducts.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Report\ReportFrm\rptProductsfrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\ReportFrm\rptProductsfrm.Designer.cs">
+      <DependentUpon>rptProductsfrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Discount.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -580,7 +264,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataBase\DataBase.csproj">
@@ -603,20 +286,25 @@
       <Project>{1470f70c-4ec4-4844-b66d-8455437b24b4}</Project>
       <Name>MarshellsSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Reports\Reports.csproj">
-      <Project>{fed7cced-14a4-4a80-854f-49d9e2940601}</Project>
-      <Name>Reports</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Cart\Cart.resx">
+      <DependentUpon>Cart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cart\CartFrm.resx">
       <DependentUpon>CartFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cart\cashing.resx">
       <DependentUpon>cashing.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cart\CheckoutDX.resx">
+      <DependentUpon>CheckoutDX.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cart\Pendient.resx">
       <DependentUpon>Pendient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cart\XtraForm1.resx">
+      <DependentUpon>XtraForm1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cusmetic\Serv.resx">
       <DependentUpon>Serv.cs</DependentUpon>
@@ -630,8 +318,8 @@
     <EmbeddedResource Include="Customer\CancelOutAmount.resx">
       <DependentUpon>CancelOutAmount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Customer\CostomersFrm.resx">
-      <DependentUpon>CostomersFrm.cs</DependentUpon>
+    <EmbeddedResource Include="Customer\frmCustomers.resx">
+      <DependentUpon>frmCustomers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer\OwincCustomers.resx">
       <DependentUpon>OwincCustomers.cs</DependentUpon>
@@ -641,15 +329,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dashfrm.resx">
       <DependentUpon>Dashfrm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="dash\lowstock.resx">
-      <DependentUpon>lowstock.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="dash\Printprod.resx">
-      <DependentUpon>Printprod.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="dash\XtraReport1.resx">
-      <DependentUpon>XtraReport1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Discount.resx">
       <DependentUpon>Discount.cs</DependentUpon>
@@ -663,41 +342,8 @@
     <EmbeddedResource Include="Invoice\Invoicefrm.resx">
       <DependentUpon>Invoicefrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\Analicitprint.resx">
-      <DependentUpon>Analicitprint.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\facview.resx">
-      <DependentUpon>facview.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\Invocierpt.resx">
-      <DependentUpon>Invocierpt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\InvoiceReport.resx">
-      <DependentUpon>InvoiceReport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\lowprt.resx">
-      <DependentUpon>lowprt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\PayingCustomer.resx">
-      <DependentUpon>PayingCustomer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\PaymentHistory.resx">
-      <DependentUpon>PaymentHistory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\printanalitic.resx">
-      <DependentUpon>printanalitic.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\PrintInvoicefrm.resx">
-      <DependentUpon>PrintInvoicefrm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\PrintProd.resx">
-      <DependentUpon>PrintProd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PRINT\XtraReport1.resx">
-      <DependentUpon>XtraReport1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Product\Moneyfrm.resx">
-      <DependentUpon>Moneyfrm.cs</DependentUpon>
+    <EmbeddedResource Include="Product\frmCategory.resx">
+      <DependentUpon>frmCategory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Product\Printbarcode.resx">
       <DependentUpon>Printbarcode.cs</DependentUpon>
@@ -713,21 +359,16 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Proveedor\SupplierFrm.resx">
+      <DependentUpon>SupplierFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\RDLC\rptProducts.rdlc" />
+    <EmbeddedResource Include="Report\ReportFrm\rptProductsfrm.resx">
+      <DependentUpon>rptProductsfrm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="PRINT\Datasets\InvoicesDTS.xsc">
-      <DependentUpon>InvoicesDTS.xsd</DependentUpon>
-    </None>
-    <None Include="PRINT\Datasets\InvoicesDTS.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>InvoicesDTS.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="PRINT\Datasets\InvoicesDTS.xss">
-      <DependentUpon>InvoicesDTS.xsd</DependentUpon>
-    </None>
     <None Include="Properties\DataSources\CartItem.datasource" />
     <None Include="Properties\DataSources\Customers.datasource" />
     <None Include="Properties\DataSources\DataModule.datasource" />
@@ -747,6 +388,17 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Report\DataSet\DSProducts.xsc">
+      <DependentUpon>DSProducts.xsd</DependentUpon>
+    </None>
+    <None Include="Report\DataSet\DSProducts.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSProducts.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Report\DataSet\DSProducts.xss">
+      <DependentUpon>DSProducts.xsd</DependentUpon>
     </None>
     <None Include="Resources\icons8_Cancel_50px_2.png" />
   </ItemGroup>
@@ -782,6 +434,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Marshell.ico" />
+    <None Include="Resources\icons8_Customer_100px1.png" />
+    <None Include="Resources\icons8_Customer_100px.png" />
+    <None Include="Resources\icons8_Print_30px_1.png" />
+    <None Include="Resources\icons8_Trash_30px_1.png" />
+    <None Include="Resources\icons8_Edit_30px.png" />
     <None Include="Resources\Delete %282%29.png" />
     <None Include="Resources\Edit.png" />
     <None Include="Resources\Plus.png" />
@@ -790,19 +447,6 @@
     <None Include="Resources\icons8_Print_30px.png" />
     <None Include="Resources\icons8_Barcode_30px.png" />
     <None Include="Resources\Marshell1.png" />
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\Erase_50px.png" />
     <None Include="Resources\M-Logo-2.png" />
     <None Include="Resources\icons8_Checked_User_Male_50px.png" />
@@ -812,9 +456,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PRINT\pages\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

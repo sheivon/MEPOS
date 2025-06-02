@@ -1,16 +1,12 @@
 ﻿using DataBase;
+using InvoicePrinter.Report.ReportFrm;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace InvoicePrinter.Employees
 {
+    [ToolboxItem(false)]
     public partial class Usersfrm : UserControl
     {
         private int row = 0;
@@ -22,15 +18,15 @@ namespace InvoicePrinter.Employees
 
         private void btnNewEmployee_Click(object sender, EventArgs e)
         {
-            using(UsersDX usersDX = new UsersDX())
+            using (UsersDX usersDX = new UsersDX())
             {
-                usersDX.ShowDialog(this); 
+                usersDX.ShowDialog(this);
             }
         }
 
         private void btnEditInfo_Click(object sender, EventArgs e)
         {
-            using(UsersDX usr =  new UsersDX(id))
+            using (UsersDX usr = new UsersDX(id))
             {
                 usr.ShowDialog(this);
             }
@@ -40,7 +36,7 @@ namespace InvoicePrinter.Employees
         {
             loadusers();
         }
-        private void loadusers(string qry="")
+        private void loadusers(string qry = "")
         {
             empviewer.DataSource = DataModule.GetEmployees(qry);
         }
@@ -56,18 +52,24 @@ namespace InvoicePrinter.Employees
             row = e.RowIndex;
             if (row != 0)
             {
-                id = System.Convert.ToInt32(empviewer[0,row].Value);
+                id = System.Convert.ToInt32(empviewer[0, row].Value);
             }
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            if(txtSearch.TextLength > 1)
+            if (txtSearch.TextLength > 1)
             {
                 loadusers(txtSearch.Text);
             }
             else
             { loadusers(); }
+        }
+
+        private void gButton3_Click(object sender, EventArgs e)
+        {
+            var prt = new rptProductsfrm();
+            prt.ShowDialog(this);
         }
     }
 }
