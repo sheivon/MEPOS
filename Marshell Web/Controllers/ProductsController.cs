@@ -1,4 +1,4 @@
-﻿using Marshell_Web.Models;
+using Marshell_Web.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -79,16 +79,16 @@ namespace Marshell_Web.Controllers
 #endif
             return lp;
         }
-        public static DataTable GetrptProducts(string Keyword = "")
+        public static List<Products> GetrptProducts(string Keyword = "")
         {
-            var dt = new DataTable();
+            var products = new List<Products>();
             try
             {
                 var x = new Connectionstring();
                 using (MySqlConnection cn = new MySqlConnection(x.ConnectionString))
                 {
                     cn.Open();
-                    using (MySqlCommand cm = new MySqlCommand(string.Format("SELECT ID,PRODUCTCODE,PRODUCTNAME,PRODUCTSTOCK QTY,PRODUCTPRICE PRICE,CUR,TYPE,ACTIVE FROM PRODUCT"), cn))
+                    using (MySqlCommand cm = new MySqlCommand("SELECT ID,PRODUCTCODE,PRODUCTNAME,PRODUCTSTOCK AS QTY,PRODUCTPRICE AS PRICE,CUR,TYPE,ACTIVE FROM PRODUCT", cn))
                     {
                         MySqlDataReader r = cm.ExecuteReader();
                         while (r.Read())
@@ -107,7 +107,7 @@ namespace Marshell_Web.Controllers
                             p.Barcode = r.IsDBNull(7) ? string.Empty : r.GetString(7); // barcode
                             p.CreatedAt = r.IsDBNull(8) ? DateTime.MinValue : r.GetDateTime(8); // created_at
                             p.UpdatedAt = r.IsDBNull(9) ? DateTime.MinValue : r.GetDateTime(9); // updated_at 
-                            dt.Rows.Add(p);
+                            products.Add(p);
                         }
                     }
                 }
@@ -116,9 +116,9 @@ namespace Marshell_Web.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message + Environment.NewLine + "Fail to Load Products");
-                return new DataTable();
+                return new List<Products>();
             }
-            return dt;
+            return products;
         }
 
         /// <summary>
