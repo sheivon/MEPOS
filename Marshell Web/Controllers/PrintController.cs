@@ -2,8 +2,10 @@
 using Microsoft.Reporting.WebForms;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Web.Mvc;
 using static Marshell_Web.Controllers.ProductsController;
@@ -312,6 +314,121 @@ namespace Marshell_Web.Controllers
             }
             return lcartiem;
         }
+
+        private sales GetSale(string orderNumber, int saleId)
+        {
+            sales sale = null;
+            var x = new Connectionstring();
+            using (MySqlConnection connection = new MySqlConnection(x.ConnectionString))
+            {
+                string query = @"SELECT s.saleid, s.saledate, s.totalamount, s.customerid, s.paymentmethod, s.createdat, s.OrderNumber, c.first_name, c.last_name, s.customeremail, s.customerphone, s.shippingaddress, s.discountamount, s.taxamount, s.amountpaid FROM sales s LEFT JOIN customers c ON s.customerid = c.customer_id WHERE s.OrderNumber = @ordn AND s.saleid = @sid";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add("@ordn", MySqlDbType.String).Value = orderNumber;
+                command.Parameters.Add("@sid", MySqlDbType.Int32).Value = saleId;
+
+                connection.Open();
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        sale = new sales
+                        {
+                            SaleId = reader.GetInt32(0),
+                            SaleDate = reader.GetDateTime(1),
+                            TotalAmount = reader.GetDecimal(2),
+                            Customers = new Customers
+                            {
+                                customer_id = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
+                                first_name = reader.IsDBNull(7) ? "" : reader.GetString(7),
+                                last_name = reader.IsDBNull(8) ? "" : reader.GetString(8),
+                                email = reader.IsDBNull(9) ? "" : reader.GetString(9),
+                                phone = reader.IsDBNull(10) ? "" : reader.GetString(10)
+                            },
+                            PaymentMethod = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                            CreatedAt = reader.IsDBNull(5) ? DateTime.MinValue : reader.GetDateTime(5),
+                            OrderNumber = reader.IsDBNull(6) ? "" : reader.GetString(6),
+                            ShippingAddress = reader.IsDBNull(11) ? "" : reader.GetString(11),
+                            DiscountAmount = reader.IsDBNull(12) ? 0 : reader.GetDecimal(12),
+                            TaxAmount = reader.IsDBNull(13) ? 0 : reader.GetDecimal(13),
+                            AmountPaid = reader.IsDBNull(14) ? 0 : reader.GetDecimal(14)
+                        };
+                    }
+                }
+            }
+            return sale;
+        }
+
+        private List<CartItem> GetCartItemsForInvoice(string orderNumber, int saleId)
+        {
+            var items = new List<CartItem>();
+            var x = new Connectionstring();
+            using (MySqlConnection connection = new MySqlConnection(x.ConnectionString))
+            {
+                string query = @"SELECT Cartitemid,ProductId,productname,Price,Quantity,Discount,TaxAmount,SaleId,Ordernumber,ProductDescription FROM cartitems WHERE Ordernumber = @ordn AND SaleId=@sid ORDER BY Ordernumber ASC";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add("@ordn", MySqlDbType.String).Value = orderNumber;
+                command.Parameters.Add("@sid", MySqlDbType.Int32).Value = saleId;
+
+                connection.Open();
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        items.Add(new CartItem
+                        {
+                            CartItemId = reader.GetInt32(0),
+                            ProductId = reader.GetInt32(1),
+                            ProductName = reader.GetString(2),
+                            Price = reader.GetDecimal(3),
+                            Quantity = reader.GetInt32(4),
+                            Discount = reader.GetDecimal(5),
+                            TaxAmount = reader.GetDecimal(6),
+                            SaleId = reader.GetInt32(7),
+                            OrderNumber = reader.GetString(8),
+                            ProductDescription = reader.IsDBNull(9) ? "" : reader.GetString(9)
+                        });
+                    }
+                }
+            }
+            return items;
+        }
+
+        public ActionResult InvoiceView(string ord, int sid, string size = "letter")
+        {
+            if (string.IsNullOrWhiteSpace(ord) || sid <= 0)
+            {
+                return new HttpStatusCodeResult(400, "Invalid order or sale id");
+            }
+
+            var sale = GetSale(ord, sid);
+            if (sale == null)
+            {
+                return HttpNotFound("Sale not found");
+            }
+
+            var items = GetCartItemsForInvoice(ord, sid);
+
+            var vm = new InvoicePrintViewModel
+            {
+                Sale = sale,
+                Items = items,
+                PaperSize = (size ?? "letter").Trim().ToLower()
+            };
+
+            return View(vm);
+        }
+
+        public JsonResult InvoiceData(string ord, int sid)
+        {
+            var sale = GetSale(ord, sid);
+            if (sale == null)
+                return Json(new { error = "Not found" }, JsonRequestBehavior.AllowGet);
+
+            var items = GetCartItemsForInvoice(ord, sid);
+
+            return Json(new { sale, items }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult PrintSales()
         {
             // Create an instance of the LocalReport class and specify the report path

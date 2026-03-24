@@ -1,0 +1,127 @@
+@model Marshell_Web.Models.InvoicePrintViewModel
+@using System.Linq
+@{
+    Layout = null; // print-only page (no site chrome)
+    string pageSizeCss = Model.PaperSize switch
+    {
+        "legal" => "8.5in 14in",
+        "pos" => "80mm auto",
+        _ => "8.5in 11in"
+    };
+}
+
+<style>
+    @page { size: @pageSizeCss; margin: 0.25in; }
+    @media print {
+        body { margin: 0; }
+        .print-toolbar { display: none !important; }
+    }
+
+    .invoice-sheet { font-family: Arial, Helvetica, sans-serif; color: #000; width: 100%; max-width: 800px; margin: 0 auto; }
+    .invoice-header, .invoice-summary { margin-bottom: 15px; }
+    .invoice-header h2 { margin: 0; }
+    .invoice-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+    .invoice-table th, .invoice-table td { border: 1px solid #333; padding: 4px 6px; text-align: left; font-size: 12px; }
+    .invoice-table th { background: #eee; }
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+
+    .box { border: 1px dashed #999; padding: 8px; font-size: 11px; }
+</style>
+
+<div class="print-toolbar" style="margin-bottom: 10px; padding: 8px; border: 1px solid #ccc; background: #f9f9f9;">
+    <b>Print mode:</b>
+    <a href="@Url.Action("InvoiceView", "Print", new { ord = Model.Sale.OrderNumber, sid = Model.Sale.SaleId, size = "letter" })">Letter</a> |
+    <a href="@Url.Action("InvoiceView", "Print", new { ord = Model.Sale.OrderNumber, sid = Model.Sale.SaleId, size = "legal" })">Legal</a> |
+    <a href="@Url.Action("InvoiceView", "Print", new { ord = Model.Sale.OrderNumber, sid = Model.Sale.SaleId, size = "pos" })">POS Thermal</a>
+    <button onclick="window.print();" style="margin-left: 15px;">Print</button>
+</div>
+
+<div class="invoice-sheet">
+    <div class="invoice-header">
+        <h2>Invoice</h2>
+        <p><strong>Order:</strong> @Model.Sale.OrderNumber</p>
+        <p><strong>Sale ID:</strong> @Model.Sale.SaleId</p>
+        <p><strong>Date:</strong> @Model.Sale.SaleDate.ToString("yyyy-MM-dd HH:mm")</p>
+        <p><strong>Customer:</strong> @Model.Sale.Customers?.first_name @Model.Sale.Customers?.last_name</p>
+        <p><strong>Email:</strong> @Model.Sale.Customers?.email | <strong>Phone:</strong> @Model.Sale.Customers?.phone</p>
+        <p><strong>Payment:</strong> @Model.Sale.PaymentMethod</p>
+        <p><strong>Ship to:</strong> @Model.Sale.ShippingAddress</p>
+        <div class="box">Paper size: @Model.PaperSize.ToUpperInvariant()</div>
+    </div>
+
+    <table class="invoice-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Discount</th>
+                <th>Tax</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Items != null && Model.Items.Count > 0)
+            {
+                int i = 1;
+                foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.ProductName</td>
+                        <td class="text-center">@item.Quantity</td>
+                        <td class="text-right">@item.Price.ToString("N2")</td>
+                        <td class="text-right">@item.Discount.ToString("N2")</td>
+                        <td class="text-right">@item.TaxAmount.ToString("N2")</td>
+                        <td class="text-right">@(item.Subtotal.ToString("N2"))</td>
+                    </tr>
+                    i++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center">No line items found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="invoice-summary">
+        @{ 
+            var subtotal = Model.Items?.Sum(it => it.Subtotal) ?? 0;
+            var totalDiscount = Model.Items?.Sum(it => it.Discount * it.Quantity) ?? 0;
+            var totalTax = Model.Items?.Sum(it => it.TaxAmount) ?? 0;
+            var total = subtotal + totalTax;
+        }
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <td style="width: 70%;"></td>
+                <td style="width: 30%;">
+                    <table class="invoice-table" style="border: none;">
+                        <tr>
+                            <th>Subtotal</th>
+                            <td class="text-right">@subtotal.ToString("N2")</td>
+                        </tr>
+                        <tr>
+                            <th>Discount</th>
+                            <td class="text-right">-@totalDiscount.ToString("N2")</td>
+                        </tr>
+                        <tr>
+                            <th>Tax</th>
+                            <td class="text-right">@totalTax.ToString("N2")</td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <td class="text-right"><strong>@Model.Sale.TotalAmount.ToString("N2")</strong></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <p>Thank you for your business.</p>
+</div>
