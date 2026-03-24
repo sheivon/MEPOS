@@ -523,6 +523,7 @@ namespace Marshell_Web.Controllers
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand())
                     {
+                        command.Connection = connection;
                         command.CommandType = CommandType.Text;
                         command.CommandText = "select return_id,sale_id,r.product_id,quantity_returned,return_date,p.name from returns r join products p on r.product_id = p.product_id";
 

@@ -124,7 +124,7 @@
     <script>
         $('#returntbl').DataTable({
             "ajax": {
-                "url": '@Url.Action("Category", "Category")',
+                "url": '@Url.Action("GetReturns", "Products")',
                 "type": "GET",
                 "dataSrc": "data"
             },
@@ -135,15 +135,14 @@
                 { "data": "quantity_returned" },
                 {
                     "data": "return_date", "render": function (data, type, row) {
-                        // Parse the /Date(...) format to a JavaScript Date object
                         var date = new Date(parseInt(data.replace(/\/Date\((\d+)\)\//, '$1')));
-                        return date.toLocaleString(); // Format it as a local string, e.g., "12/26/2024, 2:00 PM"
+                        return date.toLocaleString();
                     }
                 },
                 {
                     "data": null,
                     "render": function (data, type, row) {
-                        return `<button class="btn btn-warning btn-sm" onclick="editCategory(${row.CategoryId})">Edit</button>`;
+                        return `<button class="btn btn-warning btn-sm" onclick="editReturn(${row.return_id})">Edit</button>`;
                     }
                 }
             ]
