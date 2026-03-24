@@ -257,11 +257,31 @@
                     sales:sale
                 }),
                 success: function (response) {
-                    swal({ title: 'Checkout successful!' });
-                    // Optionally clear the cart or update the UI
-                    cart = {};  // Empty the cart
-                    updateCartDisplay(); // Refresh the cart UI
-                    $('#paymentModal').modal('hide'); // Hide the modal
+                    // response contains success / invoice identifiers to use for print link
+                    if (response && response.success) {
+                        $('#paymentModal').modal('hide');
+                        cart = {}; // clear cart after completed sale
+                        updateCartDisplay();
+
+                        // ask user if they want immediate POS invoice print
+                        var printInvoice = confirm('Checkout successful!\nDo you want to print invoice now (POS view)?');
+                        if (printInvoice) {
+                            var orderNumber = response.orderNumber;
+                            var saleId = response.saleId || 0;
+
+                            if (orderNumber && saleId) {
+                                var printUrl = '/Print/InvoiceView?ord=' + encodeURIComponent(orderNumber) + '&sid=' + encodeURIComponent(saleId) + '&size=pos';
+                                window.open(printUrl, '_blank');
+                            } else {
+                                // fallback: show an info message when no order number found
+                                swal({ icon: 'info', title: 'Invoice data unavailable for print', text: 'Unable to locate order or sale id for printing.' });
+                            }
+                        } else {
+                            swal({ title: 'Checkout successful!' });
+                        }
+                    } else {
+                        swal({ icon: 'error', title: 'Checkout failed', text: (response && response.message) || 'Unknown error' });
+                    }
                 },
                 error: function () {
                     alert('An error occurred during checkout.');

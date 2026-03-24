@@ -36,6 +36,7 @@ namespace Marshell_Web.Controllers
 
 
         [HttpPost]
+        // Checkout receives cart data and saves sale + item rows.
         public JsonResult Checkout(CheckoutModel model)
         {
             if (ModelState.IsValid)
@@ -44,17 +45,18 @@ namespace Marshell_Web.Controllers
                 {
                     tmpOrder = GenerateOrderNumber(); // generate the order number before saving
                     DateTime date = DateTime.Now;
-                    model.sales.SaleDate = date; //set date before saving
-                   int SaleId =  SaveSale(model.sales);  
+                    model.sales.SaleDate = date; // set date before saving
+                    model.sales.OrderNumber = tmpOrder; // save the generated order number into sale
+                    int SaleId = SaveSale(model.sales);
                     foreach (var cartItem in model.CartItems)
                     {
                         cartItem.SaleDate = date;
                         cartItem.OrderNumber = tmpOrder;
                         cartItem.SaleId = SaleId;
                         SaveSaleItem(cartItem);
-                    }  
-                    // Commit the transaction and return success response
-                    return Json(new { success = true, message = "Checkout successful!" }); 
+                    }
+                    // Commit the transaction and return success response (include order/sale IDs)
+                    return Json(new { success = true, message = "Checkout successful!", orderNumber = tmpOrder, saleId = SaleId });
                 }
                 catch (Exception ex)
                 {
