@@ -80,7 +80,11 @@
         <div class="modal-content">
             <div class="modal-header ">
                 <h4 id="txtinv">Sales Items</h4>
-                <a class="btn btn-sm btn-outline-primary" onclick="print();"><i class="fa fa-print"></i> Print</a>
+                <div class="btn-group btn-group-sm me-2">
+                    <button class="btn btn-outline-primary" type="button" onclick="printInvoice('letter');"><i class="fa fa-print"></i> Print Letter</button>
+                    <button class="btn btn-outline-secondary" type="button" onclick="printInvoice('legal');">Legal</button>
+                    <button class="btn btn-outline-info" type="button" onclick="printInvoice('pos');">POS</button>
+                </div>
                 <a class="btn btn-sm btn-outline-dark" data-bs-dismiss="modal"><i class="fa fa-times"></i></a>
             </div>
             <div class="modal-body small">
@@ -264,34 +268,24 @@
             return `${day}-${month}-${year}`;
         }
 
-        function printInvoice() {
-             $.ajax({
-                 url: '@Url.Action("PrintInvoice", "Print")',
-                 type: 'GET',
-                 "data": function (dat) {
-                     return {
-                         ord: $("#txtinv").text(),
-                         sid: tmpid
-                     };
-                 },
-                 xhrFields: {
-                     responseType: 'blob'
-                 },
-                 success: function (data) {
-                     var blob = new Blob([data], { type: 'application/pdf' });
-                     var url = window.URL.createObjectURL(blob);
-                   /*  $('#reportContainer').html('<iframe src="' + url + '" width="100%" height="600px"></iframe>');*/
-                     var prt = window.open(url, '_blank');
-                     if (prt) {
-                         prt.onload = function () {
-                             prt.document.title = 'Imprimir';
-                         }
-                     }
-                 },
-                 error: function () {
-                     swal({icon:"warning"})
-                 }
-             });
+        function printInvoice(size = 'letter') {
+            var orderNumber = $("#txtinv").text();
+            if (!orderNumber || !tmpid) {
+                swal({ icon: "warning", text: "No sales order selected for printing." });
+                return;
+            }
+
+            var url = '@Url.Action("InvoiceView", "Print")' +
+                '?ord=' + encodeURIComponent(orderNumber) +
+                '&sid=' + encodeURIComponent(tmpid) +
+                '&size=' + encodeURIComponent(size);
+
+            var prt = window.open(url, '_blank');
+            if (prt) {
+                prt.onload = function () {
+                    prt.document.title = 'Invoice Print';
+                };
+            }
         }
 
          function print() {
