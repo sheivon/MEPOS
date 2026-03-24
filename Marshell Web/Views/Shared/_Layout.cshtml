@@ -104,7 +104,7 @@
                     <strong>Account</strong> 
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow px-2 mx-2">
-                    <li><a class="dropdown-item rounded-2" href="#"><i class="fas fa-cog"></i>&nbsp;Settings</a></li>
+                    <li><a class="dropdown-item rounded-2" href="@Url.Action("Index", "Settings")"><i class="fas fa-cog"></i>&nbsp;Settings</a></li>
                     <li><hr class="dropdown-divider"></li>
                     @if (Session["user"] != null)  // Check if user is logged in
                     {

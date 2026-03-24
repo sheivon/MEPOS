@@ -1,32 +1,77 @@
 ﻿@{
     ViewBag.Title = "About";
-    ViewBag.Message = "This is a POS System Designed and Developt by Mr.Gamboa, POS Functionality, Inventory Controls and ERP Manager Controls all included and integrated in one system. Developt from Scrach.";
+    ViewBag.Message = "Marshell POS is a complete business ecosystem with sales, inventory, reporting, and user management in one product.";
 }
-<div class="card">
-    <div class="card-title text-center py-4 px-5">
-        <h1 id="title" >@ViewBag.Title</h1>
-    </div>
-    <div class="card-body mb-50">
-        <h3 class="d-flex mb-4">@ViewBag.Message</h3>
-        <div class="d-flex">
-            <div class="col-6">
-                <main aria-labelledby="title">
-                    <p>Marshell is  a POS System Developt By Sheilon Gamboa for fun</p>
-                </main>
+
+<div class="container py-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h1 id="title" class="mb-0">@ViewBag.Title</h1>
+            <small class="text-light">Modern POS + Inventory + ERP controls in a single dashboard</small>
+        </div>
+
+        <div class="card-body">
+            <p class="lead">@ViewBag.Message</p>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card border-secondary h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Why Marshell?</h4>
+                            <ul>
+                                <li>Real-time stock control</li>
+                                <li>Sales analytics and reports</li>
+                                <li>User roles and permissions</li>
+                                <li>Receipt printing and management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card border-secondary h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Key Features</h4>
+                            <ul>
+                                <li>Connection settings from Web.config</li>
+                                <li>Dynamic product search and categories</li>
+                                <li>Integrated customer & supplier handling</li>
+                                <li>Easy reports with export & print support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-6">
-                <main aria-labelledby="title">
+
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>About the Team</h5>
+                    <p>
+                        Built by Gamboa Tech (Sheilon Gamboa). Focused on reliable performance, easy maintenance, and a beautiful user interface.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Contact & Support</h5>
                     <address>
-                        Gamboa Tech<br />
-                        Gamboa, WA +505 8921-7936<br />
-                        <abbr title="Phone">P</abbr>
-                        +505 89217936
+                        <strong>Gamboa Tech</strong><br />
+                        Managua, Nicaragua<br />
+                        <abbr title="Phone">P:</abbr> +505 8921-7936<br />
+                        <abbr title="Email">E:</abbr> <a href="mailto:sheivon.gamboa+mashell@gmail.com">Support@gamboatech.com</a>
                     </address>
-                    <address>
-                        <strong>Support:</strong>   <a href="mailto:sheivon.gamboa+mashell@gmail.com">Support@gamboatech.com</a><br />
-                    </address>
-                </main>
+                    <small class="text-muted">For faster support, include a screenshot and full error text.</small>
+                </div>
             </div>
+
+            <div class="mt-4">
+                <h5>Quick links</h5>
+                <a class="btn btn-outline-primary me-2" href="@Url.Action("Index", "Home")">Dashboard</a>
+                <a class="btn btn-outline-secondary me-2" href="@Url.Action("Index", "Settings")">Configuration</a> 
+            </div>
+        </div>
+
+        <div class="card-footer text-muted small">
+            Version 1.0.0 • last updated @{DateTime.Now.ToString("yyyy/MM/dd");}
         </div>
     </div>
 </div>

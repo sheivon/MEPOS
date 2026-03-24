@@ -1,0 +1,119 @@
+@model Marshell_Web.Models.ConnectionConfigViewModel
+
+@{
+    ViewBag.Title = "Application Settings";
+}
+
+<h2>Application Settings</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+@using (Html.BeginForm("Index", "Settings", FormMethod.Post, new { @class = "mt-4" }))
+{
+    @Html.AntiForgeryToken();
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.ConnectionString)
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Server)
+        @Html.TextBoxFor(m => m.Server, new { @class = "form-control live-validate", @id = "Server" })
+        @Html.ValidationMessageFor(m => m.Server, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Database)
+        @Html.TextBoxFor(m => m.Database, new { @class = "form-control live-validate", @id = "Database" })
+        @Html.ValidationMessageFor(m => m.Database, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Port)
+        @Html.TextBoxFor(m => m.Port, new { @class = "form-control live-validate", @id = "Port", @type = "number", min = "0", placeholder = "3306" })
+        <small class="form-text text-muted">Default 3306 when empty or 0.</small>
+        @Html.ValidationMessageFor(m => m.Port, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.UserId)
+        @Html.TextBoxFor(m => m.UserId, new { @class = "form-control live-validate", @id = "UserId" })
+        @Html.ValidationMessageFor(m => m.UserId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control live-validate", @id = "Password" })
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.ProviderName)
+        @Html.TextBoxFor(m => m.ProviderName, new { @class = "form-control live-validate", @id = "ProviderName" })
+        @Html.ValidationMessageFor(m => m.ProviderName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Live connection string preview</label>
+        <pre id="connectionPreview" class="border p-2">@Model.ConnectionString</pre>
+    </div>
+
+    <div class="form-group mb-3" id="live-validation-message" style="color:#843534;background:#f8d7da;border:1px solid #f5c6cb;padding:8px;display:none;">
+        Please complete all fields before saving.
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" id="saveSettings">Save settings</button>
+        <a class="btn btn-secondary" href="@Url.Action("Index", "Home")">Cancel</a>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        function buildConnectionString() {
+            var server = $('#Server').val().trim();
+            var database = $('#Database').val().trim();
+            var port = $('#Port').val().trim();
+            var userId = $('#UserId').val().trim();
+            var password = $('#Password').val().trim();
+            var provider = $('#ProviderName').val().trim();
+
+            var portValue = 3306;
+            var parsedPort = parseInt(port, 10);
+            if (!isNaN(parsedPort) && parsedPort > 0) {
+                portValue = parsedPort;
+            }
+
+            var cs = '';
+            if (server) cs += 'server=' + server + ';';
+            cs += 'port=' + portValue + ';';
+            if (database) cs += 'database=' + database + ';';
+            if (userId) cs += 'uid=' + userId + ';';
+            if (password) cs += 'pwd=' + password + ';';
+
+            $('#ConnectionString').val(cs);
+            $('#connectionPreview').text(cs);
+
+            var valid = server && database && userId && password && provider;
+            $('#saveSettings').prop('disabled', !valid);
+            if (valid) {
+                $('#live-validation-message').hide();
+            } else {
+                $('#live-validation-message').show();
+            }
+        }
+
+        $(function () {
+            $('#Server, #Database, #UserId, #Password, #ProviderName').on('input', buildConnectionString);
+            buildConnectionString();
+        });
+    </script>
+}

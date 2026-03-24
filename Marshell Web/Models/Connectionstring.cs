@@ -4,11 +4,23 @@ namespace Marshell_Web.Models
 {
     public class Connectionstring
     {
-        // Keep connectionString as an instance member
-        private string connectionString = ConfigurationManager.ConnectionStrings["Mashelldbcon"].ConnectionString;
+        // Read directly from web.config each time (reflects latest saved config without keeping stale cache)
+        public string ConnectionString
+        {
+            get
+            {
+                var settings = ConfigurationManager.ConnectionStrings["Mashelldbcon"];
+                return settings?.ConnectionString ?? string.Empty;
+            }
+        }
 
-        // Instance property to access the connection string
-        public string ConnectionString { get { return connectionString; } }
-
+        public string ProviderName
+        {
+            get
+            {
+                var settings = ConfigurationManager.ConnectionStrings["Mashelldbcon"];
+                return settings?.ProviderName ?? "MySql.Data.MySqlClient";
+            }
+        }
     }
 }
