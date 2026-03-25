@@ -229,7 +229,8 @@
     <Compile Include="Models\Connectionstring.cs" />
     <Compile Include="Models\ConnectionConfigViewModel.cs" />
     <Compile Include="Models\DataModule.cs" />
-    <Compile Include="Models\MySqlControl.cs" />
+    <Compile Include="Models\InvoicePrintViewModel.cs" />
+    <Compile Include="Controllers\MySqlControl.cs" />
     <Compile Include="Models\AnalyticItem.cs" />
     <Compile Include="Models\CustomersEntity.cs" />
     <Compile Include="Models\UsersEntity.cs" />
@@ -507,11 +508,11 @@
     <Content Include="Views\Products\Returns.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Products\Category.cshtml" />
+    <Content Include="Views\Print\InvoiceView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\MySql\" />
-    <Folder Include="Views\Print\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
