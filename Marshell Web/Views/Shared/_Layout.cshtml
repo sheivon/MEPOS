@@ -182,7 +182,32 @@
                 </ul>
             </nav>
         </div>
-    </footer>  
+    </footer>
+
+    <audio id="click-sound" src="@Url.Content("~/Click.wav")" preload="auto"></audio>
+    <script>
+        (function () {
+            var clickSound = document.getElementById('click-sound');
+            if (!clickSound) return;
+
+            document.addEventListener('click', function (event) {
+                var target = event.target;
+                var button = target.closest('button, input[type="button"], input[type="submit"], a');
+                if (!button) return;
+
+                try {
+                    clickSound.currentTime = 0;
+                    clickSound.volume = 0.45;
+                    clickSound.play().catch(function () {
+                        // Autoplay policy may block until user interaction is allowed
+                    });
+                } catch (e) {
+                    console.warn('Click sound failed to play', e);
+                }
+            }, true);
+        })();
+    </script>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

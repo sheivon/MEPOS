@@ -13,7 +13,7 @@
                 <i class="fa fa-plus"></i>
                 Add @ViewBag.Title
             </button>  
-            <button class="btn btn-sm btn-success btn-round mx-1" onclick="print()">
+            <button class="btn btn-sm btn-success btn-round mx-1" onclick="printSuppliers()">
                 <i class="fa fa-print"></i>
                 Print @ViewBag.Title
             </button>
@@ -174,6 +174,11 @@
                 alert('Error occurred');
             }
         });
+    }
+
+    // Function to print supplier table
+    function printSuppliers() {
+        window.open('@Url.Action("PrintSuppliers", "Print")', '_blank');
     }
 
     // Function to open modal and load data for editing

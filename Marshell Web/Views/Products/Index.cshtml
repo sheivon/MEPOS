@@ -261,12 +261,8 @@
         }
 
         function print() {
-             $.ajax({
-                 url: '@Url.Action("PrintProducts", "Print")',
-                 type: 'GET',
-                 xhrFields: {
-                     responseType: 'blob'
-                 },
+            window.open('@Url.Action("PrintTable", "Print", new { section = "products" })', '_blank');
+        }
                  success: function (data) {
                      var blob = new Blob([data], { type: 'application/pdf' });
                      var url = window.URL.createObjectURL(blob);

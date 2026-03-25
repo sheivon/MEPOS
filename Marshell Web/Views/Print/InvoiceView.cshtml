@@ -1,24 +1,37 @@
 @model Marshell_Web.Models.InvoicePrintViewModel
+@using Marshell_Web.Models
+@using System
 @using System.Linq
 @{
     Layout = null; // print-only page (no site chrome)
-    string pageSizeCss = Model.PaperSize switch
+
+    string pageSizeCss = "8.5in 11in";
+    bool isPos = string.Equals(Model.PaperSize, "pos", StringComparison.OrdinalIgnoreCase);
+    if (string.Equals(Model.PaperSize, "legal", StringComparison.OrdinalIgnoreCase))
     {
-        "legal" => "8.5in 14in",
-        "pos" => "80mm auto",
-        _ => "8.5in 11in"
-    };
+        pageSizeCss = "8.5in 14in";
+    }
+    else if (isPos)
+    {
+        pageSizeCss = "80mm auto";
+    }
 }
 
 <style>
-    @page { size: @pageSizeCss; margin: 0.25in; }
-    @media print {
+    @@page { size: @pageSizeCss; margin: 0.25in; }
+    @@media print {
         body { margin: 0; }
         .print-toolbar { display: none !important; }
     }
 
     .invoice-sheet { font-family: Arial, Helvetica, sans-serif; color: #000; width: 100%; max-width: 800px; margin: 0 auto; }
+    .invoice-sheet.pos-thermal { max-width: 320px; font-size: 11px; }
+    .invoice-sheet.pos-thermal .invoice-header, .invoice-sheet.pos-thermal .invoice-summary { margin-bottom: 8px; }
+    .invoice-sheet.pos-thermal .invoice-table th, .invoice-sheet.pos-thermal .invoice-table td { border-width: 1px; font-size: 10px; padding: 3px 4px; }
+    .invoice-sheet.pos-thermal .box { font-size: 10px; padding: 4px; }
     .invoice-header, .invoice-summary { margin-bottom: 15px; }
+    .invoice-qr { display: block; margin: 0 auto 8px; }
+    .invoice-footer { text-align: center; margin-top: 15px; }
     .invoice-header h2 { margin: 0; }
     .invoice-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
     .invoice-table th, .invoice-table td { border: 1px solid #333; padding: 4px 6px; text-align: left; font-size: 12px; }
@@ -37,18 +50,62 @@
     <button onclick="window.print();" style="margin-left: 15px;">Print</button>
 </div>
 
-<div class="invoice-sheet">
-    <div class="invoice-header">
-        <h2>Invoice</h2>
-        <p><strong>Order:</strong> @Model.Sale.OrderNumber</p>
-        <p><strong>Sale ID:</strong> @Model.Sale.SaleId</p>
-        <p><strong>Date:</strong> @Model.Sale.SaleDate.ToString("yyyy-MM-dd HH:mm")</p>
-        <p><strong>Customer:</strong> @Model.Sale.Customers?.first_name @Model.Sale.Customers?.last_name</p>
-        <p><strong>Email:</strong> @Model.Sale.Customers?.email | <strong>Phone:</strong> @Model.Sale.Customers?.phone</p>
-        <p><strong>Payment:</strong> @Model.Sale.PaymentMethod</p>
-        <p><strong>Ship to:</strong> @Model.Sale.ShippingAddress</p>
-        <div class="box">Paper size: @Model.PaperSize.ToUpperInvariant()</div>
-    </div>
+<div class="invoice-sheet @(isPos ? "pos-thermal" : "")">
+    @if (isPos)
+    {
+        string customerName = "";
+        string customerContact = "";
+        if (Model.Sale.Customers != null)
+        {
+            var cust = Model.Sale.Customers;
+            if (!string.IsNullOrWhiteSpace(cust.first_name) || !string.IsNullOrWhiteSpace(cust.last_name))
+            {
+                customerName = string.Format("{0} {1}", cust.first_name, cust.last_name).Trim();
+            }
+            else if (!string.IsNullOrWhiteSpace(cust.email))
+            {
+                customerName = cust.email;
+            }
+
+            if (!string.IsNullOrWhiteSpace(cust.phone))
+            {
+                customerContact = cust.phone;
+            }
+            else if (!string.IsNullOrWhiteSpace(cust.email))
+            {
+                customerContact = cust.email;
+            }
+        }
+        <div class="invoice-header">
+            <div style="display:flex; align-items:center; margin-bottom:8px;">
+                <img src="@Url.Content("~/Marshell.ico")" alt="Logo" style="width:40px; height:40px; margin-right:8px;" />
+                <h2 style="font-size: 16px; margin:0;">POS Invoice</h2>
+            </div>
+            <p><strong>Order:</strong> @Model.Sale.OrderNumber</p>
+            <p><strong>Date:</strong> @Model.Sale.SaleDate.ToString("yyyy-MM-dd HH:mm")</p>
+            <p><strong>Customer:</strong> @customerName</p>
+            <p><strong>Contact:</strong> @customerContact</p>
+            <p><strong>Payment:</strong> @Model.Sale.PaymentMethod</p>
+          <!--  <div class="box">Paper size: @@Model.PaperSize?.ToUpperInvariant() ?? "LETTER"</div> -->
+        </div>
+    }
+    else
+    {
+        <div class="invoice-header">
+            <div style="display:flex; align-items:center; margin-bottom:8px;">
+                <img src="@Url.Content("~/Marshell.ico")" alt="Logo" style="width:40px; height:40px; margin-right:8px;" />
+                <h2 style="margin:0;">Invoice</h2>
+            </div>
+            <p><strong>Order:</strong> @Model.Sale.OrderNumber</p>
+            <p><strong>Sale ID:</strong> @Model.Sale.SaleId</p>
+            <p><strong>Date:</strong> @Model.Sale.SaleDate.ToString("yyyy-MM-dd HH:mm")</p>
+            <p><strong>Customer:</strong> @Model.Sale.Customers?.first_name @Model.Sale.Customers?.last_name</p>
+            <p><strong>Email:</strong> @Model.Sale.Customers?.email | <strong>Phone:</strong> @Model.Sale.Customers?.phone</p>
+            <p><strong>Payment:</strong> @Model.Sale.PaymentMethod</p>
+            <p><strong>Ship to:</strong> @Model.Sale.ShippingAddress</p>
+            <div class="box">Paper size: @Model.PaperSize.ToUpperInvariant()</div>
+        </div>
+    }
 
     <table class="invoice-table">
         <thead>
@@ -91,9 +148,10 @@
 
     <div class="invoice-summary">
         @{ 
-            var subtotal = Model.Items?.Sum(it => it.Subtotal) ?? 0;
-            var totalDiscount = Model.Items?.Sum(it => it.Discount * it.Quantity) ?? 0;
-            var totalTax = Model.Items?.Sum(it => it.TaxAmount) ?? 0;
+            List<CartItem> items = Model.Items ?? new List<CartItem>();
+            var subtotal = items.Sum(it => it.Subtotal);
+            var totalDiscount = items.Sum(it => it.Discount * it.Quantity);
+            var totalTax = items.Sum(it => it.TaxAmount);
             var total = subtotal + totalTax;
         }
         <table style="width: 100%; border-collapse: collapse;">
@@ -123,5 +181,12 @@
         </table>
     </div>
 
-    <p>Thank you for your business.</p>
+    <div class="invoice-footer">
+        <p><strong>Scan for invoice details</strong></p>
+        @if (!string.IsNullOrWhiteSpace(ViewBag.InvoiceQrDataUrl as string))
+        {
+            <img class="invoice-qr" src="@ViewBag.InvoiceQrDataUrl" alt="Invoice QR Code" />
+        }
+        <p>Thank you for your business.</p>
+    </div>
 </div>

@@ -1,9 +1,11 @@
 ﻿using Marshell_Web.Models;
 using Microsoft.Reporting.WebForms;
 using MySql.Data.MySqlClient;
+using QRCoder;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -215,6 +217,7 @@ namespace Marshell_Web.Controllers
             }
         }
         #endregion
+     
         #region Sales
         public ActionResult PrintInvoice(string ord, int sid)
         { // Create an instance of the LocalReport class and specify the report path
@@ -321,7 +324,7 @@ namespace Marshell_Web.Controllers
             var x = new Connectionstring();
             using (MySqlConnection connection = new MySqlConnection(x.ConnectionString))
             {
-                string query = @"SELECT s.saleid, s.saledate, s.totalamount, s.customerid, s.paymentmethod, s.createdat, s.OrderNumber, c.first_name, c.last_name, s.customeremail, s.customerphone, s.shippingaddress, s.discountamount, s.taxamount, s.amountpaid FROM sales s LEFT JOIN customers c ON s.customerid = c.customer_id WHERE s.OrderNumber = @ordn AND s.saleid = @sid";
+                string query = @"SELECT s.saleid, s.saledate, s.totalamount, s.customerid, s.paymentmethod, s.createdat, s.OrderNumber, c.first_name, c.last_name, s.customeremail, s.customerphone, s.shippingaddress, s.discountamount, s.taxamount FROM sales s LEFT JOIN customers c ON s.customerid = c.customer_id WHERE s.OrderNumber = @ordn AND s.saleid = @sid";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.Add("@ordn", MySqlDbType.String).Value = orderNumber;
                 command.Parameters.Add("@sid", MySqlDbType.Int32).Value = saleId;
@@ -350,7 +353,7 @@ namespace Marshell_Web.Controllers
                             ShippingAddress = reader.IsDBNull(11) ? "" : reader.GetString(11),
                             DiscountAmount = reader.IsDBNull(12) ? 0 : reader.GetDecimal(12),
                             TaxAmount = reader.IsDBNull(13) ? 0 : reader.GetDecimal(13),
-                            AmountPaid = reader.IsDBNull(14) ? 0 : reader.GetDecimal(14)
+                            AmountPaid = 0m
                         };
                     }
                 }
@@ -358,7 +361,7 @@ namespace Marshell_Web.Controllers
             return sale;
         }
 
-        private List<CartItem> GetCartItemsForInvoice(string orderNumber, int saleId)
+        private List<CartItem> GetCartItemsForInvoice(string orderNumber, int? saleId)
         {
             var items = new List<CartItem>();
             var x = new Connectionstring();
@@ -393,14 +396,14 @@ namespace Marshell_Web.Controllers
             return items;
         }
 
-        public ActionResult InvoiceView(string ord, int sid, string size = "letter")
+        public ActionResult InvoiceView(string ord, int? sid, string size = "letter")
         {
-            if (string.IsNullOrWhiteSpace(ord) || sid <= 0)
+            if (string.IsNullOrWhiteSpace(ord) || !sid.HasValue || sid.Value <= 0)
             {
                 return new HttpStatusCodeResult(400, "Invalid order or sale id");
             }
 
-            var sale = GetSale(ord, sid);
+            var sale = GetSale(ord, sid.Value);
             if (sale == null)
             {
                 return HttpNotFound("Sale not found");
@@ -415,12 +418,33 @@ namespace Marshell_Web.Controllers
                 PaperSize = (size ?? "letter").Trim().ToLower()
             };
 
+            try
+            {
+                var qrPayload = $"invoice://{sale.OrderNumber}/{sale.SaleId}";
+                using (var generator = new QRCodeGenerator())
+                using (var data = generator.CreateQrCode(qrPayload, QRCodeGenerator.ECCLevel.Q))
+                using (var qrCode = new QRCode(data))
+                using (var bitmap = qrCode.GetGraphic(20))
+                using (var ms = new MemoryStream())
+                {
+                    bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    ViewBag.InvoiceQrDataUrl = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            catch
+            {
+                ViewBag.InvoiceQrDataUrl = string.Empty;
+            }
+
             return View(vm);
         }
 
-        public JsonResult InvoiceData(string ord, int sid)
+        public JsonResult InvoiceData(string ord, int? sid)
         {
-            var sale = GetSale(ord, sid);
+            if (!sid.HasValue || sid.Value <= 0)
+                return Json(new { error = "Invalid sale id" }, JsonRequestBehavior.AllowGet);
+
+            var sale = GetSale(ord, sid.Value);
             if (sale == null)
                 return Json(new { error = "Not found" }, JsonRequestBehavior.AllowGet);
 
@@ -484,6 +508,61 @@ namespace Marshell_Web.Controllers
             // Return the rendered report as a FileResult
             return File(renderedBytes, mimeType);
         }
+
+        public ActionResult PrintTable(string section = "customers")
+        {
+            DataTable dt = GetPrintTableData(section);
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                return View("Error", (object)$"No data found for section '{section}'.");
+            }
+            ViewBag.Section = section;
+            return View("PrintData", dt);
+        }
+
+        private DataTable GetPrintTableData(string section)
+        {
+            string query;
+            switch ((section ?? "").ToLowerInvariant())
+            {
+                case "products":
+                    query = "SELECT p.name AS Product, c.name AS Category, p.description AS Description, p.price AS Price, p.cost AS Cost, p.sku AS SKU, p.barcode AS Barcode, p.created_at AS CreatedAt, p.updated_at AS UpdatedAt FROM products p LEFT JOIN categories c ON p.category_id = c.category_id";
+                    break;
+                case "users":
+                    query = "SELECT ID, UNAME AS FirstName, SRNAME AS LastName, IDNUMBER AS IdNumber, MOBILE AS Mobile, LOCATION AS Location, ROLE AS Role, FIRED AS Fired, LOGIN AS Login FROM users WHERE IsDeleted = 0";
+                    break;
+                default:
+                    query = "SELECT customer_id AS CustomerId, first_name AS FirstName, last_name AS LastName, email AS Email, phone AS Phone, CEDULA AS Cedula, Del AS Deleted, created_at AS CreatedAt FROM Customers";
+                    break;
+            }
+
+            return ExecuteDataTableQuery(query);
+        }
+
+        private DataTable ExecuteDataTableQuery(string query)
+        {
+            var table = new DataTable();
+            try
+            {
+                var x = new Connectionstring();
+                using (var con = new MySqlConnection(x.ConnectionString))
+                {
+                    con.Open();
+                    using (var cmd = new MySqlCommand(query, con))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        table.Load(reader);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // optional: log exception
+                Console.WriteLine(ex.Message);
+            }
+            return table;
+        }
+
         private DataTable PrintrtpSales()
         {
             var Table = new DataTable();
@@ -521,6 +600,50 @@ namespace Marshell_Web.Controllers
                 return null;
             }
         }
+
+        #endregion
+        
+        #region Generic Print Table
+
+        public ActionResult PrintCustomers()
+        {
+            return RedirectToAction("PrintTable", new { section = "customers" });
+        }
+
+        public ActionResult PrintUsers()
+        {
+            return RedirectToAction("PrintTable", new { section = "users" });
+        }
+
+        public ActionResult PrintSuppliers()
+        {
+            return RedirectToAction("PrintTable", new { section = "suppliers" });
+        }
+
+        private DataTable GetSuppliers()
+        {
+            var table = new DataTable();
+            try
+            {
+                var x = new Connectionstring();
+                using (var con = new MySqlConnection(x.ConnectionString))
+                {
+                    con.Open();
+                    string query = "SELECT supplier_id AS SupplierId, name AS Name, email AS Email, phone AS Phone, address AS Address, created_at AS CreatedAt FROM suppliers";
+                    using (var cmd = new MySqlCommand(query, con))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        table.Load(reader);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return table;
+        }
+         
         #endregion
     }
 }

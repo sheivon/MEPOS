@@ -13,7 +13,7 @@
                 <i class="fa fa-plus"></i>
                 Add @ViewBag.Title
             </button> 
-            <button class="btn btn-sm btn-success btn-round mx-1" onclick="print()">
+            <button class="btn btn-sm btn-success btn-round mx-1" onclick="printUsers()">
                 <i class="fa fa-print"></i>
                 Print @ViewBag.Title
             </button>
@@ -299,6 +299,10 @@
                     console.error("Error fetching user data: ", error); // Error handling
                 }
             });
+        }
+
+        function printUsers() {
+            window.open('@Url.Action("PrintUsers", "Print")', '_blank');
         }
 
         function validatepassword() {

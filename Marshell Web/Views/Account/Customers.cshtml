@@ -13,7 +13,7 @@
                 <i class="fa fa-plus"></i>
                 Add @ViewBag.Title
             </button> 
-            <button class="btn btn-sm btn-success btn-round mx-1" onclick="print()">
+            <button class="btn btn-sm btn-success btn-round mx-1" onclick="printCustomers()">
                 <i class="fa fa-print"></i>
                 Print @ViewBag.Title
             </button>
@@ -281,6 +281,10 @@
             $('#txtPhone').val('');
             $('#chkIsDeleted').prop('checked', false);
             $('#txtCreatedAt').val('');
+        }
+
+        function printCustomers() {
+            window.open('@Url.Action("PrintCustomers", "Print")', '_blank');
         }
 
         function submitCustomer() {
